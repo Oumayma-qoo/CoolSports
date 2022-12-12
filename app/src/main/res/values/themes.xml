@@ -12,5 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
+    <style name="LoadingDialogDefault" parent="android:Theme.DeviceDefault.Light.Dialog" />
+
 </resources>

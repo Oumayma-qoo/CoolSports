@@ -15,6 +15,12 @@ class NoInternetException(private val context: Context) : IOException() {
     override val message: String
         get() = context.getString(R.string.no_internet_exception)
 }
+class NoConnectivityException : IOException() {
+    // You can send any message whatever you want from here.
+    override val message: String
+        get() = "No Internet Connection"
+
+}
 
 class RequestInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -22,10 +28,4 @@ class RequestInterceptor() : Interceptor {
             .build()
         return chain.proceed(newRequest)
     }
-}
-class NoConnectivityException : IOException() {
-    // You can send any message whatever you want from here.
-    override val message: String
-        get() = "No Internet Connection"
-
 }

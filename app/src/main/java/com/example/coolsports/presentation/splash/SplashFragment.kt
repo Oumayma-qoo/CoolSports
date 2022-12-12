@@ -3,22 +3,18 @@ package com.example.coolsports.presentation.splash
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+
 import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentSplashBinding
 import com.example.coolsports.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 
 
 @AndroidEntryPoint
@@ -53,12 +49,9 @@ class SplashFragment : BaseFragment() {
 
     fun goToNext() {
         Handler().postDelayed({
-            lifecycleScope.launchWhenResumed {
-
-//                if (findNavController().currentDestination?.id == R.id.SplashFragment)
-//                    navController.navigate(R.id.action_splashFragment_to_homeFragment)
-            }
-        }, 2000)
+                if (findNavController().currentDestination?.id == R.id.SplashFragment)
+                    navController.navigate(R.id.action_splashFragment_to_homeFragment)
+        }, 1000)
 
     }
 

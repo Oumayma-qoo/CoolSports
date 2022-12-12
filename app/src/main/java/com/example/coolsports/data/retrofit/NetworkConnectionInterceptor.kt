@@ -1,4 +1,4 @@
-package com.example.coolsports.data
+package com.example.coolsports.data.retrofit
 
 import android.content.Context
 import android.net.ConnectivityManager

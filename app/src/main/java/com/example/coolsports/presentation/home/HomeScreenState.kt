@@ -1,6 +1,6 @@
 package com.example.coolsports.presentation.home
 
-import com.example.coolsports.domain.model.BaseClassIndexNew
+import com.example.coolsports.domain.model.match.BaseClassIndexNew
 
 sealed class HomeScreenState {
 

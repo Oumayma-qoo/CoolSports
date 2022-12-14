@@ -61,7 +61,7 @@ class TeamStandingsFragment : Fragment() {
 
 
     fun goToNext() {
-        binding.teamBtn.setOnClickListener {
+        binding.secondNum.setOnClickListener {
             if (findNavController().currentDestination?.id == R.id.TeamStandingsFragment)
                 navController.navigate(R.id.action_teamStandingFragment_to_teamInfoFragment)
         }

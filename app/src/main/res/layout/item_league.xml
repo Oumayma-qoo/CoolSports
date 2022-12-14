@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cerulean_blue_rounded_bkg"
+    android:padding="10dp"
+    android:layout_marginBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/league_image_view"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:src="@color/lavender"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    />
+    <TextView
+        android:id="@+id/league_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="Bundesliga"
+        app:layout_constraintTop_toTopOf="@id/league_image_view"
+        app:layout_constraintBottom_toTopOf="@id/nationality"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/league_image_view"/>
+
+    <TextView
+        android:id="@+id/nationality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/perano"
+        app:layout_constraintStart_toEndOf="@id/league_image_view"
+        tools:text="European"
+        app:layout_constraintTop_toBottomOf="@id/league_name"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/league_image_view"/>
+
+
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_next"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

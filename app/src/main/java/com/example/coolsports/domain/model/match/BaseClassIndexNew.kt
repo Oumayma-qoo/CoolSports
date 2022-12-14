@@ -1,4 +1,4 @@
-package com.example.coolsports.domain.model
+package com.example.coolsports.domain.model.match
 
 import com.google.gson.annotations.SerializedName
 

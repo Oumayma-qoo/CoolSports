@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.splash.SplashFragment">
+    tools:context=".presentation.teamStandings.TeamInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="splash Fragment"
-        android:gravity="center"/>
+        android:text="Team Info Fragment"
+        android:gravity="center"
+        />
 
 </FrameLayout>

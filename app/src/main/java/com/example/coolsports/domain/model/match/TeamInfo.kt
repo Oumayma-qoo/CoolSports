@@ -1,4 +1,4 @@
-package com.example.coolsports.domain.model
+package com.example.coolsports.domain.model.match
 
 data class TeamInfo(
     val leagueName : String,

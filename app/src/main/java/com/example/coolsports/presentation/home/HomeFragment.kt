@@ -12,11 +12,13 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.coolsports.R
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentHomeBinding
-import com.example.coolsports.domain.model.BaseClassIndexNew
-import com.example.coolsports.domain.model.Match
-import com.example.coolsports.domain.model.TeamInfo
+import com.example.coolsports.domain.model.match.BaseClassIndexNew
+import com.example.coolsports.domain.model.match.Match
+import com.example.coolsports.domain.model.match.TeamInfo
 import com.example.coolsports.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +37,6 @@ class HomeFragment : BaseFragment() {
 
     private var pageNumber = 1
     private var pageCount = 0
-    private var bundle = Bundle()
     var teamsList = java.util.ArrayList<TeamInfo>()
 
     override fun onCreateView(
@@ -58,8 +59,17 @@ class HomeFragment : BaseFragment() {
             viewModel.getMatches(language, pageNumber.toString())
 
         }
+        goToNext()
     }
+    fun goToNext() {
+        binding.hometextView.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.HomeFragment)
+                navController.navigate(R.id.action_homeFragment_to_leagueFragment)
+        }
 
+
+
+    }
 
     private fun initObserver() {
         viewModel.mState.flowWithLifecycle(
@@ -84,7 +94,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun handleTeamResponse(response: BaseClassIndexNew) {
-        Log.d(TAG, " response success  " + response.matchList.count())
+//        Log.d(TAG, " response success  " + response.matchList.count())
         pageCount = response.meta.total
         matchesList.addAll(response.matchList)
         handleTeamsData(matchesList)
@@ -101,7 +111,7 @@ class HomeFragment : BaseFragment() {
                     )
                 )
             }
-            Log.d(TAG, " response success teamsList  " + teamsList)
+//            Log.d(TAG, " response success teamsList  " + teamsList)
 
 
         }

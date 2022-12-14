@@ -53,6 +53,9 @@
         tools:layout="@layout/fragment_player_standings"
         android:name="com.example.coolsports.presentation.playerStandings.PlayerStandingsFragment"
         android:label="PlayerStandingsFragment" >
+        <action
+            android:id="@+id/action_playerStandingFragment_to_playerInfoFragment"
+            app:destination="@id/PlayerInfoFragment" />
 
     </fragment>
     <fragment
@@ -60,6 +63,14 @@
         tools:layout="@layout/fragment_team_info"
         android:name="com.example.coolsports.presentation.teamStandings.TeamInfoFragment"
         android:label="TeamInfoFragment" >
+
+    </fragment>
+    \
+    <fragment
+        android:id="@+id/PlayerInfoFragment"
+        tools:layout="@layout/fragment_player_info"
+        android:name="com.example.coolsports.presentation.playerStandings.PlayerInfoFragment"
+        android:label="PlayerInfoFragment" >
 
     </fragment>
 

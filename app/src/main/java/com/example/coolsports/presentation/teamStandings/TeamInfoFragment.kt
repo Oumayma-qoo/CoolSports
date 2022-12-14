@@ -17,6 +17,7 @@ import com.example.coolsports.domain.model.team.BaseTeam
 import com.example.coolsports.domain.model.team.TeamInfo
 import com.example.coolsports.domain.model.team.TeamPlayer
 import com.example.coolsports.presentation.base.BaseFragment
+import com.example.coolsports.presentation.playerStandings.PlayerStandingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -32,8 +33,8 @@ class TeamInfoFragment : BaseFragment() {
     private lateinit var navController: NavController
     val teamInfoList = ArrayList<TeamInfo>()
     val playerInfoList = ArrayList<TeamPlayer>()
-
     private val viewModel by viewModels<TeamStandingsViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,14 +85,10 @@ class TeamInfoFragment : BaseFragment() {
         playerInfoList.addAll(response.teamPlayerData)
         Log.d(TAG, " response success teamInfoList " + teamInfoList)
         Log.d(TAG, " response success playerInfoList " + playerInfoList)
+
         viewModel.getTeamInfoFromLocalDB(20326)
         viewModel._teamInfo.observe(viewLifecycleOwner){
             Log.d(TAG, "TeamInfo:  " +it)
-        }
-
-        viewModel.getPlayerInfoFromLocalDB(181304)
-        viewModel._playerInfo.observe(viewLifecycleOwner){
-            Log.d(TAG, "PlayerInfo:  " +it)
         }
 
         viewModel.getMVPFromLocalDB()

@@ -28,8 +28,7 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     private val teamLiveData = MutableLiveData<TeamInfo>()
     val _teamInfo: LiveData<TeamInfo> = teamLiveData
 
-    private val playerLiveData = MutableLiveData<TeamPlayer>()
-    val _playerInfo: LiveData<TeamPlayer> = playerLiveData
+
 
 
     private val MVPLiveData = MutableLiveData<TeamPlayer>()
@@ -102,13 +101,7 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
         }
 
     }
-    fun getPlayerInfoFromLocalDB(playerId:Int){
-        repository.getPlayerInfoFromLocalBD(playerId).observeForever {
-            playerLiveData.value= it
 
-        }
-
-    }
 
     fun getMVPFromLocalDB(){
         repository.getMVPFromLocalDB().observeForever {

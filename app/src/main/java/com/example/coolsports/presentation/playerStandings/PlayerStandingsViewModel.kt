@@ -25,6 +25,8 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
     private val state = MutableStateFlow<PlayerStandingScreenState>(PlayerStandingScreenState.Init)
     val mState: StateFlow<PlayerStandingScreenState> get() = state
 
+    private val playerLiveData = MutableLiveData<TeamPlayer>()
+    val _playerInfo: LiveData<TeamPlayer> = playerLiveData
 
     private fun setLoading() {
 
@@ -82,6 +84,13 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
     }
 
 
+    fun getPlayerInfoFromLocalDB(playerId:Int){
+        repository.getPlayerInfoFromLocalBD(playerId).observeForever {
+            playerLiveData.value= it
+
+        }
+
+    }
 
 
 

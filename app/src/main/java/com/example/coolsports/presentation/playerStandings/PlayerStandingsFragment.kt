@@ -12,6 +12,8 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.coolsports.R
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingsBinding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
@@ -52,6 +54,17 @@ class PlayerStandingsFragment : BaseFragment() {
             viewModel.getPlayerStanding(36, "0")
 
         }
+        goToNext()
+
+    }
+
+
+    fun goToNext() {
+        binding.playerBtn.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.PlayerStandingsFragment)
+                navController.navigate(R.id.action_playerStandingFragment_to_playerInfoFragment)
+        }
+
 
     }
 
@@ -112,6 +125,5 @@ class PlayerStandingsFragment : BaseFragment() {
         showToast(message)
         hideLoading()
     }
-
 
 }

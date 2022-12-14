@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment() {
         goToNext()
     }
     fun goToNext() {
-        binding.hometextView.setOnClickListener {
+        binding.leagueTitle.setOnClickListener {
             if (findNavController().currentDestination?.id == R.id.HomeFragment)
                 navController.navigate(R.id.action_homeFragment_to_leagueFragment)
         }

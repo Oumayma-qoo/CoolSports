@@ -111,8 +111,6 @@ class HomeFragment : BaseFragment() {
                     )
                 )
             }
-//            Log.d(TAG, " response success teamsList  " + teamsList)
-
 
         }
 

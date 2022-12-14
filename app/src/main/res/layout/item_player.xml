@@ -11,31 +11,23 @@
         android:gravity="center"
         android:text="#"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@id/team_image_view"
+        app:layout_constraintEnd_toStartOf="@id/team"
         app:layout_constraintHorizontal_weight="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/team_image_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_share"
-        app:layout_constraintEnd_toStartOf="@id/team"
-        app:layout_constraintHorizontal_weight="0.5"
-        app:layout_constraintStart_toEndOf="@id/num"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/team"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Team"
+        android:text="Player"
         android:paddingHorizontal="4dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/p"
-        app:layout_constraintHorizontal_weight="4.5"
-        app:layout_constraintStart_toEndOf="@id/team_image_view"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@id/num"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -43,10 +35,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="P"
+        android:text="Team"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/w"
-        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/team"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,10 +47,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="W"
+        android:text="Goals"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/d"
-        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintHorizontal_weight="1.25"
         app:layout_constraintStart_toEndOf="@id/p"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,10 +59,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="D"
+        android:text="Home"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/l"
-        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintHorizontal_weight="1.25"
         app:layout_constraintStart_toEndOf="@id/w"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,35 +71,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="L"
+        android:text="Away"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@id/g"
-        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/d"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/g"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="G"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@id/pts"
-        app:layout_constraintHorizontal_weight="1.25"
-        app:layout_constraintStart_toEndOf="@id/l"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/pts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="PTS"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1.25"
-        app:layout_constraintStart_toEndOf="@id/g"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

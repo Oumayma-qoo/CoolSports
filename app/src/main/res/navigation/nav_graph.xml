@@ -20,6 +20,46 @@
         tools:layout="@layout/fragment_home"
         android:name="com.example.coolsports.presentation.home.HomeFragment"
         android:label="HomeFragment" >
+       <action
+           android:id="@+id/action_homeFragment_to_leagueFragment"
+           app:destination="@id/LeagueFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LeagueFragment"
+        tools:layout="@layout/fragment_league"
+        android:name="com.example.coolsports.presentation.league.LeagueFragment"
+        android:label="LeagueFragment" >
+        <action
+            android:id="@+id/action_leagueFragment_to_teamStandingsFragment"
+            app:destination="@id/TeamStandingsFragment" />
+        <action
+            android:id="@+id/action_leagueFragment_to_playerStandingsFragment"
+            app:destination="@id/PlayerStandingsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/TeamStandingsFragment"
+        tools:layout="@layout/fragment_team_standings"
+        android:name="com.example.coolsports.presentation.teamStandings.TeamStandingsFragment"
+        android:label="TeamStandingsFragment" >
+        <action
+            android:id="@+id/action_teamStandingFragment_to_teamInfoFragment"
+            app:destination="@id/TeamInfoFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/PlayerStandingsFragment"
+        tools:layout="@layout/fragment_player_standings"
+        android:name="com.example.coolsports.presentation.playerStandings.PlayerStandingsFragment"
+        android:label="PlayerStandingsFragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/TeamInfoFragment"
+        tools:layout="@layout/fragment_team_info"
+        android:name="com.example.coolsports.presentation.teamStandings.TeamInfoFragment"
+        android:label="TeamInfoFragment" >
 
     </fragment>
 

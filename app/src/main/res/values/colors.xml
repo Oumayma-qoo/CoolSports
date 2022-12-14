@@ -7,4 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="hawkes_blue">#D2DDFF</color>
+    <color name="lola">#BAB9BA</color>
+    <color name="lavender">#F0F0F1</color>
+    <color name="royal_blue">#5677E7</color>
+    <color name="perano">#ADBFFB</color>
+    <color name="portage">#7F99F0</color>
+    <color name="cerulean_blue">#2B50CE</color>
+    <color name="resolution_blue">#2B4184</color>
+    <color name="cerulean_blue_item_bkg">#3255CD</color>
+    <color name="Conifer">#C6FD50</color>
+    <color name="sulu">#CEFD73</color>
+    <color name="transparent">#00000000</color>
+    <color name="nero">#212121</color>
+
 </resources>

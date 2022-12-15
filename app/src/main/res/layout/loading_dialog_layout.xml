@@ -11,6 +11,6 @@
         android:layout_centerInParent="true"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_colorFilter="@color/black"
+        app:lottie_colorFilter="@color/white"
         app:lottie_rawRes="@raw/loader_infinite" />
 </RelativeLayout>

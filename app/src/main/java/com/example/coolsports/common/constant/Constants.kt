@@ -15,6 +15,7 @@ object Constants {
     const val HOUR_CONSTANT: Long = 3600000
     const val MINS_CONSTANT: Long = 60000
     const val URL= "url"
+    const val TEAM_INFO = "TeamInfo"
 
 
     const val PREMIERE_LEAGUE=36

@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_leagueInfoFragment_to_playerStandingsFragment"
             app:destination="@id/PlayerStandingsFragment" />
+        <argument
+            android:name="leagueInfo"
+            app:argType="com.example.coolsports.domain.model.league.LeagueData01" />
 
     </fragment>
     <fragment

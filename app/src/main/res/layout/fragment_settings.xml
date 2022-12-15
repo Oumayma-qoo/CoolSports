@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_gradient_bkg"
+    tools:context=".presentation.settings.SettingsFragment">
+
+    <ImageView
+        android:id="@+id/back_icon"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_back"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="12dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:text="@string/action_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Conifer"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:id="@+id/languageTV"
+        android:drawablePadding="20dp"
+        android:text="@string/language"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_languages" />
+    <View
+        android:id="@+id/languagesV"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/languageTV"
+        android:background="@color/cerulean_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/languagesV"
+        android:id="@+id/privacyTV"
+        android:drawablePadding="20dp"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_privecy" />
+    <View
+        android:id="@+id/privacyV"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/privacyTV"
+        android:background="@color/cerulean_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/privacyV"
+        android:id="@+id/shareTV"
+        android:drawablePadding="20dp"
+        android:text="@string/share_app"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_share" />
+    <View
+        android:id="@+id/shareV"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/shareTV"
+        android:background="@color/cerulean_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/shareV"
+        android:id="@+id/feedbackTV"
+        android:drawablePadding="20dp"
+        android:text="@string/feedback"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_feedback" />
+    <View
+        android:id="@+id/feedbackV"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/feedbackTV"
+        android:background="@color/cerulean_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/feedbackV"
+        android:id="@+id/rateTV"
+        android:drawablePadding="20dp"
+        android:text="@string/rate_us"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_rate" />
+    <View
+        android:id="@+id/rateV"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/rateTV"
+        android:background="@color/cerulean_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/rateV"
+        android:id="@+id/exitTV"
+        android:drawablePadding="20dp"
+        android:text="@string/exit_app"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_baseline_logout_24" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Pengaturan</string>
+    <string name="ok">Oke</string>
+
+
+    <string name="search_here">Cari di sini</string>
+    <string name="title_home">Rumah</string>
+    <string name="exit_app">Keluar dari Aplikasi</string>
+    <string name="are_you_sure_you_want_to_exit_the_app">Anda yakin ingin keluar dari aplikasi?</string>
+    <string name="exit">Keluar</string>
+    <string name="cancel">Batalkan</string>
+
+    <string name="english">Bahasa Inggris</string>
+    <string name="chinese">Cina</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="vietnamese">Vietnam</string>
+    <string name="thai">Thailand</string>
+
+    <string name="language">Bahasa</string>
+    <string name="privacy_policy">Kebijakan pribadi</string>
+    <string name="share_app">Bagikan Aplikasi</string>
+    <string name="feedback">Masukan</string>
+    <string name="rate_us">Nilai Kami</string>
+
+    <string name="languages">Bahasa</string>
+
+</resources>

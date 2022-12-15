@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">การตั้งค่า</string>
+    <string name="ok">ตกลง</string>
+
+
+    <string name="search_here">ค้นหาที่นี่</string>
+    <string name="title_home">บ้าน</string>
+    <string name="exit_app">ออกจากแอป</string>
+    <string name="are_you_sure_you_want_to_exit_the_app">คุณแน่ใจหรือไม่ว่าต้องการออกจากแอป</string>
+    <string name="exit">ออก</string>
+    <string name="cancel">ยกเลิก</string>
+
+    <string name="english">ภาษาอังกฤษ</string>
+    <string name="chinese">จีน</string>
+    <string name="indonesian">ชาวอินโดนีเซีย</string>
+    <string name="vietnamese">เวียดนาม</string>
+    <string name="thai">ไทย</string>
+
+    <string name="language">ภาษา</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="share_app">แชร์แอพ</string>
+    <string name="feedback">ข้อเสนอแนะ</string>
+    <string name="rate_us">ให้คะแนนเรา</string>
+
+    <string name="languages">ภาษา</string>
+
+</resources>

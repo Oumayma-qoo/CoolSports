@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Cài đặt</string>
+    <string name="ok">ĐƯỢC RỒI</string>
+
+
+    <string name="search_here">Tìm kiếm ở đây</string>
+    <string name="title_home">Nhà</string>
+    <string name = "exit_app"> Thoát khỏi ứng dụng </string>
+    <string name="are_you_sure_you_want_to_exit_the_app">Bạn có chắc chắn muốn thoát ứng dụng không?</string>
+    <string name="exit">Thoát</string>
+    <string name="cancel">Hủy</string>
+
+    <string name = "english"> Tiếng Anh </string>
+    <string name = "chinese"> Tiếng Trung </string>
+    <string name = "indonesian"> Tiếng Indonesia </string>
+    <string name = "vietnamese"> Tiếng Việt </string>
+    <string name = "thai"> Tiếng Thái </string>
+
+    <string name = "language"> Ngôn ngữ </string>
+    <string name = "privacy_policy"> Chính sách Bảo mật </string>
+    <string name = "share_app"> Chia sẻ ứng dụng </string>
+    <string name = "feedback"> Phản hồi </string>
+    <string name = "rate_us"> Xếp hạng chúng tôi </string>
+
+    <string name="languages">Ngôn ngữ</string>
+
+</resources>

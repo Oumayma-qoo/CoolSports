@@ -5,5 +5,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="PREMIERE_LEAGUE">English Premier League</string>
+    <string name="LA_LIGA">La Liga</string>
+    <string name="SERIE_A">Serie A</string>
+    <string name="BUNDESLIGA">Serie A</string>
+    <string name="LIGUE_1">Ligue 1</string>
+    <string name="CHINESE_SUPER_LEAGUE">Chinese Super League</string>
+    <string name="AFC_CHAMPIONS_LEAGUE">AFC Champions League</string>
+    <string name="ASIAN_QUALIFIERS">Asian Qualifiers</string>
+    <string name="SOUTH_AMERICAN_QUALIFIER">South American Qualifier</string>
+    <string name="EUROPEAN_QUALIFIER">European Qualifier</string>
+    <string name="WORLD_CUP">World Cup</string>
+    <string name="EUROPEAN_CUP">European Cup</string>
+    <string name="CONFEDERATIONS_CUP">Confederation Cup</string>
+    <string name="AMERICAS_CUP">Americas Cup</string>
+
 
 </resources>

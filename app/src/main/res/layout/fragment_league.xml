@@ -4,43 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blue_gradient_bkg"
+    android:padding="10dp"
     tools:context=".presentation.league.LeagueFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/leaguetext"
-        android:layout_width="0dp"
+        android:id="@+id/league_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="League Fragment"
-        android:textColor="@color/black"
-
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Leagues"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/go_team_btn"
-        android:layout_width="586dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/league_recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go to Team Standings Fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaguetext"
-
-        />
-
-    <Button
-        android:id="@+id/go_player_btn"
-        android:layout_width="586dp"
-        android:layout_height="wrap_content"
-        android:text="Go to Player Standings Fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/go_team_btn"
-        />
-
-
-
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/league_title"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_league" />
 </androidx.constraintlayout.widget.ConstraintLayout>

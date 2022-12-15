@@ -13,12 +13,14 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coolsports.R
+import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.databinding.FragmentLeagueBinding
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.league.LeagueData01
 import com.example.coolsports.domain.model.league.LeagueEntity
+import com.example.coolsports.domain.model.league.LeagueModel
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
@@ -35,10 +37,12 @@ class LeagueFragment : BaseFragment() {
     private var _binding: FragmentLeagueBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+    private val viewModel by viewModels<LeagueViewModel>()
+    var bundle = Bundle()
     var leagueInfoList = ArrayList<LeagueData01>()
     var leagueInfo = LeagueEntity()
-    private val viewModel by viewModels<LeagueViewModel>()
-    var bundle= Bundle()
+    var listLeague = mutableListOf<LeagueModel>()
+    private val leagueListAdapter by lazy { LeagueListAdapter()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,28 +55,48 @@ class LeagueFragment : BaseFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
+        listLeague.add(LeagueModel( resources.getString(R.string.PREMIERE_LEAGUE) ,Constants . PREMIERE_LEAGUE))
+        listLeague.add(LeagueModel( resources.getString(R.string.LA_LIGA) , Constants . LA_LIGA))
+        listLeague.add(LeagueModel(  resources.getString(R.string.SERIE_A)  ,Constants . SERIE_A))
+        listLeague.add(LeagueModel(resources.getString(R.string.BUNDESLIGA) ,Constants . BUNDESLIGA))
+        listLeague.add(LeagueModel( resources.getString(R.string.LIGUE_1) , Constants . LIGUE_1))
+        listLeague.add(LeagueModel(resources.getString(R.string.CHINESE_SUPER_LEAGUE)   , Constants . CHINESE_SUPER_LEAGUE))
+        listLeague.add(LeagueModel(resources.getString(R.string.AFC_CHAMPIONS_LEAGUE) ,Constants . AFC_CHAMPIONS_LEAGUE))
+        listLeague.add(LeagueModel(resources.getString(R.string.ASIAN_QUALIFIERS) , Constants . ASIAN_QUALIFIERS))
+        listLeague.add(LeagueModel(resources.getString(R.string.SOUTH_AMERICAN_QUALIFIER) ,Constants . SOUTH_AMERICAN_QUALIFIER))
+        listLeague.add(LeagueModel( resources.getString(R.string.EUROPEAN_QUALIFIER),  Constants . EUROPEAN_QUALIFIER))
+        listLeague.add(LeagueModel( resources.getString(R.string.WORLD_CUP), Constants . WORLD_CUP))
+        listLeague.add(LeagueModel(resources.getString(R.string.EUROPEAN_CUP) , Constants . WORLD_CUP))
+        listLeague.add(LeagueModel( resources.getString(R.string.CONFEDERATIONS_CUP),Constants . CONFEDERATIONS_CUP))
+        listLeague.add(LeagueModel(  resources.getString(R.string.AMERICAS_CUP), Constants . AMERICAS_CUP))
+
+
+        leagueListAdapter.submitList(listLeague)
+        initRV()
         initObserver()
 
         lifecycleScope.launch {
             viewModel.getLeagueInfo(1329, " ", 22234)
+
         }
-        goToNext()
+
+
+
+
+//        goToNext()
     }
 
+//    fun goToNext() {
+//        binding.leagueTitle.setOnClickListener {
+//            if (findNavController().currentDestination?.id == R.id.HomeFragment)
+//                navController.navigate(R.id.action_homeFragment_to_leagueFragment)
+//        }
 
-    fun goToNext() {
-        binding.goTeamBtn.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.LeagueFragment)
-                navController.navigate(R.id.action_leagueFragment_to_teamStandingsFragment,bundle)
-        }
-        binding.goPlayerBtn.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.LeagueFragment)
-                navController.navigate(R.id.action_leagueFragment_to_playerStandingsFragment)
-        }
-
-
-
+    private fun  initRV(){
+        binding.leagueRecyclerView.adapter = leagueListAdapter
+        binding.leagueRecyclerView.layoutManager = LinearLayoutManager(activity)
     }
+
 
     private fun initObserver() {
         viewModel.mState.flowWithLifecycle(
@@ -101,8 +125,11 @@ class LeagueFragment : BaseFragment() {
         leagueInfoList.addAll(response.leagueData01)
         handleLeagueInfoData(leagueInfoList)
         try {
-            bundle.putParcelableArrayList("LeagueStandingsList",response.leagueStanding as java.util.ArrayList<out Parcelable>)
-        }catch (e:Exception){
+            bundle.putParcelableArrayList(
+                "LeagueStandingsList",
+                response.leagueStanding as java.util.ArrayList<out Parcelable>
+            )
+        } catch (e: Exception) {
             println(e.message)
         }
 
@@ -114,41 +141,36 @@ class LeagueFragment : BaseFragment() {
 
     private fun testCasting(leagueInfoBase: BaseLeagueInfo): BaseLeagueInfo {
         try {
-            val obj=leagueInfoBase.leagueStanding[0]
-            val jsonObj= Gson().toJson(obj)
-            val groupObj= Gson().fromJson(jsonObj,LeagueStandingsGroupBase::class.java)
+            val obj = leagueInfoBase.leagueStanding[0]
+            val jsonObj = Gson().toJson(obj)
+            val groupObj = Gson().fromJson(jsonObj, LeagueStandingsGroupBase::class.java)
             try {
                 println(groupObj.list[0].leagueId)
 
-                leagueInfoBase.leagueStanding= listOf<LeagueStandingsGroupBase>(groupObj)
+                leagueInfoBase.leagueStanding = listOf<LeagueStandingsGroupBase>(groupObj)
 
-            }catch (e:Exception){
+            } catch (e: Exception) {
 
-                val groupObjOriginal= Gson().fromJson(jsonObj,LeagueStandingsBase::class.java)
-                leagueInfoBase.leagueStanding= listOf<LeagueStandingsBase>(groupObjOriginal)
+                val groupObjOriginal = Gson().fromJson(jsonObj, LeagueStandingsBase::class.java)
+                leagueInfoBase.leagueStanding = listOf<LeagueStandingsBase>(groupObjOriginal)
                 println(leagueInfoBase)
             }
-            when (leagueInfoBase.leagueStanding[0]){
-                is LeagueStandingsGroupBase->{
+            when (leagueInfoBase.leagueStanding[0]) {
+                is LeagueStandingsGroupBase -> {
                     println("Groups Base")
                 }
-                is LeagueStandingsBase->{
+                is LeagueStandingsBase -> {
                     println("Standard Base")
                 }
-                else->{
+                else -> {
                     println("Bad News!")
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
         }
         return leagueInfoBase
     }
-
-
-
-
-
 
 
     private fun handleLeagueInfoData(leagueInfoList: java.util.ArrayList<LeagueData01>) {

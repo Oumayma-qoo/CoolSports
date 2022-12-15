@@ -10,7 +10,6 @@ import com.example.coolsports.data.local.DaoTeamInfo
 import com.example.coolsports.domain.mapper.NetworkMapperPlayer
 import com.example.coolsports.domain.mapper.NetworkMapperPlayerStandings
 import com.example.coolsports.domain.mapper.NetworkMapperTeam
-import com.example.coolsports.domain.model.match.BaseClassIndexNew
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.team.BaseTeam
@@ -30,13 +29,6 @@ class Repository @Inject constructor(
 
 ) : ApiRepo {
 
-    override suspend fun getHomeMatches(
-        locale: String,
-        pageNumber: String
-    ): Flow<DataState<BaseClassIndexNew>> = flow {
-        emit(Success(api.getHomeMatchesData(locale, pageNumber)))
-
-    }
 
     override suspend fun getLeagueInfo(
         leagueId: Int,
@@ -61,24 +53,29 @@ class Repository @Inject constructor(
         val result = api.getTeamInfoData(teamId)
 
         daoTeamInfo.insertMultiple(result.teamInfoData.map { localNetworkMapperTeam.mapToDomain(it) })
-        daoPlayerInfo.insertMultiple(result.teamPlayerData.map { localNetworkMapperPlayer.mapToDomain(it) })
+        daoPlayerInfo.insertMultiple(result.teamPlayerData.map {
+            localNetworkMapperPlayer.mapToDomain(
+                it
+            )
+        })
 
     }
 
-     fun getTeamInfoFromLocalDB(teamId: Int) = liveData{
-       emit(daoTeamInfo.getTeamInfoById(teamId))
+    fun getTeamInfoFromLocalDB(teamId: Int) = liveData {
+        emit(daoTeamInfo.getTeamInfoById(teamId))
 
     }
-     fun getPlayerInfoFromLocalBD(playerId:Int)= liveData{
+
+    fun getPlayerInfoFromLocalBD(playerId: Int) = liveData {
         emit(daoPlayerInfo.getPlayerInfoById(playerId))
     }
 
-    fun getMVPFromLocalDB()= liveData{
+    fun getMVPFromLocalDB() = liveData {
         emit(daoPlayerInfo.getMVP())
     }
 
 
-    fun getPlayerListOrderByGoals(teamId:Int)= liveData{
+    fun getPlayerListOrderByGoals(teamId: Int) = liveData {
         emit(daoPlayer.getPlayerListOrderByGoals(teamId))
     }
 

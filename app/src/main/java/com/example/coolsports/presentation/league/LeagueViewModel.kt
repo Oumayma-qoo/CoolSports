@@ -21,7 +21,7 @@ import javax.inject.Inject
 class LeagueViewModel @Inject constructor(private val repository: Repository) : ViewModel(),
     LifecycleObserver {
 
-    val TAG: String = "HomeViewModel"
+    val TAG: String = "LeagueViewModel"
 
     private val state = MutableStateFlow<LeagueStateScreen>(LeagueStateScreen.Init)
     val mState: StateFlow<LeagueStateScreen> get() = state

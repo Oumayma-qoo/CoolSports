@@ -16,6 +16,7 @@ object Constants {
     const val MINS_CONSTANT: Long = 60000
     const val URL= "url"
 
+
     const val PREMIERE_LEAGUE=36
     const val LA_LIGA=31
     const val SERIE_A=34
@@ -30,8 +31,6 @@ object Constants {
     const val EUROPEAN_CUP=67
     const val CONFEDERATIONS_CUP=88
     const val AMERICAS_CUP=224
-
-
 
     object SharedPreferenceKeys {
         const val PREF = "pref"

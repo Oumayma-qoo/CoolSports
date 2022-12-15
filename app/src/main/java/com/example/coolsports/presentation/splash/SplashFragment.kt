@@ -50,7 +50,7 @@ class SplashFragment : BaseFragment() {
     fun goToNext() {
         Handler().postDelayed({
                 if (findNavController().currentDestination?.id == R.id.SplashFragment)
-                    navController.navigate(R.id.action_splashFragment_to_homeFragment)
+                    navController.navigate(R.id.action_splashFragment_to_leagueFragment)
         }, 1000)
 
     }

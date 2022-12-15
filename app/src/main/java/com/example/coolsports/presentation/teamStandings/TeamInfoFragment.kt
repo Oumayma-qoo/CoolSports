@@ -83,22 +83,22 @@ class TeamInfoFragment : BaseFragment() {
     private  fun handleTeamInfoResponse(response: BaseTeam) {
         teamInfoList.addAll(response.teamInfoData)
         playerInfoList.addAll(response.teamPlayerData)
-        Log.d(TAG, " response success teamInfoList " + teamInfoList)
-        Log.d(TAG, " response success playerInfoList " + playerInfoList)
+        Log.d(TAG, " response success teamInfoList $teamInfoList")
+        Log.d(TAG, " response success playerInfoList $playerInfoList")
 
         viewModel.getTeamInfoFromLocalDB(20326)
         viewModel._teamInfo.observe(viewLifecycleOwner){
-            Log.d(TAG, "TeamInfo:  " +it)
+            Log.d(TAG, "TeamInfo:  $it")
         }
 
         viewModel.getMVPFromLocalDB()
         viewModel._MVP.observe(viewLifecycleOwner){
-            Log.d(TAG, "MVP:  " +it)
+            Log.d(TAG, "MVP:  $it")
         }
 
         viewModel.getPlayerListOrderByGoals(26)
         viewModel._playersList.observe(viewLifecycleOwner){
-            Log.d(TAG, "Players list orede by goals:  " +it)
+            Log.d(TAG, "Players list ordered by goals( from high to low):  $it")
         }
 
     }

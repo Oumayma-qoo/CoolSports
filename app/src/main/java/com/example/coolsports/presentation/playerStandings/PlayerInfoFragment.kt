@@ -49,7 +49,7 @@ class PlayerInfoFragment : BaseFragment() {
 
         viewModel.getPlayerInfoFromLocalDB(181304)
         viewModel._playerInfo.observe(viewLifecycleOwner){
-            Log.d(TAG, "PlayerInfo:  " +it)
+            Log.d(TAG, "PlayerInfo:  $it")
         }
 
     }

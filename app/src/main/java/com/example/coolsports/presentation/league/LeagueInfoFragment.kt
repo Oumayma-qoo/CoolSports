@@ -11,6 +11,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
+import com.example.coolsports.domain.model.league.LeagueData01
+import com.example.coolsports.domain.model.league.LeagueData04
+import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
+import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +25,6 @@ class LeagueInfoFragment : BaseFragment() {
     private var _binding: FragmentTeamInfoBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private val args: LeagueInfoFragmentArgs by navArgs()
     private val viewModel by viewModels<LeagueViewModel>()
 
     override fun onCreateView(
@@ -38,7 +41,32 @@ class LeagueInfoFragment : BaseFragment() {
 
         goToNext()
 
-        Log.d(TAG, args.toString())
+        val rules:  LeagueData04= arguments!!.getParcelable("rules")!!
+        val leagueInfo:  LeagueData01 = arguments!!.getParcelable("LeagueInfo")!!
+
+        Log.d(TAG, "rules========== $rules" )
+        Log.d(TAG, "leagueInfo========== $leagueInfo" )
+        try {
+            val leagueStanding:   ArrayList<LeagueStandingsBase> = arguments!!.getParcelable("leagueStanding")!!
+
+            Log.d(TAG, "leagueInfo========== $leagueStanding" )
+
+        }catch (e:Exception)
+        {
+
+        }
+        try {
+            val leagueStandingGroup:  ArrayList<LeagueStandingsGroupBase> = arguments!!.getParcelable("leagueStandingGroup")!!
+            Log.d(TAG, "leagueInfo========== $leagueStandingGroup" )
+
+        }catch (e:Exception)
+        {
+
+        }
+
+
+
+
 
 
     }

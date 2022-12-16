@@ -1,7 +1,10 @@
 package com.example.coolsports.domain.model.leagueStandings
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class LeagueStandingsBase (
     @SerializedName("awayHalfStandings")
     var awayHalfStandings: List<AwayHalfStanding> = listOf(),
@@ -29,4 +32,4 @@ data class LeagueStandingsBase (
     var teamInfo: List<TeamInfos> = listOf(),
     @SerializedName("totalStandings")
     var totalStandings: List<TotalStanding> = listOf()
-        )
+        ):Parcelable

@@ -23,7 +23,7 @@
        <action
            android:id="@+id/action_leagueFragment_to_leagueInfoFragment"
            app:destination="@id/LeagueFragmentInfo"
-           app:popUpTo="@id/LeagueFragment" />
+           />
     </fragment>
 
     <fragment
@@ -37,9 +37,19 @@
         <action
             android:id="@+id/action_leagueInfoFragment_to_playerStandingsFragment"
             app:destination="@id/PlayerStandingsFragment" />
-        <argument
-            android:name="leagueInfo"
-            app:argType="com.example.coolsports.domain.model.league.LeagueData01" />
+<!--        <argument-->
+<!--            android:name="Rules"-->
+<!--            app:argType="com.example.coolsports.domain.model.league.LeagueData04" />-->
+<!--        <argument-->
+<!--            android:name="LeagueInfo"-->
+<!--            app:argType="com.example.coolsports.domain.model.league.LeagueData01" />-->
+<!--        <argument-->
+<!--            android:name="leagueStanding"-->
+<!--            app:argType="com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase[]" />-->
+<!--        <argument-->
+<!--            android:name="leagueStandingGroup"-->
+<!--            app:argType="com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase[]" />-->
+
 
     </fragment>
     <fragment
@@ -69,7 +79,7 @@
         android:label="TeamInfoFragment" >
 
     </fragment>
-    \
+
     <fragment
         android:id="@+id/PlayerInfoFragment"
         tools:layout="@layout/fragment_player_info"

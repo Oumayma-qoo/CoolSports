@@ -1,8 +1,10 @@
 package com.example.coolsports.domain.model.leagueStandings
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class TotalStanding(
     @SerializedName("color")
     var color: Int = 0,
@@ -58,4 +60,4 @@ data class TotalStanding(
     var winCount: Int = 0,
     @SerializedName("winRate")
     var winRate: String = ""
-)
+):Parcelable

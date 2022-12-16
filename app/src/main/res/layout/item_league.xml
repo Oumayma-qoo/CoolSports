@@ -8,6 +8,7 @@
         <variable
             name="position"
             type="Integer" />
+
         <variable
             name="item"
             type="com.example.coolsports.domain.model.league.LeagueModel" />

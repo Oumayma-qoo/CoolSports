@@ -54,9 +54,15 @@ class LeagueFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
+
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.PREMIERE_LEAGUE),
@@ -117,7 +123,6 @@ class LeagueFragment : BaseFragment() {
             )
         )
 
-
         initObserver()
 
         lifecycleScope.launch {
@@ -126,6 +131,8 @@ class LeagueFragment : BaseFragment() {
                 viewModel.getLeagueInfo(league.leagueId!!, " ", 0)
 
         }
+
+
     }
 
 
@@ -144,11 +151,9 @@ class LeagueFragment : BaseFragment() {
                         val action = LeagueFragmentDirections.actionLeagueFragmentToLeagueInfoFragment(
                             team
                         )
-                        findNavController().navigate(action)
+                        navController.navigate(action)
 
                     }
-
-
 
             }
 
@@ -222,9 +227,12 @@ class LeagueFragment : BaseFragment() {
                     )
                 )
 
-        }
-        leagueListAdapter.submitList(list)
 
+        }
+
+
+
+        leagueListAdapter.submitList(list.distinct())
     }
 
 
@@ -235,8 +243,8 @@ class LeagueFragment : BaseFragment() {
             val groupObj = Gson().fromJson(jsonObj, LeagueStandingsGroupBase::class.java)
             try {
                 println(groupObj.list[0].leagueId)
-
                 leagueInfoBase.leagueStanding = listOf<LeagueStandingsGroupBase>(groupObj)
+
 
             } catch (e: Exception) {
 

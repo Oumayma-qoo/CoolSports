@@ -22,7 +22,8 @@
         android:label="LeagueFragment" >
        <action
            android:id="@+id/action_leagueFragment_to_leagueInfoFragment"
-           app:destination="@id/LeagueFragmentInfo" />
+           app:destination="@id/LeagueFragmentInfo"
+           app:popUpTo="@id/LeagueFragment" />
     </fragment>
 
     <fragment

@@ -26,6 +26,8 @@ class LeagueViewModel @Inject constructor(private val repository: Repository) : 
     private val state = MutableStateFlow<LeagueStateScreen>(LeagueStateScreen.Init)
     val mState: StateFlow<LeagueStateScreen> get() = state
 
+    fun init(){}
+
 
     private fun setLoading() {
 

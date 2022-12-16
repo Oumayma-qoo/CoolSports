@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.coolsports.databinding.ItemTeamStandingBinding
 import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.team.TeamInfo
@@ -15,7 +16,7 @@ class TeamStandingAdapter(
     private val listener: OnTeamClickListener,
     var teams:ArrayList<TeamInfo>,
     var rankings:ArrayList<TotalStanding>
-) : RecyclerView.Adapter<TeamStandingAdapter.TeamStandingHolder>(), Filterable {
+) : RecyclerView.Adapter<TeamStandingAdapter.TeamStandingHolder>() {
 
 
     inner class TeamStandingHolder(binding: ItemTeamStandingBinding) :
@@ -35,14 +36,17 @@ class TeamStandingAdapter(
             binding.l.text = totalStanding.loseCount.toString()
             binding.g.text = totalStanding.goalDifference.toString()
             binding.pts.text = totalStanding.integral.toString()
-            //  binding.team.text =
 
+            val team = teams.find {
+                it.teamId == totalStanding.teamId
+            }
+            if (team!= null) {
+                binding.team.text = team.nameEn
 
-//            Glide.with(context)
-//                .load(totalStanding.homeLogo)
-//                .into(binding.teamImageView)
-
-
+                Glide.with(context)
+                    .load(team.logo)
+                    .into(binding.teamImageView)
+            }
             binding.root.setOnClickListener {
                 listener.onClickListener(totalStanding)
             }
@@ -61,10 +65,6 @@ class TeamStandingAdapter(
 
     override fun getItemCount(): Int {
        return rankings.size
-    }
-
-    override fun getFilter(): Filter {
-        TODO("Not yet implemented")
     }
 
 }

@@ -1,8 +1,10 @@
 package com.example.coolsports.domain.model.league
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class LeagueData01(
     @SerializedName("areaId")
     var areaId: String = "",
@@ -76,4 +78,4 @@ data class LeagueData01(
     var sumRound: String = "",
     @SerializedName("type")
     var type: String = ""
-)
+):Parcelable

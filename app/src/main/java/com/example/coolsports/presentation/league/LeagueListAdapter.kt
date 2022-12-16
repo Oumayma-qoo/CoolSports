@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coolsports.common.utils.CustomBindingAdapters.loadImage
 
 import com.example.coolsports.databinding.ItemLeagueBinding
 import com.example.coolsports.domain.model.league.LeagueModel
 
-class LeagueListAdapter (): ListAdapter<LeagueModel, LeagueListAdapter.LeagueViewHolder>(Companion) {
+class LeagueListAdapter(): ListAdapter<LeagueModel, LeagueListAdapter.LeagueViewHolder>(Companion) {
 
 
     interface OnItemTap {
@@ -51,8 +52,16 @@ class LeagueListAdapter (): ListAdapter<LeagueModel, LeagueListAdapter.LeagueVie
     override fun onBindViewHolder(holder: LeagueViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.binding.item= currentItem
+        holder.binding.position= position
         holder.binding.clickListener = onTapListener
         holder.binding.executePendingBindings()
+        loadImage(holder.binding.leagueImageView, currentItem.logo)
+
+    }
+
+    fun getLeagueId(position: Int): Int {
+        val currentItem = getItem(position)
+        return currentItem.leagueId!!
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

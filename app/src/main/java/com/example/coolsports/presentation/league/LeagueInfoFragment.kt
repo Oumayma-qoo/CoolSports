@@ -10,13 +10,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
 import com.example.coolsports.domain.model.league.LeagueData01
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
+import com.example.coolsports.presentation.teamStandings.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +32,7 @@ class LeagueInfoFragment : BaseFragment() {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private val viewModel by viewModels<LeagueViewModel>()
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,17 +73,43 @@ class LeagueInfoFragment : BaseFragment() {
 
 
 
-
-        Log.d(TAG, args.toString())
-        binding.fullNameValue.text = args.leagueInfo.nameEn
-        binding.shortNameValue.text = args.leagueInfo.nameEnShort
-        binding.typeValue.text = args.leagueInfo.type
-        binding.countryValue.text = args.leagueInfo.countryEn
-        binding.currentSeasonValue.text = args.leagueInfo.currSeason
+        binding.screenTitle.text = leagueInfo.nameEn
+        binding.fullNameValue.text = leagueInfo.nameEn
+        binding.shortNameValue.text = leagueInfo.nameEnShort
+        binding.typeValue.text = leagueInfo.type
+        binding.countryValue.text = leagueInfo.countryEn
+        binding.currentSeasonValue.text = leagueInfo.currSeason
 
         Glide.with(requireContext())
-            .load(args.leagueInfo.leagueLogo)
+            .load(leagueInfo.leagueLogo)
             .into(binding.leagueImageView)
+        viewPagerAdapter = ViewPagerAdapter(this,rules)
+
+        binding.viewPager.adapter = viewPagerAdapter
+        TabLayoutMediator(binding.tabLayout,binding.viewPager, object : TabLayoutMediator.TabConfigurationStrategy {
+            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                tab.text = resources.getStringArray(R.array.tab_names)[position]
+
+                binding.viewPager.setCurrentItem(tab.position,true)
+            }
+        }).attach()
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+        })
 
     }
 

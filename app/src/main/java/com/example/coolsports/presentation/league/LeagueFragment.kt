@@ -134,8 +134,10 @@ class LeagueFragment : BaseFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
-
-
+        binding.settingsIcon.setOnClickListener {
+            val action = LeagueFragmentDirections.actionLeagueFragmentToNavigationSettings()
+            findNavController().navigate(action)
+        }
     }
 
 

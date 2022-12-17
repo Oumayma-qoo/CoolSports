@@ -9,12 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
-import com.example.coolsports.domain.model.league.LeagueData01
-import com.example.coolsports.domain.model.league.LeagueData04
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,35 +36,31 @@ class LeagueInfoFragment : BaseFragment() {
 
         goToNext()
 
-        val rules:  LeagueData04= arguments!!.getParcelable("rules")!!
-        val leagueInfo:  LeagueData01 = arguments!!.getParcelable("LeagueInfo")!!
-
-        Log.d(TAG, "rules========== $rules" )
-        Log.d(TAG, "leagueInfo========== $leagueInfo" )
-        try {
-            val leagueStanding:   ArrayList<LeagueStandingsBase> = arguments!!.getParcelable("leagueStanding")!!
-
-            Log.d(TAG, "leagueInfo========== $leagueStanding" )
-
-        }catch (e:Exception)
-        {
-
-        }
-        try {
-            val leagueStandingGroup:  ArrayList<LeagueStandingsGroupBase> = arguments!!.getParcelable("leagueStandingGroup")!!
-            Log.d(TAG, "leagueInfo========== $leagueStandingGroup" )
-
-        }catch (e:Exception)
-        {
-
-        }
-
-
-
-
-
+        val leagueId = arguments!!.getInt("LeagueId")
+        Log.d(TAG, leagueId.toString())
 
     }
+
+
+//        private fun testCasting(leagueInfoBase: BaseLeagueInfo): BaseLeagueInfo {
+//            val obj = leagueInfoBase.leagueStanding
+//            val jsonObj = Gson().toJson(obj)
+//            val gsonBuilder = GsonBuilder()
+//            val gson: Gson = gsonBuilder.create()
+//
+//            val groupObj: Array<LeagueStandingsGroupBase> =
+//                gson.fromJson(jsonObj, Array<LeagueStandingsGroupBase>::class.java)
+//            val groupObjOriginal: Array<LeagueStandingsBase> =
+//                gson.fromJson(jsonObj, Array<LeagueStandingsBase>::class.java)
+//
+//
+//            bundle.putParcelableArray("leagueStanding", groupObjOriginal)
+//            bundle.putParcelableArray("leagueStandingGroup", groupObj)
+//
+//
+//            return leagueInfoBase
+//
+//        }
 
 
     fun goToNext() {
@@ -84,6 +75,8 @@ class LeagueInfoFragment : BaseFragment() {
 
 
     }
-
-
 }
+
+
+
+

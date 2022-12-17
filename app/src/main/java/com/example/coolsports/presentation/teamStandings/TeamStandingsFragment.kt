@@ -17,6 +17,7 @@ import com.example.coolsports.databinding.FragmentLeagueBinding
 import com.example.coolsports.databinding.FragmentTeamStandingsBinding
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.league.LeagueData01
+import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.league.LeagueEntity
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
@@ -28,14 +29,14 @@ import kotlinx.coroutines.launch
 import kotlin.math.log
 
 @AndroidEntryPoint
-class TeamStandingsFragment : Fragment() {
+class TeamStandingsFragment(val rules: LeagueData04) : Fragment() {
 
     val TAG: String = "TeamStandingsFragment"
     private var _binding: FragmentTeamStandingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    var bundle= Bundle()
-    var leagueList= listOf<Any>()
+    var bundle = Bundle()
+    var leagueList = listOf<Any>()
     private val viewModel by viewModels<TeamStandingsViewModel>()
 
     override fun onCreateView(
@@ -48,13 +49,13 @@ class TeamStandingsFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        navController = view.findNavController()
-        leagueList= arguments!!.getParcelableArrayList("LeagueStandingsList")!!
-        Log.d(TAG, leagueList.toString())
-        goToNext()
+        // navController = view.findNavController()
+//        leagueList= arguments!!.getParcelableArrayList("LeagueStandingsList")!!
+//        Log.d(TAG, leagueList.toString())
+//        goToNext()
 
 
-
+        binding.rulesValue.text = rules.ruleEn
 
 
     }
@@ -63,7 +64,7 @@ class TeamStandingsFragment : Fragment() {
     fun goToNext() {
         binding.secondNum.setOnClickListener {
             if (findNavController().currentDestination?.id == R.id.TeamStandingsFragment)
-                navController.navigate(R.id.action_teamStandingFragment_to_teamInfoFragment)
+                findNavController().navigate(R.id.action_teamStandingFragment_to_teamInfoFragment)
         }
 
 

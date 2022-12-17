@@ -113,7 +113,7 @@ class LeagueFragment : BaseFragment() {
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20085710192243008.jpg?win007=sell"
             )
         )
-        listLeague.add(LeagueModel(resources.getString(R.string.WORLD_CUP), Constants.WORLD_CUP))
+        listLeague.add(LeagueModel(resources.getString(R.string.WORLD_CUP), Constants.WORLD_CUP,"International","https://cdn1.77577cf.com/img-zq/Image/league_match/images/164885996047.png?win007=sell"))
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.EUROPEAN_CUP),

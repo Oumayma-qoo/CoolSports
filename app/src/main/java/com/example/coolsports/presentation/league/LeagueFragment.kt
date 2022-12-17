@@ -2,6 +2,7 @@ package com.example.coolsports.presentation.league
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,16 +23,18 @@ import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.league.LeagueData01
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.league.LeagueModel
+import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.GroupList
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
 import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.google.gson.GsonBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.json.JSONObject
+import kotlin.properties.Delegates
+
 
 @AndroidEntryPoint
 class LeagueFragment : BaseFragment() {
@@ -46,8 +49,10 @@ class LeagueFragment : BaseFragment() {
     var listLeague = mutableListOf<LeagueModel>()
     var list = mutableListOf<LeagueModel>()
     var listRules = ArrayList<LeagueData04>()
-    var leagueStanding = ArrayList<LeagueStandingsBase>()
     var leagueStandingGroup = ArrayList<LeagueStandingsGroupBase>()
+
+    var leagueId:Int = 0
+
 
     private val leagueListAdapter by lazy { LeagueListAdapter() }
 
@@ -58,6 +63,10 @@ class LeagueFragment : BaseFragment() {
         _binding = FragmentLeagueBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,53 +133,39 @@ class LeagueFragment : BaseFragment() {
         initObserver()
 
         lifecycleScope.launch {
-            for (league in listLeague)
-
+            for (league in listLeague) {
                 viewModel.getLeagueInfo(league.leagueId!!, " ", 0)
-
+            }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
-        binding.settingsIcon.setOnClickListener {
-            val action = LeagueFragmentDirections.actionLeagueFragmentToNavigationSettings()
-            findNavController().navigate(action)
-        }
+        initRV()
+
+
+
     }
 
-
-    private fun initRV(leagueInfoList: ArrayList<LeagueData01>, rules: ArrayList<LeagueData04>) {
+    private fun initRV() {
         binding.leagueRecyclerView.adapter = leagueListAdapter
         binding.leagueRecyclerView.layoutManager = LinearLayoutManager(activity)
 
         leagueListAdapter.setItemTapListener(object : LeagueListAdapter.OnItemTap {
             override fun onTap(position: Int) {
-                val leagueId = leagueListAdapter.getLeagueId(position)
+                leagueId = leagueListAdapter.getLeagueId(position)
+                Log.d(TAG, "leagueId========= $leagueId")
 
-                for (league in leagueInfoList) {
-
-                    if (league.leagueId == leagueId)
-                        bundle.putParcelable("LeagueInfo", league)
-
-                }
-
-                for (rule in rules) {
-                    if (rule.leagueId == leagueId) {
-                        bundle.putParcelable("rules", rule)
-                        if (findNavController().currentDestination?.id == R.id.LeagueFragment)
-                            navController.navigate(
-                                R.id.action_leagueFragment_to_leagueInfoFragment,
-                                bundle
-                            )
-                    }
-                }
+                bundle.putInt("leagueId", leagueId)
+                if (findNavController().currentDestination?.id == R.id.LeagueFragment)
+                    navController.navigate(
+                        R.id.action_leagueFragment_to_leagueInfoFragment,
+                        bundle
+                    )
             }
-
         })
     }
-
 
 
     private fun initObserver() {
@@ -197,14 +192,10 @@ class LeagueFragment : BaseFragment() {
 
     private fun handleLeagueResponse(response: BaseLeagueInfo) {
 
-        Log.d(TAG, "response ========= $response")
         leagueInfoList.addAll(response.leagueData01)
-        listRules.addAll(response.leagueData04)
-        testCasting(response)
-        initRV(leagueInfoList, listRules )
+
         handleLeagueInfo(leagueInfoList)
 
-        Log.d(TAG, "leagueStanding========= ${response.leagueStanding}")
 
     }
 
@@ -238,69 +229,31 @@ class LeagueFragment : BaseFragment() {
 
 
 
-    private fun testCasting(leagueInfoBase: BaseLeagueInfo): BaseLeagueInfo{
-        try {
-            val obj=leagueInfoBase.leagueStanding
-            val jsonObj=Gson().toJson(obj)
 
-            try {
-
-                val groupObj=Gson().fromJson(jsonObj,LeagueStandingsGroupBase::class.java)
-                leagueInfoBase.leagueStanding= listOf<LeagueStandingsGroupBase>(groupObj)
-                bundle.putParcelableArrayList("leagueStandingGroup", leagueInfoBase.leagueStanding as ArrayList<LeagueStandingsGroupBase>)
-
-                Log.d(TAG, "leagueStandingGroup ===========${groupObj} ")
-
-            }catch (e:Exception){
-
-                val groupObjOriginal=Gson().fromJson(jsonObj,LeagueStandingsBase::class.java)
-                leagueInfoBase.leagueStanding= listOf<LeagueStandingsBase>(groupObjOriginal)
-                println(leagueInfoBase)
-                bundle.putParcelableArrayList("leagueStanding", leagueInfoBase.leagueStanding  as ArrayList<LeagueStandingsBase>)
-                Log.d(TAG, "leagueStandingGroup ===========${groupObjOriginal} ")
-
+        private fun handleIsLoadingState(loading: Boolean) {
+            if (loading) {
+                showLoading()
+            } else {
+                hideLoading()
             }
-            when (leagueInfoBase.leagueStanding[0]){
-                is LeagueStandingsGroupBase->{
-                    println("Groups Base")
-                }
-                is LeagueStandingsBase->{
-                    println("Standard Base")
-                }
-                else->{
-                    println("Bad News!")
-                }
-            }
-        }catch (e:Exception){
-
         }
-        return leagueInfoBase
-    }
 
-    private fun handleIsLoadingState(loading: Boolean) {
-        if (loading) {
-            showLoading()
-        } else {
+        private fun handleFailure(message: String) {
+            showToast(message)
             hideLoading()
         }
+
+
+        private fun handleNetworkFailure(message: String) {
+            showToast(message)
+            hideLoading()
+        }
+
+        private fun handleException(message: String) {
+            showToast(message)
+            hideLoading()
+        }
+
+
     }
 
-    private fun handleFailure(message: String) {
-        showToast(message)
-        hideLoading()
-    }
-
-
-    private fun handleNetworkFailure(message: String) {
-        showToast(message)
-        hideLoading()
-    }
-
-    private fun handleException(message: String) {
-        showToast(message)
-        hideLoading()
-    }
-
-
-}
-class SubLeagueException(message:String): Exception(message) {}

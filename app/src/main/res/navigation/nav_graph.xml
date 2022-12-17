@@ -78,4 +78,20 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.coolsports.presentation.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        android:label="@string/action_settings">
+
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_languages"
+            app:destination="@id/navigation_languages" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_languages"
+        android:name="com.example.coolsports.presentation.settings.LanguegesFragment"
+        tools:layout="@layout/fragment_langueges"
+        android:label="@string/languages"
+        />
 </navigation>

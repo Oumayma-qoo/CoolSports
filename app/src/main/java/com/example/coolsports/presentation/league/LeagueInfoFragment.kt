@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
 import com.example.coolsports.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,15 @@ class LeagueInfoFragment : BaseFragment() {
         goToNext()
 
         Log.d(TAG, args.toString())
+        binding.fullNameValue.text = args.leagueInfo.nameEn
+        binding.shortNameValue.text = args.leagueInfo.nameEnShort
+        binding.typeValue.text = args.leagueInfo.type
+        binding.countryValue.text = args.leagueInfo.countryEn
+        binding.currentSeasonValue.text = args.leagueInfo.currSeason
 
+        Glide.with(requireContext())
+            .load(args.leagueInfo.leagueLogo)
+            .into(binding.leagueImageView)
 
     }
 

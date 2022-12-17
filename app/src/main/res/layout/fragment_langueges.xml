@@ -56,7 +56,7 @@
             android:drawableStart="@drawable/radio_button_selector"
             android:drawablePadding="20dp"
             android:text="@string/english"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             tools:checked="true" />
 
         <View
@@ -72,7 +72,7 @@
             android:drawableStart="@drawable/radio_button_selector"
             android:drawablePadding="20dp"
             android:text="@string/chinese"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
         <View
             android:background="@color/cerulean_blue"
             android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             android:drawableStart="@drawable/radio_button_selector"
             android:drawablePadding="20dp"
             android:text="@string/indonesian"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
         <View
             android:background="@color/cerulean_blue"
             android:layout_width="match_parent"
@@ -100,7 +100,7 @@
             android:drawableStart="@drawable/radio_button_selector"
             android:drawablePadding="20dp"
             android:text="@string/vietnamese"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
         <View
             android:background="@color/cerulean_blue"
             android:layout_width="match_parent"
@@ -114,6 +114,6 @@
             android:drawableStart="@drawable/radio_button_selector"
             android:drawablePadding="20dp"
             android:text="@string/thai"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

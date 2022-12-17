@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">CoolSports</string>
+
+    <string name="privacy_policy_link" translatable="false">https://ritehite.wordpress.com/privacy-policy/</string>
+    <string name="account_email" translatable="false">laurenstanley480@gmail.com</string>
+    <string name="app_pref_name" translatable="false">cool-sports</string>
+
+
+    <string-array name="tab_names">
+        <item>Team Standings</item>
+        <item>Player Standings</item>
+    </string-array>
+
     <string name="no_connection_exception">No Connection Exception</string>
     <string name="no_internet_exception">No Internet Exception</string>
     <!-- TODO: Remove or change this placeholder text -->

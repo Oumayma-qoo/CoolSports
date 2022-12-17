@@ -5,8 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blue_gradient_bkg"
-    tools:context=".presentation.home.TeamStandingsFragment">
+   >
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/second_container"
         android:layout_width="0dp"
@@ -383,6 +393,7 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_views_container" />
 
     <TextView
+        android:id="@+id/rules_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -396,6 +407,7 @@ Real Madrid remain confident that Kylian Mbappe can be signed this summer, Goal 
 
 Discussions regarding fresh terms for the 22-year-old forward at Parc des Princes remain ongoing, with PSG eager to agree a new contract with a prized asset who will hit free agency in 2022.
 " />
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

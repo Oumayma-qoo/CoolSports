@@ -15,7 +15,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.coolsports.R
 import com.example.coolsports.common.sharedPreference.SPApp
+import com.example.coolsports.databinding.FragmentPlayerStandingBinding
 import com.example.coolsports.databinding.FragmentPlayerStandingsBinding
+import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
 import com.example.coolsports.presentation.base.BaseFragment
@@ -26,9 +28,9 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class PlayerStandingsFragment : BaseFragment() {
+class PlayerStandingsFragment() : BaseFragment() {
     val TAG: String = "HomeFragment"
-    private var _binding: FragmentPlayerStandingsBinding? = null
+    private var _binding: FragmentPlayerStandingBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     var playerList = ArrayList<Player>()
@@ -40,13 +42,13 @@ class PlayerStandingsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentPlayerStandingsBinding.inflate(inflater, container, false)
+        _binding = FragmentPlayerStandingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        navController = view.findNavController()
+//        navController = view.findNavController()
         initObserver()
 
 
@@ -60,10 +62,10 @@ class PlayerStandingsFragment : BaseFragment() {
 
 
     fun goToNext() {
-        binding.playerBtn.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.PlayerStandingsFragment)
-                navController.navigate(R.id.action_playerStandingFragment_to_playerInfoFragment)
-        }
+//        binding.playerBtn.setOnClickListener {
+//            if (findNavController().currentDestination?.id == R.id.PlayerStandingsFragment)
+//                findNavController().navigate(R.id.action_playerStandingFragment_to_playerInfoFragment)
+//        }
 
 
     }

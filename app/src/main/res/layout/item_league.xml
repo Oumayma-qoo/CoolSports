@@ -47,13 +47,16 @@
 
         <TextView
             android:id="@+id/league_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:text="@{item.leagueName}"
             android:textStyle="bold"
+            android:lines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@id/next_image_view"
             app:layout_constraintBottom_toTopOf="@id/nationality"
             app:layout_constraintStart_toEndOf="@id/league_image_view"
             app:layout_constraintTop_toTopOf="@id/league_image_view"
@@ -73,6 +76,7 @@
 
 
         <ImageView
+            android:id="@+id/next_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_next"

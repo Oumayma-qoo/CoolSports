@@ -24,7 +24,10 @@
            android:id="@+id/action_leagueFragment_to_leagueInfoFragment"
            app:destination="@id/LeagueFragmentInfo"
            />
-    </fragment>
+       <action
+           android:id="@+id/action_LeagueFragment_to_navigation_settings"
+           app:destination="@id/navigation_settings" />
+   </fragment>
 
     <fragment
         android:id="@+id/LeagueFragmentInfo"
@@ -64,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/PlayerStandingsFragment"
-        tools:layout="@layout/fragment_player_standings"
+        tools:layout="@layout/fragment_player_standing"
         android:name="com.example.coolsports.presentation.playerStandings.PlayerStandingsFragment"
         android:label="PlayerStandingsFragment" >
         <action
@@ -88,4 +91,20 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.coolsports.presentation.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        android:label="@string/action_settings">
+
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_languages"
+            app:destination="@id/navigation_languages" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_languages"
+        android:name="com.example.coolsports.presentation.settings.LanguegesFragment"
+        tools:layout="@layout/fragment_langueges"
+        android:label="@string/languages"
+        />
 </navigation>

@@ -104,4 +104,44 @@ class TeamStandingsFragment(val rules: LeagueData04,var leagueStanding: List<Any
 
     }
 
+
+//    private fun testCasting(leagueInfoBase: BaseLeagueInfoHomePage): BaseLeagueInfoHomePage{
+//        try {
+//            val obj=leagueInfoBase.leagueStanding[0]
+//            val jsonObj=Gson().toJson(obj)
+//            val groupObj=Gson().fromJson(jsonObj,LeagueStandingTypeGroupBase::class.java)
+//            try {
+//                println(groupObj.list[0].leagueId)
+//                if (groupObj.list[0].leagueId==0){
+//                    throw SubLeagueException("Call SubLeague Please")
+//                }
+//                leagueInfoBase.leagueStanding= listOf<LeagueStandingTypeGroupBase>(groupObj)
+//            }catch (e:Exception){
+//                if (e is SubLeagueException){
+//                    throw SubLeagueException(e.message?:"Subleague Please")
+//                }
+//                val groupObjOriginal=Gson().fromJson(jsonObj,LeagueStanding::class.java)
+//                leagueInfoBase.leagueStanding= listOf<LeagueStanding>(groupObjOriginal)
+//                println(leagueInfoBase)
+//            }
+//            when (leagueInfoBase.leagueStanding[0]){
+//                is LeagueStandingTypeGroupBase->{
+//                    println("Groups Base")
+//                }
+//                is LeagueStanding->{
+//                    println("Standard Base")
+//                }
+//                else->{
+//                    println("Bad News!")
+//                }
+//            }
+//        }catch (e:Exception){
+//            if (e is SubLeagueException){
+//                throw SubLeagueException(e.message?:"Subleage Exception")
+//            }
+//        }
+//        return leagueInfoBase
+//    }
+
+
 }

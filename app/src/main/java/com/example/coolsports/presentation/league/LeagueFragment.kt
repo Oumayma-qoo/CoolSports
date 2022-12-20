@@ -165,9 +165,7 @@ class LeagueFragment : BaseFragment() {
         binding.settingsIcon.setOnClickListener {
             if (findNavController().currentDestination?.id == R.id.LeagueFragment)
                 navController.navigate(
-                    R.id.action_LeagueFragment_to_navigation_settings,
-                    bundle
-                )
+                    R.id.action_LeagueFragment_to_navigation_settings)
         }
     }
 
@@ -386,7 +384,6 @@ class LeagueFragment : BaseFragment() {
 
         super.onResume()
     }
-
 
 
 }

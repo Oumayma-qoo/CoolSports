@@ -53,7 +53,6 @@ class PlayerStandingsFragment() : BaseFragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        navController = view.findNavController()
         initObserver()
 
 
@@ -61,19 +60,10 @@ class PlayerStandingsFragment() : BaseFragment() {
             viewModel.getPlayerStanding(88, "0")
 
         }
-        goToNext()
 
     }
 
 
-    fun goToNext() {
-        binding.firstContainer .setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.PlayerStandingsFragment)
-                findNavController().navigate(R.id.action_playerStandingFragment_to_playerDetailFragment)
-        }
-
-
-    }
 
     private fun initObserver() {
         viewModel.mState.flowWithLifecycle(

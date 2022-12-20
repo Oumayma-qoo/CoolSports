@@ -77,7 +77,7 @@
         android:id="@+id/league_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Leagues"
+        android:text="@string/leagues"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_margin="10dp"

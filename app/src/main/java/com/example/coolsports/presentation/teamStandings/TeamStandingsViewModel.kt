@@ -42,7 +42,8 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     private val playerPhotoLiveData = MutableLiveData<String>()
     val _playerPhoto: LiveData<String> = playerPhotoLiveData
 
-
+    private val playerLiveData = MutableLiveData<TeamPlayer>()
+    val _playerInfo: LiveData<TeamPlayer> = playerLiveData
     private fun setLoading() {
 
         state.value = TeamInfoScreenStanding.IsLoading(true)
@@ -122,12 +123,11 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
 
     }
 
-    fun getPhotoByPlayerId(playerId:Int){
-        repository.getPhotoByPlayerId(playerId).observeForever {
-            playerPhotoLiveData.value= it
+    fun getPlayerInfoFromLocalDB(playerId:Int, teamId:Int){
+        repository.getPlayerInfoFromLocalBD(playerId, teamId).observeForever {
+            playerLiveData.value= it
 
         }
 
     }
-
 }

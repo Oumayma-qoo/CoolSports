@@ -47,7 +47,7 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Manchester United"/>
+            />
 
         <TextView
             android:id="@+id/team_info_title"
@@ -58,14 +58,14 @@
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/team_name"
             android:background="@drawable/sulu_rounded_bkg"
-            android:text="Team Info"
+            android:text="@string/team_info"
             />
         <TextView
             android:id="@+id/full_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Full name:"
+            android:text="@string/full_name"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,88 +76,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Bundesliga"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/team_info_title" />
 
-        <TextView
-            android:id="@+id/short_name_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Short name:"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/full_name_title" />
 
-        <TextView
-            android:id="@+id/short_name_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="BUND"
-            android:textColor="@color/cerulean_blue"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/full_name_title" />
-
-
-        <TextView
-            android:id="@+id/country_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Country:"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/short_name_title" />
-
-        <TextView
-            android:id="@+id/country_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Country:"
-            android:textColor="@color/cerulean_blue"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/short_name_title" />
         <TextView
             android:id="@+id/founding_date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Founding Date:"
+            android:text="@string/founding_name"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country_title" />
+            app:layout_constraintTop_toBottomOf="@id/full_name_value" />
 
         <TextView
             android:id="@+id/founding_date_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="1889"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country_title" />
+            app:layout_constraintTop_toBottomOf="@id/full_name_value" />
 
         <TextView
             android:id="@+id/coach_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Coach:"
+            android:text="@string/coach"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +121,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Ronald Koeman"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -180,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Area:"
+            android:text="@string/area"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -191,7 +143,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Leeds"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -203,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Capacity:"
+            android:text="@string/capacity"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -214,7 +165,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="-"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -226,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Website:"
+            android:text="@string/website"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -237,7 +187,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="www.manun.fc.uk"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -254,7 +203,7 @@
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/website_title"
             android:background="@drawable/sulu_rounded_bkg"
-            android:text="Top Scorers"
+            android:text="@string/top_scorers"
             />
 
         <TextView
@@ -262,7 +211,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_1"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -273,7 +221,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_1"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -286,7 +233,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_2"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -297,7 +243,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_2"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -309,7 +254,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_3"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -320,7 +264,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_3"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -338,7 +281,7 @@
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/player_3_title"
             android:background="@drawable/sulu_rounded_bkg"
-            android:text="Top Scorers"
+            android:text="@string/mvp"
             />
 
         <TextView
@@ -346,7 +289,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_1"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -357,7 +299,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="player_1"
             android:textColor="@color/cerulean_blue"
             android:textSize="14sp"
             android:textStyle="bold"

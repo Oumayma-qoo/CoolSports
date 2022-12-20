@@ -26,4 +26,54 @@
 
     <string name="languages">Bahasa</string>
 
+    <string name="leagues">Liga</string>
+    <string name="team_info">Info Tim</string>
+    <string name="full_name">Nama lengkap:</string>
+    <string name="founding_name">Tanggal Pendirian:</string>
+    <string name="coach">Pelatih:</string>
+    <string name="area">Area:</string>
+    <string name="capacity">Kapasitas:</string>
+    <string name="website">Situs web:</string>
+    <string name="top_scorers">Pencetak Gol Terbanyak</string>
+    <string name="mvp">Pemain paling bernilai</string>
+    <string name="league_info">Info Liga</string>
+    <string name="short_name">Nama pendek:</string>
+    <string name="type">Ketik:</string>
+    <string name="country">Negara:</string>
+    <string name="current_season">Musim Saat Ini:</string>
+    <string name="team_standing">Kedudukan Tim</string>
+    <string name="player_standing">Klasse Pemain</string>
+    <string name="player_info">Info Pemain</string>
+    <string name="birthday">Tanggal lahir:</string>
+    <string name="height">Tinggi:</string>
+    <string name="weight">Berat:</string>
+    <string name="position">Posisi:</string>
+    <string name="number">Nomor:</string>
+    <string name="contrat_ending">Kontrak berakhir:</string>
+    <string name="player">Pemain</string>
+    <string name="team">Tim</string>
+    <string name="goals">Tujuan</string>
+    <string name="home">Beranda</string>
+    <string name="away">Jauh</string>
+    <string name="no_connection_exception">Tidak Ada Pengecualian Koneksi</string>
+    <string name="no_internet_exception">Tidak Ada Pengecualian Internet</string>
+
+
+    <string name="PREMIERE_LEAGUE">Liga Premier Inggris</string>
+    <string name="LA_LIGA">La Liga</string>
+    <string name="SERIE_A">Seri A</string>
+    <string name="BUNDESLIGA">Seri A</string>
+    <string name="LIGUE_1">Ligue 1</string>
+    <string name="CHINESE_SUPER_LEAGUE">Liga Super China</string>
+    <string name="AFC_CHAMPIONS_LEAGUE">Liga Champions AFC</string>
+    <string name="ASIAN_QUALIFIERS">Kualifikasi Asia</string>
+    <string name="SOUTH_AMERICAN_QUALIFIER">Kualifikasi Amerika Selatan</string>
+    <string name="EUROPEAN_QUALIFIER">Kualifikasi Eropa</string>
+    <string name="WORLD_CUP">Piala Dunia</string>
+    <string name="EUROPEAN_CUP">Piala Eropa</string>
+    <string name="CONFEDERATIONS_CUP">Piala Konfederasi</string>
+    <string name="AMERICAS_CUP">Piala Amerika</string>
+
+
+
 </resources>

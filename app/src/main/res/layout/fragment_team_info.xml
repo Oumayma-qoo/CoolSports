@@ -60,7 +60,6 @@
         android:id="@+id/league_image_view"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@color/lavender"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +69,7 @@
         android:id="@+id/league_info_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="League Info"
+        android:text="@string/league_info"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -83,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Full name:"
+        android:text="@string/full_name"
         android:textColor="@color/hawkes_blue"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +93,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        tools:text="Bundesliga"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -106,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Short name:"
+        android:text="@string/short_name"
         android:textColor="@color/hawkes_blue"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Type:"
+        android:text="@string/type"
         android:textColor="@color/hawkes_blue"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Country:"
+        android:text="@string/country"
         android:textColor="@color/hawkes_blue"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Current Season:"
+        android:text="@string/current_season"
         android:textColor="@color/hawkes_blue"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -210,12 +208,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Team Standings" />
+            tools:text="@string/team_standing" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Player Standings" />
+            tools:text="@string/player_standing" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

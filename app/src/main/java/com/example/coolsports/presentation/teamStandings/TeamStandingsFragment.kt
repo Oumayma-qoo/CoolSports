@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -28,6 +29,7 @@ import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.L
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.domain.model.leagueStandings.TotalStanding
+import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 import com.example.coolsports.presentation.league.LeagueViewModel
 import com.example.coolsports.presentation.playerStandings.PlayerStandingsViewModel
 import com.google.gson.Gson
@@ -37,7 +39,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.log
 
 @AndroidEntryPoint
-class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<LeagueStandingsBase> ,var leagueStanding2: List<LeagueStandingsGroupBase>,val leagueId: Int) : Fragment() {
+class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<LeagueStandingsBase> ,var leagueStanding2: List<LeagueStandingsGroupBase>,val leagueId: Int,  val viewModel: LeagueViewModel) : Fragment() {
 
     val TAG: String = "TeamStandingsFragment"
     private var _binding: FragmentTeamStandingsBinding? = null
@@ -45,8 +47,9 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
     private lateinit var navController: NavController
     var bundle = Bundle()
     var leagueList = listOf<Any>()
-    private val viewModel by viewModels<TeamStandingsViewModel>()
     private lateinit var teamStandingAdapter: TeamStandingAdapter
+    private var mappedData = mutableListOf<TotalStandingWithTeamInfo>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +81,25 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
            // binding.firstTeamName.text =
             val totalStanding = leagueStanding[0].totalStandings
             val teamInfo = leagueStanding[0].teamInfo
+            mappedData.clear()
+            totalStanding.forEach{
+                val item = TotalStandingWithTeamInfo(
+                    rank = it.rank,
+                    totalCount = it.totalCount,
+                    winCount = it.winCount,
+                    drawCount = it.drawCount,
+                    loseCount = it.loseCount,
+                    goalDifference = it.goalDifference,
+                    integral = it.integral
+                )
+               val team =  teamInfo.find { teamInfo->
+                    teamInfo.teamId == it.teamId
+                }
+                if (team != null) {
+                    item.nameEn = team.nameEn
+                }
+                mappedData.add(item)
+            }
 
             binding.firstTeamName.text = teamInfo.find {
                 it.teamId == totalStanding[0].teamId
@@ -91,11 +113,12 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             }?.nameEn
 
             binding.teamRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            binding.teamRecyclerView.adapter= TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
-                 override fun onClickListener(totalStanding: TotalStanding) {
+            teamStandingAdapter = TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
+                override fun onClickListener(totalStanding: TotalStandingWithTeamInfo) {
 
-                 }
-             },teamInfo,totalStanding)
+                }
+            },mappedData)
+            binding.teamRecyclerView.adapter= teamStandingAdapter
 
 
         }else if (leagueStanding2[0].list.isNotEmpty()){
@@ -109,7 +132,9 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             },leagueStanding2[0].list[0].score[0].groupScore)
         }
 
-
+        viewModel.queryLiveData.observe(viewLifecycleOwner) {
+            teamStandingAdapter.filter.filter(it)
+        }
     }
 
 
@@ -121,45 +146,6 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
 
 
     }
-
-
-//    private fun testCasting(leagueInfoBase: BaseLeagueInfoHomePage): BaseLeagueInfoHomePage{
-//        try {
-//            val obj=leagueInfoBase.leagueStanding[0]
-//            val jsonObj=Gson().toJson(obj)
-//            val groupObj=Gson().fromJson(jsonObj,LeagueStandingTypeGroupBase::class.java)
-//            try {
-//                println(groupObj.list[0].leagueId)
-//                if (groupObj.list[0].leagueId==0){
-//                    throw SubLeagueException("Call SubLeague Please")
-//                }
-//                leagueInfoBase.leagueStanding= listOf<LeagueStandingTypeGroupBase>(groupObj)
-//            }catch (e:Exception){
-//                if (e is SubLeagueException){
-//                    throw SubLeagueException(e.message?:"Subleague Please")
-//                }
-//                val groupObjOriginal=Gson().fromJson(jsonObj,LeagueStanding::class.java)
-//                leagueInfoBase.leagueStanding= listOf<LeagueStanding>(groupObjOriginal)
-//                println(leagueInfoBase)
-//            }
-//            when (leagueInfoBase.leagueStanding[0]){
-//                is LeagueStandingTypeGroupBase->{
-//                    println("Groups Base")
-//                }
-//                is LeagueStanding->{
-//                    println("Standard Base")
-//                }
-//                else->{
-//                    println("Bad News!")
-//                }
-//            }
-//        }catch (e:Exception){
-//            if (e is SubLeagueException){
-//                throw SubLeagueException(e.message?:"Subleage Exception")
-//            }
-//        }
-//        return leagueInfoBase
-//    }
 
 
 }

@@ -3,6 +3,7 @@ package com.example.coolsports.presentation.league
 import android.util.Log
 import androidx.constraintlayout.motion.utils.ViewState
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coolsports.common.utils.DataState
@@ -27,6 +28,7 @@ class LeagueViewModel @Inject constructor(private val repository: Repository) : 
     LifecycleObserver {
 
     val TAG: String = "LeagueViewModel"
+    var queryLiveData = MutableLiveData<String>()
 
     private val state = MutableStateFlow<LeagueStateScreen>(LeagueStateScreen.Init)
     val mState: StateFlow<LeagueStateScreen> get() = state

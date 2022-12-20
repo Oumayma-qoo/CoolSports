@@ -25,4 +25,52 @@
 
     <string name="languages">ภาษา</string>
 
+    <string name="leagues">ลีก</string>
+    <string name="team_info">ข้อมูลทีม</string>
+    <string name="full_name">ชื่อเต็ม:</string>
+    <string name="founding_name">วันที่ก่อตั้ง:</string>
+    <string name="coach">โค้ช:</string>
+    <string name="area">พื้นที่:</string>
+    <string name="capacity">ความจุ:</string>
+    <string name="website">เว็บไซต์:</string>
+    <string name="top_scorers">ผู้ทำคะแนนสูงสุด</string>
+    <string name="mvp">ผู้เล่นที่มีค่าตัวมากที่สุด</string>
+    <string name="league_info">ข้อมูลลีก</string>
+    <string name="short_name">ชื่อย่อ:</string>
+    <string name="type">ประเภท:</string>
+    <string name="country">ประเทศ:</string>
+    <string name="current_season">ฤดูกาลปัจจุบัน:</string>
+    <string name="team_standing">อันดับทีม</string>
+    <string name="player_standing">อันดับผู้เล่น</string>
+    <string name="player_info">ข้อมูลผู้เล่น</string>
+    <string name="birthday">วันเกิด:</string>
+    <string name="height">ความสูง:</string>
+    <string name="weight">น้ำหนัก:</string>
+    <string name="position">ตำแหน่ง:</string>
+    <string name="number">หมายเลข:</string>
+    <string name="contrat_ending">สิ้นสุดสัญญา:</string>
+    <string name="player">ผู้เล่น</string>
+    <string name="team">ทีม</string>
+    <string name="goals">เป้าหมาย</string>
+    <string name="home">หน้าแรก</string>
+    <string name="away">ห่าง</string>
+
+    <string name="no_connection_exception">ไม่มีข้อยกเว้นการเชื่อมต่อ</string>
+    <string name="no_internet_exception">ไม่มีข้อยกเว้นทางอินเทอร์เน็ต</string>
+
+    <string name="PREMIERE_LEAGUE">พรีเมียร์ลีกอังกฤษ</string>
+    <string name="LA_LIGA">ลาลีกา</string>
+    <string name="SERIE_A">กัลโช่</string>
+    <string name="BUNDESLIGA">กัลโช่</string>
+    <string name="LIGUE_1">ลีกเอิง</string>
+    <string name="CHINESE_SUPER_LEAGUE">ซูเปอร์ลีกจีน</string>
+    <string name="AFC_CHAMPIONS_LEAGUE">เอเอฟซีแชมเปียนส์ลีก</string>
+    <string name="ASIAN_QUALIFIERS">รอบคัดเลือกเอเชีย</string>
+    <string name="SOUTH_AMERICAN_QUALIFIER">รอบคัดเลือกโซนอเมริกาใต้</string>
+    <string name="EUROPEAN_QUALIFIER">รอบคัดเลือกโซนยุโรป</string>
+    <string name="WORLD_CUP">ฟุตบอลโลก</string>
+    <string name="EUROPEAN_CUP">ถ้วยยุโรป</string>
+    <string name="CONFEDERATIONS_CUP">คอนเฟดเดอเรชันส์คัพ</string>
+    <string name="AMERICAS_CUP">อเมริกาคัพ</string>
+
 </resources>

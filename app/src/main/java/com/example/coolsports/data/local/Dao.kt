@@ -32,8 +32,8 @@ interface DaoPlayerInfo {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMultiple(teams: List<TeamPlayerDto>)
 
-    @Query("SELECT * FROM teamPlayerInfo WHERE playerId = :playerId")
-    suspend fun getPlayerInfoById(playerId: Int): TeamPlayer?
+    @Query("SELECT * FROM teamPlayerInfo WHERE playerId = :playerId AND teamID= :teamId")
+    suspend fun getPlayerInfoById(playerId: Int, teamId: Int): TeamPlayer?
 
 
     @Query("SELECT * from teamPlayerInfo where value =(SELECT  MAX(value) from teamPlayerInfo) AND teamID= :teamId ")

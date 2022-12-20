@@ -24,23 +24,24 @@ import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
 import com.example.coolsports.presentation.base.BaseFragment
+import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
 import com.example.coolsports.presentation.teamStandings.OnTeamClickListener
 import com.example.coolsports.presentation.teamStandings.TeamStandingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
-class PlayerStandingsFragment() : BaseFragment() {
+class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
     val TAG: String = "HomeFragment"
     private var _binding: FragmentPlayerStandingBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
     var playerList = ArrayList<Player>()
-    var topPlayerList = ArrayList<Player>()
     private val viewModel by viewModels<PlayerStandingsViewModel>()
+    var playerId:Int by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +58,7 @@ class PlayerStandingsFragment() : BaseFragment() {
 
 
         lifecycleScope.launch {
-            viewModel.getPlayerStanding(88, "0")
+            viewModel.getPlayerStanding(leagueId, "0")
 
         }
 
@@ -88,18 +89,41 @@ class PlayerStandingsFragment() : BaseFragment() {
     }
 
     private fun handlePlayerStandingsResponse(response: BasePlayerStanding) {
-        Log.d(TAG, " response success  " + response.list.count())
         playerList.addAll(response.list)
 
         binding.firstTeamName.text = playerList[0].playerNameEn
         binding.secondTeamName.text = playerList[1].playerNameEn
         binding.thirdTeamName.text = playerList[2].playerNameEn
 
+        binding.firstContainer.setOnClickListener {
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[0].playerId!!, playerList[0].teamID!!,playerList[0]
+            )
+            findNavController().navigate(action)
+        }
+        binding.secondContainer.setOnClickListener {
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[1].playerId!!, playerList[1].teamID!!,playerList[1]
+            )
+            findNavController().navigate(action)
+        }
+       binding.thirdContainer.setOnClickListener {
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[2].playerId!!, playerList[2].teamID!!,playerList[2]
+            )
+            findNavController().navigate(action)
+        }
+
         binding.playerRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.playerRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
         binding.playerRecyclerView.adapter= PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
             override fun onClickListener(player: Player) {
+                val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                    player.playerId!!, player.teamID!!,player
+                )
+                findNavController().navigate(action)
 
             }
 

@@ -75,8 +75,8 @@ class Repository @Inject constructor(
         emit(daoTeamInfo.getTeamInfoById(teamId))
     }
 
-    fun getPlayerInfoFromLocalBD(playerId: Int) = liveData {
-        emit(daoPlayerInfo.getPlayerInfoById(playerId))
+    fun getPlayerInfoFromLocalBD(playerId: Int, teamId:Int) = liveData {
+        emit(daoPlayerInfo.getPlayerInfoById(playerId, teamId))
     }
 
     fun getPhotoByPlayerId(playerId: Int) = liveData {

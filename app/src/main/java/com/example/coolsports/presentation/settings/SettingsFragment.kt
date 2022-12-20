@@ -50,6 +50,10 @@ class SettingsFragment : Fragment() {
             GeneralTools.rateUs(requireActivity())
         }
 
+        binding.exitTV.setOnClickListener {
+            GeneralTools.exitDialog(requireActivity())
+        }
+
     }
 
 }

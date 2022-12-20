@@ -10,7 +10,7 @@ import com.example.coolsports.domain.model.player.Player
 class PlayerStandingAdapter(
     private val context: Context,
     private val listener: OnPlayerClickListener,
-    private var playersList: List<Player>
+    private var playersList: List<Player>,
 ) : RecyclerView.Adapter<PlayerStandingAdapter.PlayerHolder>() {
 
 
@@ -48,8 +48,11 @@ class PlayerStandingAdapter(
         holder.bindTo(playersList[position], context, listener)
     }
 
+
     override fun getItemCount(): Int {
         return playersList.size
     }
+
+
 
 }

@@ -33,7 +33,7 @@ class SPApp @Inject constructor(@ApplicationContext val context: Context) {
                         Constants.SharedPreferenceKeys.VIETNAMESE
                     }
                     "th" -> {
-                        Constants.SharedPreferenceKeys.VIETNAMESE
+                        Constants.SharedPreferenceKeys.TAI
                     }
                     else -> {
                         Constants.SharedPreferenceKeys.CHINESE

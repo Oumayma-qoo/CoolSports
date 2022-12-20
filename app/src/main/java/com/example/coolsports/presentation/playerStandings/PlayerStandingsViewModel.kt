@@ -8,6 +8,7 @@ import com.example.coolsports.data.retrofit.NoInternetException
 import com.example.coolsports.domain.model.team.TeamInfo
 import com.example.coolsports.domain.model.team.TeamPlayer
 import com.example.coolsports.domain.repository.Repository
+import com.example.coolsports.presentation.teamStandings.TeamInfoScreenStanding
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,9 +25,10 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
 
     private val state = MutableStateFlow<PlayerStandingScreenState>(PlayerStandingScreenState.Init)
     val mState: StateFlow<PlayerStandingScreenState> get() = state
+    private val state1 = MutableStateFlow<TeamInfoScreenStanding>(TeamInfoScreenStanding.Init)
+    val mState1: StateFlow<TeamInfoScreenStanding> get() = state1
 
-    private val playerLiveData = MutableLiveData<TeamPlayer>()
-    val _playerInfo: LiveData<TeamPlayer> = playerLiveData
+
 
     private fun setLoading() {
 
@@ -37,7 +39,6 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
 
         state.value = PlayerStandingScreenState.IsLoading(false)
     }
-
 
 
     fun getPlayerStanding(leagueId: Int, season: String) {
@@ -84,13 +85,7 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
     }
 
 
-    fun getPlayerInfoFromLocalDB(playerId:Int){
-        repository.getPlayerInfoFromLocalBD(playerId).observeForever {
-            playerLiveData.value= it
 
-        }
-
-    }
 
 
 

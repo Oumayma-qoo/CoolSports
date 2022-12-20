@@ -315,11 +315,6 @@ class LeagueFragment : BaseFragment() {
 
 
 
-
-
-
-
-
     private fun showPopup() {
 
         if (ListResponse.prompt_title != null && sp.showPopUp)

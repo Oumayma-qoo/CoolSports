@@ -35,6 +35,34 @@
     <string name="rate_us">Rate Us</string>
     <string name="languages">Languages</string>
     <string name="exit_app_text">Are you sure you want to quit the app?</string>
-
+    <string name="leagues">Leagues</string>
+    <string name="team_info">Team Info</string>
+    <string name="full_name">Full name:</string>
+    <string name="founding_name">Founding Date:</string>
+    <string name="coach">Coach:</string>
+    <string name="area">Area:</string>
+    <string name="capacity">Capacity:</string>
+    <string name="website">Website:</string>
+    <string name="top_scorers">Top Scorers</string>
+    <string name="mvp">Most value player</string>
+    <string name="league_info">League Info</string>
+    <string name="short_name">Short name:</string>
+    <string name="type">Type:</string>
+    <string name="country">Country:</string>
+    <string name="current_season">Current Season:</string>
+    <string name="team_standing">Team Standings</string>
+    <string name="player_standing">Player Standings</string>
+    <string name="player_info">Player Info</string>
+    <string name="birthday">Birthday:</string>
+    <string name="height">Height:</string>
+    <string name="weight">Weight:</string>
+    <string name="position">Position:</string>
+    <string name="number">Number:</string>
+    <string name="contrat_ending">Contract ending:</string>
+    <string name="player">Player</string>
+    <string name="team">Team</string>
+    <string name="goals">Goals</string>
+    <string name="home">Home</string>
+    <string name="away">Away</string>
 
 </resources>

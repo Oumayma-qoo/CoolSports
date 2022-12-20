@@ -34,16 +34,18 @@
         tools:layout="@layout/fragment_league_info"
         android:name="com.example.coolsports.presentation.league.LeagueInfoFragment"
         android:label="LeagueFragmentInfo" >
-        <action
-            android:id="@+id/action_leagueInfoFragment_to_teamStandingsFragment"
-            app:destination="@id/TeamStandingsFragment" />
-        <action
-            android:id="@+id/action_leagueInfoFragment_to_playerStandingsFragment"
-            app:destination="@id/PlayerStandingsFragment" />
 
         <action
             android:id="@+id/action_leagueInfoFragment_to_leagueDetailFragment"
-            app:destination="@id/LeagueDetailsFragment" />
+            app:destination="@id/LeagueDetailsFragment"
+            app:popUpTo="@id/LeagueFragmentInfo" />
+        <action
+            android:id="@+id/action_LeagueFragmentInfo_to_PlayerDetailFragment"
+            app:destination="@id/PlayerDetailFragment"
+            app:popUpTo="@id/LeagueFragmentInfo" />
+        <action
+            android:id="@+id/action_LeagueInfoFragment_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
 
     </fragment>
     <fragment
@@ -52,7 +54,9 @@
         android:name="com.example.coolsports.presentation.details.LeagueDetailsFragment"
         android:label="LeagueDetailsFragment" >
 
-
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
     </fragment>
 
 
@@ -61,9 +65,7 @@
         tools:layout="@layout/fragment_team_standings"
         android:name="com.example.coolsports.presentation.teamStandings.TeamStandingsFragment"
         android:label="TeamStandingsFragment" >
-        <action
-            android:id="@+id/action_teamStandingFragment_to_teamInfoFragment"
-            app:destination="@id/TeamInfoFragment" />
+
 
     </fragment>
     <fragment
@@ -71,33 +73,29 @@
         tools:layout="@layout/fragment_player_standing"
         android:name="com.example.coolsports.presentation.playerStandings.PlayerStandingsFragment"
         android:label="PlayerStandingsFragment" >
-        <action
-            android:id="@+id/action_playerStandingFragment_to_playerDetailFragment"
-            app:destination="@id/PlayerDetailFragment" />
+
 
     </fragment>
-    <fragment
-        android:id="@+id/TeamInfoFragment"
-        tools:layout="@layout/fragment_team_info"
-        android:name="com.example.coolsports.presentation.teamStandings.TeamInfoFragment"
-        android:label="TeamInfoFragment" >
 
-    </fragment>
     <fragment
         android:id="@+id/PlayerDetailFragment"
         tools:layout="@layout/fragment_player_details"
         android:name="com.example.coolsports.presentation.details.PlayerDetailsFragment"
         android:label="PlayerDetailFragment" >
 
+        <argument
+            android:name="playerId"
+            app:argType="integer" />
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
+        <argument
+            android:name="player"
+            app:argType="com.example.coolsports.domain.model.player.Player" />
+
     </fragment>
 
-    <fragment
-        android:id="@+id/PlayerInfoFragment"
-        tools:layout="@layout/fragment_player_info"
-        android:name="com.example.coolsports.presentation.playerStandings.PlayerInfoFragment"
-        android:label="PlayerInfoFragment" >
 
-    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"

@@ -39,6 +39,10 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     val _playersList: LiveData<List<Player>> = playersListLiveData
 
 
+    private val playerPhotoLiveData = MutableLiveData<String>()
+    val _playerPhoto: LiveData<String> = playerPhotoLiveData
+
+
     private fun setLoading() {
 
         state.value = TeamInfoScreenStanding.IsLoading(true)
@@ -103,8 +107,8 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     }
 
 
-    fun getMVPFromLocalDB(){
-        repository.getMVPFromLocalDB().observeForever {
+    fun getMVPFromLocalDB(teamId:Int){
+        repository.getMVPFromLocalDB(teamId).observeForever {
             MVPLiveData.value= it
 
         }
@@ -113,6 +117,14 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     fun getPlayerListOrderByGoals(teamId:Int){
         repository.getPlayerListOrderByGoals(teamId).observeForever {
             playersListLiveData.value= it
+
+        }
+
+    }
+
+    fun getPhotoByPlayerId(playerId:Int){
+        repository.getPhotoByPlayerId(playerId).observeForever {
+            playerPhotoLiveData.value= it
 
         }
 

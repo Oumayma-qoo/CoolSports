@@ -12,6 +12,8 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.league.LeagueData01
@@ -53,7 +55,7 @@ class LeagueInfoFragment : BaseFragment() {
 
         initObserver()
 
-        val leagueId = arguments!!.getInt("LeagueId")
+        val leagueId = arguments!!.getInt("leagueId")
         Log.d(TAG, leagueId.toString())
 
 
@@ -62,6 +64,21 @@ class LeagueInfoFragment : BaseFragment() {
             viewModel.getLeagueInfo(leagueId, " ", 0)
 
         }
+
+
+        binding.screenTitle  .setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)
+                navController.navigate(
+                    R.id.action_leagueInfoFragment_to_leagueDetailFragment)}
+
+        binding.settingsIcon.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)
+                navController.navigate(
+                    R.id.action_leagueInfoFragment_to_playerStandingsFragment)}
+
+
+
+
     }
 
 
@@ -113,6 +130,7 @@ class LeagueInfoFragment : BaseFragment() {
 
     private fun handleLeagueResponse(response: BaseLeagueInfo) {
         leagueInfoList.addAll(response.leagueData01)
+        Log.d(TAG,"leagueStanding======= ${response.leagueStanding}")
 
     }
 

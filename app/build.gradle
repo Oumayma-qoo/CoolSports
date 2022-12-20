@@ -133,4 +133,8 @@ dependencies {
     // Lifecycles only (without ViewModel or LiveData)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version2")
 
+    // circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
 }

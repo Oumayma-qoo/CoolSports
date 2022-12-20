@@ -45,8 +45,48 @@ class SPApp @Inject constructor(@ApplicationContext val context: Context) {
         }
         set(value) = context.saveSp(Constants.SharedPreferenceKeys.LANGUAGE, value)
 
+    var init: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.INIT) ?: false
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.INIT, value)
 
 
+    var showPopUp: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.SHOW_POPUP) ?: false
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.SHOW_POPUP, value)
 
+
+    var WEB_OPENED: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.WEB_OPENED) ?: false
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.WEB_OPENED, value)
+
+    var WEB_OPTION: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.WEB_OPTION) ?: false
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.WEB_OPTION, value)
+
+
+    var Timer: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.TIMER) ?: true
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.TIMER, value)
+
+    var web_was_opened: Boolean
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.WEB_WAS_OPENED) ?: false
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.WEB_WAS_OPENED, value)
+    var URL: String
+        get() {
+            return context.loadSp(Constants.SharedPreferenceKeys.URL) ?: ""
+        }
+        set(value) = context.saveSp(Constants.SharedPreferenceKeys.URL, value)
 
 }

@@ -4,7 +4,6 @@ import com.example.coolsports.domain.mapper.NetworkModel
 import com.google.gson.annotations.SerializedName
 
 data class TeamInfo (
-    
     @SerializedName("teamId")
     var teamId:Int?=null,
     @SerializedName("leagueId")
@@ -61,6 +60,8 @@ data class TeamInfo (
      var gymTh: String? = null,
    @SerializedName("coachTh")
      var coachTh: String? = null,
+    @SerializedName("coachCn")
+     var coachCn: String? = null,
    @SerializedName("nameCn")
      var nameCn: String? = null,
 ): NetworkModel

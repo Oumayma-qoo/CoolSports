@@ -30,16 +30,12 @@
     <string name="EUROPEAN_CUP">European Cup</string>
     <string name="CONFEDERATIONS_CUP">Confederation Cup</string>
     <string name="AMERICAS_CUP">Americas Cup</string>
-
     <string name="ok">好</string>
     <string name="action_settings">设置</string>
-
-
     <string name="search_here">在此搜索</string>
     <string name="title_home">首页</string>
     <string name="exit_app">退出应用程序</string>
     <string name="are_you_sure_you_want_to_exit_the_app">你确定你要退出吗？</string>
-
     <string name="exit">退出</string>
     <string name="cancel">取消</string>
     <string name="english">英文</string>
@@ -47,13 +43,12 @@
     <string name="indonesian">印尼语</string>
     <string name="vietnamese">越南语</string>
     <string name="thai">泰语</string>
-
     <string name="language">语言</string>
     <string name="privacy_policy">隐私条款</string>
     <string name="share_app">分享应用</string>
     <string name="feedback">反馈</string>
     <string name="rate_us">给我们评分</string>
-
     <string name="languages">语言</string>
+    <string name="exit_app_text">确定要退出应用吗？</string>
 
 </resources>

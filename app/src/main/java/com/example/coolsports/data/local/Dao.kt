@@ -36,10 +36,15 @@ interface DaoPlayerInfo {
     suspend fun getPlayerInfoById(playerId: Int): TeamPlayer?
 
 
-    @Query("SELECT * from teamPlayerInfo where value =(SELECT  MAX(value) from teamPlayerInfo) ")
-    suspend fun getMVP(): TeamPlayer
+    @Query("SELECT * from teamPlayerInfo where value =(SELECT  MAX(value) from teamPlayerInfo) AND teamID= :teamId ")
+    suspend fun getMVP(teamId: Int): TeamPlayer
+
+
+    @Query("SELECT photo FROM teamPlayerInfo WHERE playerId = :playerId")
+    suspend fun getPhotoByPlayerId(playerId: Int): String
 
 }
+
 @Dao
 interface DaoPlayerStandings {
 
@@ -51,6 +56,7 @@ interface DaoPlayerStandings {
 
 
     @Query("SELECT * from players where  teamID= :teamId ORDER BY goals DESC")
-    suspend fun getPlayerListOrderByGoals(teamId:Int): List<Player>
+    suspend fun getPlayerListOrderByGoals(teamId: Int): List<Player>
+
 
 }

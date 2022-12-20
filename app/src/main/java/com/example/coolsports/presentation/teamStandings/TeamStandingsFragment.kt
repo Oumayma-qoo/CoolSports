@@ -12,6 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.RecyclerView.Orientation
 import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentLeagueBinding
 import com.example.coolsports.databinding.FragmentTeamStandingsBinding
@@ -33,7 +37,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.log
 
 @AndroidEntryPoint
-class TeamStandingsFragment(val rules: LeagueData04,var leagueStanding: List<Any>,val leagueId: Int) : Fragment() {
+class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<LeagueStandingsBase> ,var leagueStanding2: List<LeagueStandingsGroupBase>,val leagueId: Int) : Fragment() {
 
     val TAG: String = "TeamStandingsFragment"
     private var _binding: FragmentTeamStandingsBinding? = null
@@ -66,12 +70,27 @@ class TeamStandingsFragment(val rules: LeagueData04,var leagueStanding: List<Any
 
       //  ((leagueStanding as ArrayList<*>)[0] as LinkedTreeMap<*,*>).containsKey("list")
 
-        if (leagueStanding.filterIsInstance<List<LeagueStandingsBase>>().isNotEmpty()){
+        if (leagueStanding.isEmpty())
+            return
+        if (leagueStanding[0].totalStandings.isNotEmpty()){
             binding.teamStandingContainer.visibility = View.VISIBLE
             binding.topThree.visibility = View.VISIBLE
            // binding.firstTeamName.text =
-            val totalStanding = leagueStanding.filterIsInstance<LeagueStandingsBase>()[0].totalStandings
-            val teamInfo = leagueStanding.filterIsInstance<LeagueStandingsBase>()[0].leagueInfo
+            val totalStanding = leagueStanding[0].totalStandings
+            val teamInfo = leagueStanding[0].teamInfo
+
+            binding.firstTeamName.text = teamInfo.find {
+                it.teamId == totalStanding[0].teamId
+            }?.nameEn
+            binding.secondTeamName.text = teamInfo.find {
+                it.teamId == totalStanding[1].teamId
+            }?.nameEn
+
+            binding.thirdTeamName.text = teamInfo.find {
+                it.teamId == totalStanding[2].teamId
+            }?.nameEn
+
+            binding.teamRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             binding.teamRecyclerView.adapter= TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
                  override fun onClickListener(totalStanding: TotalStanding) {
 
@@ -79,16 +98,15 @@ class TeamStandingsFragment(val rules: LeagueData04,var leagueStanding: List<Any
              },teamInfo,totalStanding)
 
 
-        }else if (((leagueStanding as ArrayList<*>)[0] as LinkedTreeMap<*,*>).containsKey("list")){
+        }else if (leagueStanding2[0].list.isNotEmpty()){
             binding.topThree.visibility = View.GONE
             binding.teamStandingContainer.visibility = View.GONE
             binding.teamStandingGroupContainer.visibility = View.VISIBLE
-            val groupScore = ((((((((leagueStanding as ArrayList<*>)[0] as LinkedTreeMap<*,*>)["list"] as ArrayList<*> )[0] as LinkedTreeMap<*,*>)["score"] as ArrayList<*>)[0] as LinkedTreeMap<*,*>)["groupScore"]) as ArrayList<*>)
-//            binding.teamRecyclerGroupView.adapter= TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
-//                override fun onClickListener(item: ScoreItem) {
-//
-//                }
-//            },groupScore)
+            binding.teamRecyclerGroupView.adapter= TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
+                override fun onClickListener(item: ScoreItem) {
+
+                }
+            },leagueStanding2[0].list[0].score[0].groupScore)
         }
 
 

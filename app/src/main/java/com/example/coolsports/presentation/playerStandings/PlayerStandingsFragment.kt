@@ -13,14 +13,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coolsports.R
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingBinding
 import com.example.coolsports.databinding.FragmentPlayerStandingsBinding
 import com.example.coolsports.domain.model.league.LeagueData04
+import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
 import com.example.coolsports.presentation.base.BaseFragment
+import com.example.coolsports.presentation.teamStandings.OnTeamClickListener
+import com.example.coolsports.presentation.teamStandings.TeamStandingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -96,6 +101,19 @@ class PlayerStandingsFragment() : BaseFragment() {
         Log.d(TAG, " response success  " + response.list.count())
         playerList.addAll(response.list)
 
+        binding.firstTeamName.text = playerList[0].playerNameEn
+        binding.secondTeamName.text = playerList[1].playerNameEn
+        binding.thirdTeamName.text = playerList[2].playerNameEn
+
+        binding.playerRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.playerRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.playerRecyclerView.adapter= PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
+            override fun onClickListener(player: Player) {
+
+            }
+
+        },playerList)
     }
 
 

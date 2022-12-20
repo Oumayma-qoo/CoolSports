@@ -29,6 +29,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -81,12 +82,12 @@ class LeagueInfoFragment : BaseFragment() {
 
 
     private fun initObserver() {
-        viewModel.mState.flowWithLifecycle(
-            this.lifecycle, Lifecycle.State.STARTED
-
-        ).onEach {
-            handleState(it)
-        }.launchIn(this.lifecycleScope)
+        lifecycleScope.launch{
+            viewModel.mState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    handleState(it)
+                }
+        }
     }
 
     private fun handleState(state: LeagueStateScreen) {
@@ -105,8 +106,6 @@ class LeagueInfoFragment : BaseFragment() {
     private fun handleLeagueResponse(response: BaseLeagueInfo) {
         leagueInfoList.addAll(response.leagueData01)
         leagueRules.addAll(response.leagueData04)
-
-
 
         Log.d(TAG, "leagueStanding====== ${response.leagueStanding}")
 
@@ -132,7 +131,7 @@ class LeagueInfoFragment : BaseFragment() {
                 it.leagueId == leagueId
             }
 
-            viewPagerAdapter = rules?.let { ViewPagerAdapter(this, it, response.leagueStanding, leagueId) }!!
+            viewPagerAdapter = rules?.let { ViewPagerAdapter(this, it, response.leagueStanding, response.leagueStanding2, leagueId) }!!
             binding.viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(
                 binding.tabLayout,

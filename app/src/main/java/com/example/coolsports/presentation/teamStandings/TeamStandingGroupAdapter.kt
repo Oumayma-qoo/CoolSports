@@ -11,8 +11,7 @@ import com.example.coolsports.domain.model.team.TeamInfo
 class TeamStandingGroupAdapter(
     private val context: Context,
     private val listener: OnGroupItemsClickListener,
-    var teams:ArrayList<TeamInfo>,
-    var groupScoreList:ArrayList<GroupScore>
+    var groupScoreList:List<GroupScore>
 ) : RecyclerView.Adapter<TeamStandingGroupAdapter.TeamStandingGroupHolder>() {
 
 

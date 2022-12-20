@@ -8,14 +8,16 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coolsports.databinding.ItemTeamStandingBinding
+import com.example.coolsports.domain.model.leagueStandings.LeagueInfo
+import com.example.coolsports.domain.model.leagueStandings.TeamInfos
 import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.team.TeamInfo
 
 class TeamStandingAdapter(
     private val context: Context,
     private val listener: OnTeamClickListener,
-    var teams:ArrayList<TeamInfo>,
-    var rankings:ArrayList<TotalStanding>
+    var teams:List<TeamInfos>,
+    var rankings:List<TotalStanding>
 ) : RecyclerView.Adapter<TeamStandingAdapter.TeamStandingHolder>() {
 
 
@@ -37,16 +39,15 @@ class TeamStandingAdapter(
             binding.g.text = totalStanding.goalDifference.toString()
             binding.pts.text = totalStanding.integral.toString()
 
-            val team = teams.find {
+           val team = teams.find {
                 it.teamId == totalStanding.teamId
             }
-            if (team!= null) {
-                binding.team.text = team.nameEn
+            binding.team.text = team?.nameEn
 
-                Glide.with(context)
-                    .load(team.logo)
-                    .into(binding.teamImageView)
-            }
+//            Glide.with(context)
+//                .load(teams.logo)
+//                .into(binding.teamImageView)
+
             binding.root.setOnClickListener {
                 listener.onClickListener(totalStanding)
             }

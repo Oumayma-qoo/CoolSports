@@ -1,13 +1,11 @@
 package com.example.coolsports.domain.model.league
 
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
 
-data class BaseLeagueInfo(
+data class BaseLeagueInfo2(
     @SerializedName("leagueData01")
     var leagueData01: List<LeagueData01> = listOf(),
     @SerializedName("leagueData02")
@@ -19,9 +17,7 @@ data class BaseLeagueInfo(
     @SerializedName("leaguePlayercount")
     var leaguePlayercount: LeaguePlayercount = LeaguePlayercount(),
     @SerializedName("leagueStanding")
-    var leagueStanding: List<LeagueStandingsBase> = listOf(),
-    @Expose(serialize = false,deserialize = false)
-    var leagueStanding2: List<LeagueStandingsGroupBase> = listOf(),
+    var leagueStanding: List<LeagueStandingsGroupBase> = listOf(),
     @SerializedName("leagueTopscorer")
     var leagueTopscorer:  List<Any> = listOf()
 )

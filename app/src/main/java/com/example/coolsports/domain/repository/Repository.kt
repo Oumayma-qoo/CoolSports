@@ -11,6 +11,7 @@ import com.example.coolsports.domain.mapper.NetworkMapperPlayer
 import com.example.coolsports.domain.mapper.NetworkMapperPlayerStandings
 import com.example.coolsports.domain.mapper.NetworkMapperTeam
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
+import com.example.coolsports.domain.model.league.BaseLeagueInfo2
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.team.BaseTeam
 import kotlinx.coroutines.flow.Flow
@@ -36,6 +37,15 @@ class Repository @Inject constructor(
         groupId: Int
     ): Flow<DataState<BaseLeagueInfo>> = flow {
         emit(Success(api.getLeagueInfoData(leagueId, subLeagueId, groupId)))
+    }
+
+    override suspend fun getLeagueInfo2(
+        leagueId: Int,
+        subLeagueId: String,
+        groupId: Int
+    ): Flow<DataState<BaseLeagueInfo2>> = flow {
+        emit(Success(api.getLeagueInfoData2(leagueId, subLeagueId, groupId)))
+
     }
 
     override suspend fun getPlayerStanding(

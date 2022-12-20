@@ -24,7 +24,7 @@ class PlayerStandingAdapter(
 
         fun bindTo(playerItem: Player, context: Context, listener: OnPlayerClickListener) {
 
-            binding.num.text = playerItem.playerId.toString()
+            binding.num.text = "${adapterPosition+1}"
             binding.player.text = playerItem.playerNameEn
             binding.teamName.text = playerItem.teamNameEn
             binding.goals.text = playerItem.goals.toString()

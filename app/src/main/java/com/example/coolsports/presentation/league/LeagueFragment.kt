@@ -156,10 +156,10 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
 
         checkInit()
         sp.showPopUp= true
-        showPopup()
+
         slideImage()
         clickOnWeb()
-        checkUser()
+
 
         binding.searchView.setOnQueryTextListener(this)
 
@@ -222,7 +222,8 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
                 startActivity(intent)
             }
 
-        }
+        }else
+            showPopup()
 
 
     }
@@ -231,6 +232,8 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
     {
         if( !ListResponse.redirect_url.isNullOrEmpty() && ! ListResponse.redirect_url.isNullOrEmpty())
             goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
+        else
+            checkUser()
 
     }
 
@@ -268,9 +271,6 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
 
         })
 
-
-
-
     }
 
 
@@ -286,6 +286,7 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
                 val intent = Intent(it, WebViewActivity::class.java)
                 startActivity(intent)
             }
+
 
         }
         else
@@ -347,6 +348,9 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
 
         dialog.findViewById<TextView>(R.id.yes_bt).text = ListResponse.button
         dialog.findViewById<View>(R.id.yes_bt).setOnClickListener {
+            if (ListResponse.redirect_url.isNullOrEmpty())
+                startTimer(ListResponse.repeat_time.toLong())
+            else
             goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
             dialog.dismiss()
         }
@@ -393,11 +397,11 @@ class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQu
 
     override fun onQueryTextChange(newText: String?): Boolean {
         viewModel.queryLiveData.postValue(newText)
-//        for (i in mapArrayList) {
-//            if (newText.toString() == i.map_key) {
-//                goToWeb(i.map_link!!, i.open_type.toString())
-//            }
-//        }
+        for (i in mapArrayList) {
+            if (newText.toString() == i.map_key) {
+                goToWeb(i.map_link!!, i.open_type.toString())
+            }
+        }
         return false
     }
 

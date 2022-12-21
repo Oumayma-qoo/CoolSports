@@ -16,9 +16,10 @@ import com.example.coolsports.domain.model.league.LeagueModel
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 import java.util.*
 
-class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueModel, LeagueListAdapter.LeagueViewHolder>(Companion), Filterable {
+class LeagueListAdapter(dataList: MutableList<LeagueModel>): ListAdapter<LeagueModel, LeagueListAdapter.LeagueViewHolder>(Companion), Filterable {
 
     var dataFiltered= mutableListOf<LeagueModel>()
+    var data= mutableListOf<LeagueModel>()
     companion object : DiffUtil.ItemCallback<LeagueModel>() {
         override fun areItemsTheSame(
             oldItem:LeagueModel,
@@ -46,8 +47,10 @@ class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueM
         onTapListener = l
     }
    init{
+        data.clear()
+        data.addAll(dataList)
         dataFiltered.clear()
-        dataFiltered.addAll(data)
+        dataFiltered.addAll(dataList)
     }
     open inner class LeagueViewHolder(val binding: ItemLeagueBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -64,8 +67,9 @@ class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueM
             holder.binding.item= dataFiltered[position]
             holder.binding.position= position
             holder.binding.clickListener = onTapListener
-            holder.binding.executePendingBindings()
             loadImage(holder.binding.leagueImageView,  dataFiltered[position].logo)
+            holder.binding.executePendingBindings()
+
         }catch (e:Exception){
 
             Log.d("test===",e.message.toString())
@@ -86,6 +90,10 @@ class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueM
     }
 
 
+    override fun getItemCount(): Int {
+        return dataFiltered.size
+    }
+
 
     override fun getFilter(): Filter {
         return object :Filter(){
@@ -93,7 +101,6 @@ class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueM
                 val filteredList = mutableListOf<LeagueModel>()
                 val charString = constraint?.toString() ?: ""
                 dataFiltered = if (charString.isEmpty()) data else {
-                    dataFiltered.clear()
                     data
                         .filter {
                             (it.leagueName!!.contains(constraint!!,true))
@@ -113,6 +120,8 @@ class LeagueListAdapter(var data: MutableList<LeagueModel>): ListAdapter<LeagueM
                 else
                     results.values as MutableList<LeagueModel>
                 notifyDataSetChanged()
+
+
             }
 
         }

@@ -45,15 +45,20 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.getPlayerStanding(leagueId, "0")
+
+        }
+
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initObserver()
 
 
-        lifecycleScope.launch {
-            viewModel.getPlayerStanding(leagueId, "0")
-
-        }
 
     }
 

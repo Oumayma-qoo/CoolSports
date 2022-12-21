@@ -6,26 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentTeamStandingsBinding
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
-import com.example.coolsports.domain.model.leagueStandings.TotalStanding
-import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
-import com.example.coolsports.presentation.league.LeagueViewModel
-import com.example.coolsports.presentation.playerStandings.PlayerStandingsViewModel
-import com.google.gson.Gson
-import com.google.gson.internal.LinkedTreeMap
 import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
+import com.example.coolsports.presentation.league.LeagueViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -62,6 +54,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             val teamInfo = leagueStanding[0].teamInfo
             mappedData.clear()
             totalStanding.forEach{
+
                 val item = TotalStandingWithTeamInfo(
                     rank = it.rank,
                     totalCount = it.totalCount,
@@ -74,6 +67,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
                val team =  teamInfo.find { teamInfo->
                     teamInfo.teamId == it.teamId
                 }
+                item.teamId = team?.teamId
                 if (team != null) {
                     item.nameEn = team.nameEn
                 }
@@ -92,14 +86,14 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             }?.nameEn
 
 
-            binding.teamStandingContainer.setOnClickListener {
-                val action =
-                    LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-                        totalStanding[0].teamId!!
-
-                    )
-                findNavController().navigate(action)
-            }
+//            binding.teamStandingContainer.setOnClickListener {
+//                val action =
+//                    LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
+//                        totalStanding[0].teamId!!
+//
+//                    )
+//                findNavController().navigate(action)
+//            }
 
             binding.firstContainer.setOnClickListener {
                 val action =
@@ -140,7 +134,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
 
                 }
             },mappedData)
-            binding.teamRecyclerView.adapter= teamStandingAdapter
+            binding.teamRecyclerView.adapter = teamStandingAdapter
 
 
         } else if (leagueStanding2[0].list.isNotEmpty()) {
@@ -167,14 +161,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
     }
 
 
-    fun goToNext() {
-        binding.secondNum.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.TeamStandingsFragment)
-                findNavController().navigate(R.id.action_teamStandingFragment_to_teamInfoFragment)
-        }
 
-
-    }
 
 
 }

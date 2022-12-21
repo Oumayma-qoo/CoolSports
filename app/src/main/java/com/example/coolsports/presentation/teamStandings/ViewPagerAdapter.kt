@@ -18,7 +18,7 @@ class ViewPagerAdapter(val fragment: Fragment,val rules: LeagueData04,  var leag
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> TeamStandingsFragment(rules,leagueStanding, leagueStanding2,leagueId,viewModel)
-            1 -> PlayerStandingsFragment()
+            1 -> PlayerStandingsFragment(leagueId)
             else -> TeamStandingsFragment(rules,leagueStanding, leagueStanding2 ,leagueId,viewModel)
         }
     }

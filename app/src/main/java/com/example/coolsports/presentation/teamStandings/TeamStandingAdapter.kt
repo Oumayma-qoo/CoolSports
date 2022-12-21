@@ -5,15 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.coolsports.databinding.ItemTeamStandingBinding
-import com.example.coolsports.domain.model.leagueStandings.LeagueInfo
-import com.example.coolsports.domain.model.leagueStandings.TeamInfos
-import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
-import com.example.coolsports.domain.model.team.TeamInfo
 
 class TeamStandingAdapter(
     private val context: Context,
@@ -26,6 +20,8 @@ class TeamStandingAdapter(
     init {
         data.clear()
         data.addAll(rankings)
+        dataFiltered.clear()
+        dataFiltered.addAll(rankings)
     }
 
     inner class TeamStandingHolder(binding: ItemTeamStandingBinding) :

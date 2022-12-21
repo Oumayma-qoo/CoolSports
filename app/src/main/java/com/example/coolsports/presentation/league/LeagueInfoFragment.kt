@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -22,22 +23,17 @@ import com.example.coolsports.domain.model.league.LeagueData01
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.league.LeagueModel
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
 import com.example.coolsports.presentation.teamStandings.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class LeagueInfoFragment : BaseFragment() {
+class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
+
     val TAG: String = "LeagueInfoFragment"
     private var _binding: FragmentTeamInfoBinding? = null
     private val binding get() = _binding!!
@@ -63,7 +59,7 @@ class LeagueInfoFragment : BaseFragment() {
         navController = view.findNavController()
 
         initObserver()
-
+        binding.searchView.setOnQueryTextListener(this)
 
         leagueId = arguments!!.getInt("leagueId")
 
@@ -139,7 +135,7 @@ class LeagueInfoFragment : BaseFragment() {
                 it.leagueId == leagueId
             }
 
-            viewPagerAdapter = rules?.let { ViewPagerAdapter(this, it, response.leagueStanding, response.leagueStanding2, leagueId) }!!
+            viewPagerAdapter = rules?.let { ViewPagerAdapter(this, it, response.leagueStanding, response.leagueStanding2, leagueId, viewModel) }!!
             binding.viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(
                 binding.tabLayout,
@@ -197,6 +193,17 @@ class LeagueInfoFragment : BaseFragment() {
         showToast(message)
         hideLoading()
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.queryLiveData.postValue(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.queryLiveData.postValue(newText)
+        return false
+    }
+
     private fun goToSettings(){
         binding.settingsIcon.setOnClickListener {
             if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)

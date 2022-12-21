@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coolsports.R
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingBinding
-import com.example.coolsports.databinding.FragmentPlayerStandingsBinding
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.player.BasePlayerStanding

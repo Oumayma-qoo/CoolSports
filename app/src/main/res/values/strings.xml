@@ -7,8 +7,8 @@
 
 
     <string-array name="tab_names">
-        <item>Team Standings</item>
-        <item>Player Standings</item>
+        <item>团队排名</item>
+        <item>球员排名</item>
     </string-array>
 
     <string name="no_connection_exception">N无连接异常</string>

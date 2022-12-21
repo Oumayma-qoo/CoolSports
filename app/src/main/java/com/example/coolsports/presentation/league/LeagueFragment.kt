@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import com.example.coolsports.common.constant.Constants.URL
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.common.utils.ListResponse
 import com.example.coolsports.common.utils.ListResponse.adsArrayList
+import com.example.coolsports.common.utils.ListResponse.mapArrayList
 import com.example.coolsports.databinding.FragmentLeagueBinding
 import com.example.coolsports.domain.model.league.LeagueModel
 import com.example.coolsports.presentation.base.BaseFragment
@@ -38,7 +40,7 @@ import java.util.ArrayList
 
 
 @AndroidEntryPoint
-class LeagueFragment : BaseFragment() {
+class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQueryTextListener{
 
     val TAG: String = "LeagueFragment"
     private var _binding: FragmentLeagueBinding? = null
@@ -52,7 +54,7 @@ class LeagueFragment : BaseFragment() {
     lateinit var sp: SPApp
 
 
-    private val leagueListAdapter by lazy { LeagueListAdapter() }
+    private val leagueListAdapter by lazy { LeagueListAdapter(listLeague) }
     private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -159,6 +161,8 @@ class LeagueFragment : BaseFragment() {
         clickOnWeb()
         checkUser()
 
+        binding.searchView.setOnQueryTextListener(this)
+
     }
 
     private fun goToSettings(){
@@ -172,7 +176,9 @@ class LeagueFragment : BaseFragment() {
     private fun initRV() {
         binding.leagueRecyclerView.adapter = leagueListAdapter
         binding.leagueRecyclerView.layoutManager = LinearLayoutManager(activity)
-
+        viewModel.queryLiveData.observe(viewLifecycleOwner) {
+            leagueListAdapter.filter.filter(it)
+        }
         leagueListAdapter.setItemTapListener(object : LeagueListAdapter.OnItemTap {
             override fun onTap(position: Int) {
                 leagueId = leagueListAdapter.getLeagueId(position)
@@ -379,6 +385,22 @@ class LeagueFragment : BaseFragment() {
 
         super.onResume()
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.queryLiveData.postValue(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.queryLiveData.postValue(newText)
+//        for (i in mapArrayList) {
+//            if (newText.toString() == i.map_key) {
+//                goToWeb(i.map_link!!, i.open_type.toString())
+//            }
+//        }
+        return false
+    }
+
 
 
 }

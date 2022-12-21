@@ -83,6 +83,9 @@
     <string name="Europe">Châu Âu</string>
     <string name="Americas">Châu Mỹ</string>
     <string name="France">Pháp</string>
-
+    <string-array name="tab_names">
+        <item>Bảng xếp hạng của đội</item>
+        <item>Bảng xếp hạng người chơi</item>
+    </string-array>
 
 </resources>

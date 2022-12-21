@@ -84,4 +84,10 @@
     <string name="Americas">อเมริกา</string>
     <string name="France">ฝรั่งเศส</string>
 
+    <string-array name="tab_names">
+        <item>อันดับทีม</item>
+        <item>อันดับผู้เล่น</item>
+    </string-array>
+
+
 </resources>

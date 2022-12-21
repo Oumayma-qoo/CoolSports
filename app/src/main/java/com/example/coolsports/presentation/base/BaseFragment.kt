@@ -15,12 +15,12 @@ open class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :
-            OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                onBackPressed()
-            }
-        })
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :
+//            OnBackPressedCallback(true){
+//            override fun handleOnBackPressed() {
+//                onBackPressed()
+//            }
+//        })
     }
 
     private val dialog: android.app.Dialog by lazy {
@@ -60,13 +60,13 @@ open class BaseFragment : Fragment() {
         dialog.dismiss()
     }
 
-
-    open fun onBackPressed(){
-        ActivityCompat.finishAffinity(activity!!.parent)
-
-    }
-    fun backBtn() {
-        NavigationUI.navigateUp(findNavController(), null)
-    }
+//
+//    open fun onBackPressed(){
+//        ActivityCompat.finishAffinity(activity!!.parent)
+//
+//    }
+//    fun backBtn() {
+//        NavigationUI.navigateUp(findNavController(), null)
+//    }
 
 }

@@ -145,6 +145,7 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
                 it.leagueId == leagueId
             }
 
+
             viewPagerAdapter = rules?.let { ViewPagerAdapter(this, it, response.leagueStanding, response.leagueStanding2, leagueId, viewModel) }!!
             binding.viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(

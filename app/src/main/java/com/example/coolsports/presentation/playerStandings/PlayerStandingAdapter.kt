@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.ItemPlayerBinding
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 import com.example.coolsports.domain.model.player.Player
@@ -17,12 +19,13 @@ class PlayerStandingAdapter(
 ) : RecyclerView.Adapter<PlayerStandingAdapter.PlayerHolder>() , Filterable {
     private var dataFiltered = mutableListOf<Player>()
     private var data = mutableListOf<Player>()
-
+    private lateinit var sp: SPApp
     init {
         data.clear()
         data.addAll(playersList)
         dataFiltered.clear()
         dataFiltered.addAll(playersList)
+        sp = SPApp(context)
     }
 
     inner class PlayerHolder(binding: ItemPlayerBinding) :
@@ -41,7 +44,10 @@ class PlayerStandingAdapter(
             binding.goals.text = playerItem.goals.toString()
             binding.homeScore.text = playerItem.homeGoals.toString()
             binding.awayScore.text = playerItem.awayGoals.toString()
-
+            if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                binding.player.text = playerItem.playerNameChs
+                binding.teamName.text = playerItem.teamNameChs
+            }
             binding.root.setOnClickListener {
                 listener.onClickListener(playerItem)
             }

@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.ItemTeamStandingBinding
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
 
@@ -13,6 +15,7 @@ class ScoreItemsAdapter(
     private var scoreItemList: List<ScoreItem>
 ) : RecyclerView.Adapter<ScoreItemsAdapter.TeamStandingHolder>() {
 
+    private lateinit var sp: SPApp
 
     inner class TeamStandingHolder(binding: ItemTeamStandingBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -20,6 +23,8 @@ class ScoreItemsAdapter(
 
         init {
             this.binding = binding
+            sp = SPApp(context)
+
         }
 
         fun bindTo(scoreItem: ScoreItem, context: Context, listener: OnGroupItemsClickListener) {
@@ -33,6 +38,9 @@ class ScoreItemsAdapter(
             binding.pts.text = scoreItem.integral
 
             binding.team.text = scoreItem.teamNameEn
+            if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                binding.team.text = scoreItem.teamNameChs
+            }
 
             binding.root.setOnClickListener {
                 listener.onClickListener(scoreItem)

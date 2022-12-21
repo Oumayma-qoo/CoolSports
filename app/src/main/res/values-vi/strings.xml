@@ -87,5 +87,5 @@
         <item>Bảng xếp hạng của đội</item>
         <item>Bảng xếp hạng người chơi</item>
     </string-array>
-
+    <string name="rules">Quy tắc</string>
 </resources>

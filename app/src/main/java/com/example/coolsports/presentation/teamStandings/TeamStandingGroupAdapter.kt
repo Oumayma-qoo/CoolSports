@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.ItemGroupBinding
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.GroupScore
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
@@ -19,12 +21,15 @@ class TeamStandingGroupAdapter(
 ) : RecyclerView.Adapter<TeamStandingGroupAdapter.TeamStandingGroupHolder>() , Filterable {
     private var dataFiltered = mutableListOf<GroupScore>()
     private var data = mutableListOf<GroupScore>()
+    private lateinit var sp: SPApp
 
     init {
         data.clear()
         data.addAll(groupScoreList)
         dataFiltered.clear()
         dataFiltered.addAll(groupScoreList)
+        sp = SPApp(context)
+
     }
 
     inner class TeamStandingGroupHolder(binding: ItemGroupBinding) :
@@ -39,6 +44,9 @@ class TeamStandingGroupAdapter(
 
             // TODO: handle language
             binding.team.text = groupScore.groupEn
+            if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                binding.team.text = groupScore.groupCn
+            }
             binding.teamRecyclerView.adapter = ScoreItemsAdapter(context,listener,groupScore.scoreItems)
 
         }

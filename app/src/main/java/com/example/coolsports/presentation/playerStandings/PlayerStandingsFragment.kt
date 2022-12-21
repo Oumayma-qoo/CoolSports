@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingBinding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
@@ -35,6 +37,7 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
     private val viewModel by viewModels<PlayerStandingsViewModel>()
     var playerId:Int by Delegates.notNull<Int>()
     private lateinit var playerAdapter: PlayerStandingAdapter
+    private lateinit var sp: SPApp
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +51,7 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initObserver()
+        sp = SPApp(requireContext())
 
 
         lifecycleScope.launch {
@@ -87,7 +91,11 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
         binding.firstTeamName.text = playerList[0].playerNameEn
         binding.secondTeamName.text = playerList[1].playerNameEn
         binding.thirdTeamName.text = playerList[2].playerNameEn
-
+        if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+            binding.firstTeamName.text = playerList[0].playerNameChs
+            binding.secondTeamName.text = playerList[1].playerNameChs
+            binding.thirdTeamName.text = playerList[2].playerNameChs
+        }
         binding.firstContainer.setOnClickListener {
             val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
                 playerList[0].playerId!!, playerList[0].teamID!!,playerList[0]

@@ -46,7 +46,11 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sp = SPApp(requireContext())
+
         binding.rulesValue.text = rules.ruleEn
+        if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+            binding.rulesValue.text = rules.ruleCn
+        }
 
         if (leagueStanding.isEmpty())
             return

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">CoolSports</string>
 
-    <string name="privacy_policy_link" translatable="false">https://ritehite.wordpress.com/privacy-policy/</string>
-    <string name="account_email" translatable="false">laurenstanley480@gmail.com</string>
+    <string name="privacy_policy_link" translatable="false">https://coolsports6.wordpress.com/privacy-policy/</string>
+    <string name="account_email" translatable="false">mahi3567baeimi3467@gmail.com</string>
     <string name="app_pref_name" translatable="false">cool-sports</string>
 
 

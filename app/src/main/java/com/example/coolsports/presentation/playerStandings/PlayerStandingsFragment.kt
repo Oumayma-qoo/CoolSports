@@ -10,14 +10,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coolsports.R
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingBinding
+import com.example.coolsports.domain.model.league.LeagueData04
+import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
 import com.example.coolsports.presentation.base.BaseFragment
 import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
+import com.example.coolsports.presentation.teamStandings.OnTeamClickListener
+import com.example.coolsports.presentation.teamStandings.TeamStandingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -32,7 +40,7 @@ class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
     private val binding get() = _binding!!
     var playerList = ArrayList<Player>()
     private val viewModel by viewModels<PlayerStandingsViewModel>()
-    var playerId: Int by Delegates.notNull<Int>()
+    var playerId:Int by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +62,7 @@ class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
         }
 
     }
+
 
 
     private fun initObserver() {
@@ -86,48 +95,38 @@ class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
         binding.thirdTeamName.text = playerList[2].playerNameEn
 
         binding.firstContainer.setOnClickListener {
-            val action =
-                LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
-                    playerList[0].playerId!!, playerList[0].teamID!!, playerList[0]
-                )
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[0].playerId!!, playerList[0].teamID!!,playerList[0]
+            )
             findNavController().navigate(action)
         }
         binding.secondContainer.setOnClickListener {
-            val action =
-                LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
-                    playerList[1].playerId!!, playerList[1].teamID!!, playerList[1]
-                )
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[1].playerId!!, playerList[1].teamID!!,playerList[1]
+            )
             findNavController().navigate(action)
         }
-        binding.thirdContainer.setOnClickListener {
-            val action =
-                LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
-                    playerList[2].playerId!!, playerList[2].teamID!!, playerList[2]
-                )
+       binding.thirdContainer.setOnClickListener {
+            val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                playerList[2].playerId!!, playerList[2].teamID!!,playerList[2]
+            )
             findNavController().navigate(action)
         }
 
         binding.playerRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.playerRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                LinearLayoutManager.VERTICAL
-            )
-        )
+        binding.playerRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
-        binding.playerRecyclerView.adapter =
-            PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
-                override fun onClickListener(player: Player) {
-                    val action =
-                        LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
-                            player.playerId!!, player.teamID!!, player
-                        )
-                    findNavController().navigate(action)
+        binding.playerRecyclerView.adapter= PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
+            override fun onClickListener(player: Player) {
+                val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
+                    player.playerId!!, player.teamID!!,player
+                )
+                findNavController().navigate(action)
 
-                }
+            }
 
-            }, playerList)
+        },playerList)
     }
 
 

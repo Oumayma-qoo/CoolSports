@@ -57,7 +57,7 @@
 
     <string name="no_connection_exception">ไม่มีข้อยกเว้นการเชื่อมต่อ</string>
     <string name="no_internet_exception">ไม่มีข้อยกเว้นทางอินเทอร์เน็ต</string>
-
+    <string name="exit_app_text">แน่ใจไหมว่าต้องการออกจากแอปพลิเคชัน </string>
     <string name="PREMIERE_LEAGUE">พรีเมียร์ลีกอังกฤษ</string>
     <string name="LA_LIGA">ลาลีกา</string>
     <string name="SERIE_A">กัลโช่</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CoolSports</string>
+    <string name="app_name" translatable="false">CoolSports</string>
 
     <string name="privacy_policy_link" translatable="false">https://ritehite.wordpress.com/privacy-policy/</string>
     <string name="account_email" translatable="false">laurenstanley480@gmail.com</string>
@@ -70,7 +70,7 @@
     <string name="team_standing">Team Standings</string>
     <string name="player_standing">Player Standings</string>
     <string name="player_info">Player Info</string>
-    <string name="birthday">Birthday:</string>
+    <string name="birthday">生日:</string>
     <string name="height">身高:</string>
     <string name="weight">首页:</string>
     <string name="position">Position:</string>

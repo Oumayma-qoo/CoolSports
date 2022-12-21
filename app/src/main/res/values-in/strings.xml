@@ -57,7 +57,7 @@
     <string name="away">Jauh</string>
     <string name="no_connection_exception">Tidak Ada Pengecualian Koneksi</string>
     <string name="no_internet_exception">Tidak Ada Pengecualian Internet</string>
-
+    <string name="exit_app_text">Anda yakin ingin keluar dari aplikasi? </string>
 
     <string name="PREMIERE_LEAGUE">Liga Premier Inggris</string>
     <string name="LA_LIGA">La Liga</string>

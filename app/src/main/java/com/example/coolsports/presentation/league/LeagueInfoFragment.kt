@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.coolsports.R
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentTeamInfoBinding
 import com.example.coolsports.domain.model.league.BaseLeagueInfo
 import com.example.coolsports.domain.model.league.LeagueData01
@@ -45,6 +47,7 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     var leagueRules = ArrayList<LeagueData04>()
     private var  leagueId by Delegates.notNull<Int>()
+    private lateinit var sp: SPApp
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,11 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sp = SPApp(requireContext())
+
+        binding.backIcon.setOnClickListener {
+            findNavController().navigateUp()
+        }
         navController = view.findNavController()
 
         initObserver()
@@ -76,11 +84,6 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
             viewModel.getTeamInfo(leagueId)
 
         }
-
-        binding.screenTitle.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)
-                navController.navigate(
-                    R.id.action_leagueInfoFragment_to_leagueDetailFragment)}
 
         goToSettings()
     }
@@ -124,6 +127,13 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
             binding.typeValue.text = leagueInfo?.type
             binding.countryValue.text = leagueInfo?.countryEn
             binding.currentSeasonValue.text = leagueInfo?.currSeason
+            if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                binding.screenTitle.text = leagueInfo?.nameCn
+                binding.fullNameValue.text = leagueInfo?.nameCn
+                binding.shortNameValue.text = leagueInfo?.nameCnShort
+                binding.countryValue.text = leagueInfo?.countryCn
+            }
+
 
             Glide.with(requireContext())
                 .load(leagueInfo?.leagueLogo)

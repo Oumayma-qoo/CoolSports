@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.common.sharedPreference.SPApp
@@ -47,10 +48,18 @@ class PlayerDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         sp = SPApp(requireContext())
         initObserver()
-
+        binding.settingsIcon.setOnClickListener {
+            val action = PlayerDetailsFragmentDirections.actionPlayerDetailFragmentToNavigationSettings()
+            findNavController().navigate(action)
+        }
+        binding.closeImageView.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.backIcon.setOnClickListener {
+            findNavController().navigateUp()
+        }
         lifecycleScope.launch {
             viewModel.getTeamInfo(args.teamId)
-
         }
     }
 

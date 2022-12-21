@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.ItemTeamStandingBinding
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 
@@ -16,6 +18,7 @@ class TeamStandingAdapter(
 ) : RecyclerView.Adapter<TeamStandingAdapter.TeamStandingHolder>() , Filterable {
     private var dataFiltered = mutableListOf<TotalStandingWithTeamInfo>()
     private var data = mutableListOf<TotalStandingWithTeamInfo>()
+    private lateinit var sp: SPApp
 
     init {
         data.clear()
@@ -30,6 +33,7 @@ class TeamStandingAdapter(
 
         init {
             this.binding = binding
+            sp = SPApp(context)
         }
 
         fun bindTo(totalStanding: TotalStandingWithTeamInfo, context: Context, listener: OnTeamClickListener) {
@@ -43,7 +47,11 @@ class TeamStandingAdapter(
             binding.pts.text = totalStanding.integral.toString()
 
             binding.team.text = totalStanding.nameEn
+            if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                if (totalStanding.nameCn.isNotEmpty())
+                     binding.team.text = totalStanding.nameCn
 
+            }
 //            Glide.with(context)
 //                .load(teams.logo)
 //                .into(binding.teamImageView)

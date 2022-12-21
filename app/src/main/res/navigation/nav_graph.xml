@@ -11,7 +11,8 @@
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_leagueFragment"
-            app:destination="@id/LeagueFragment" />
+            app:destination="@id/LeagueFragment"
+            app:popUpTo="@id/nav_graph" />
 
 
     </fragment>
@@ -57,6 +58,9 @@
         <argument
             android:name="teamId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_LeagueDetailsFragment_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
     </fragment>
 
 
@@ -92,6 +96,9 @@
         <argument
             android:name="player"
             app:argType="com.example.coolsports.domain.model.player.Player" />
+        <action
+            android:id="@+id/action_PlayerDetailFragment_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
 
     </fragment>
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.common.sharedPreference.SPApp
@@ -63,6 +64,20 @@ class LeagueDetailsFragment : BaseFragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.backIcon.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.closeImageView.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.settingsIcon.setOnClickListener {
+            val action = LeagueDetailsFragmentDirections.actionLeagueDetailsFragmentToNavigationSettings()
+            findNavController().navigate(action)
+        }
+
+
         navController = view.findNavController()
         initObserver()
 

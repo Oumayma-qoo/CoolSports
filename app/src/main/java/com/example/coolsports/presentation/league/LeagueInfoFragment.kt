@@ -57,6 +57,24 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        leagueId = arguments!!.getInt("leagueId")
+        lifecycleScope.launch {
+            viewModel.getLeagueInfo(leagueId, " ", 0)
+
+        }
+
+        lifecycleScope.launch {
+            viewModel.getPlayerStanding(leagueId, "0")
+
+        }
+        lifecycleScope.launch {
+            viewModel.getTeamInfo(leagueId)
+
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sp = SPApp(requireContext())
@@ -69,21 +87,9 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         initObserver()
         binding.searchView.setOnQueryTextListener(this)
 
-        leagueId = arguments!!.getInt("leagueId")
 
-        lifecycleScope.launch {
-            viewModel.getPlayerStanding(leagueId, "0")
 
-        }
 
-        lifecycleScope.launch {
-            viewModel.getLeagueInfo(leagueId, " ", 0)
-
-        }
-       lifecycleScope.launch {
-            viewModel.getTeamInfo(leagueId)
-
-        }
 
         goToSettings()
     }

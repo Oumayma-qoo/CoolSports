@@ -57,7 +57,7 @@
     <string name="away">Jauh</string>
     <string name="no_connection_exception">Tidak Ada Pengecualian Koneksi</string>
     <string name="no_internet_exception">Tidak Ada Pengecualian Internet</string>
-
+    <string name="exit_app_text">Anda yakin ingin keluar dari aplikasi? </string>
 
     <string name="PREMIERE_LEAGUE">Liga Premier Inggris</string>
     <string name="LA_LIGA">La Liga</string>
@@ -74,6 +74,20 @@
     <string name="CONFEDERATIONS_CUP">Piala Konfederasi</string>
     <string name="AMERICAS_CUP">Piala Amerika</string>
 
+    <string name="Spain">Spanyol</string>
+    <string name="England">Inggris</string>
+    <string name="Italy">Italia</string>
+    <string name="Germany">Jerman</string>
+    <string name="China">China</string>
+    <string name="Asia">Asia</string>
+    <string name="International">Internasional</string>
+    <string name="Europe">Eropa</string>
+    <string name="Americas">Amerika</string>
+    <string name="France">Prancis</string>
 
+    <string-array name="tab_names">
+        <item>Kedudukan Tim</item>
+        <item>Klasse Pemain</item>
+    </string-array>
 
 </resources>

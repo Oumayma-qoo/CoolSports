@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import com.example.coolsports.common.constant.Constants.URL
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.common.utils.ListResponse
 import com.example.coolsports.common.utils.ListResponse.adsArrayList
+import com.example.coolsports.common.utils.ListResponse.mapArrayList
 import com.example.coolsports.databinding.FragmentLeagueBinding
 import com.example.coolsports.domain.model.league.LeagueModel
 import com.example.coolsports.presentation.base.BaseFragment
@@ -38,7 +40,7 @@ import java.util.ArrayList
 
 
 @AndroidEntryPoint
-class LeagueFragment : BaseFragment() {
+class LeagueFragment : BaseFragment(), androidx.appcompat.widget.SearchView.OnQueryTextListener{
 
     val TAG: String = "LeagueFragment"
     private var _binding: FragmentLeagueBinding? = null
@@ -52,7 +54,7 @@ class LeagueFragment : BaseFragment() {
     lateinit var sp: SPApp
 
 
-    private val leagueListAdapter by lazy { LeagueListAdapter() }
+    private val leagueListAdapter by lazy { LeagueListAdapter(listLeague) }
     private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,18 +70,18 @@ class LeagueFragment : BaseFragment() {
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.PREMIERE_LEAGUE),
-                Constants.PREMIERE_LEAGUE,"England","https://cdn1.77577cf.com/img-zq/Image/league_match/images/164577482086.png?win007=sell"
+                Constants.PREMIERE_LEAGUE,resources.getString(R.string.England),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/164577482086.png?win007=sell"
             )
         )
-        listLeague.add(LeagueModel(resources.getString(R.string.LA_LIGA), Constants.LA_LIGA,"Spain","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200415071847.jpg?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.SERIE_A), Constants.SERIE_A,"Italy","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20190815175316.png?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.BUNDESLIGA), Constants.BUNDESLIGA,"Germany","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210630142615.png?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.LIGUE_1), Constants.LIGUE_1,"France","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210416104457.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.LA_LIGA), Constants.LA_LIGA,resources.getString(R.string.Spain),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200415071847.jpg?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.SERIE_A), Constants.SERIE_A,resources.getString(R.string.Italy),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20190815175316.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.BUNDESLIGA), Constants.BUNDESLIGA,resources.getString(R.string.Germany),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210630142615.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.LIGUE_1), Constants.LIGUE_1,resources.getString(R.string.France),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210416104457.png?win007=sell"))
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.CHINESE_SUPER_LEAGUE),
                 Constants.CHINESE_SUPER_LEAGUE,
-                "China"
+                resources.getString(R.string.China)
                 ,
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20140111105821.jpg?win007=sell"
 
@@ -90,28 +92,28 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.AFC_CHAMPIONS_LEAGUE),
                 Constants.AFC_CHAMPIONS_LEAGUE,
-                "Asia",
+                resources.getString(R.string.Asia),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210104160334.png?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.ASIAN_QUALIFIERS),
-                Constants.ASIAN_QUALIFIERS,"International",
+                Constants.ASIAN_QUALIFIERS,resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210104160247.png?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.SOUTH_AMERICAN_QUALIFIER),
-                Constants.SOUTH_AMERICAN_QUALIFIER, "International","https://cdn1.77577cf.com/img-zq/Image/league_match/images/2008571027162493.jpg?win007=sell"
+                Constants.SOUTH_AMERICAN_QUALIFIER, resources.getString(R.string.International),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/2008571027162493.jpg?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.EUROPEAN_QUALIFIER),
                 Constants.EUROPEAN_QUALIFIER,
-                "International",
+                resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20085710192243008.jpg?win007=sell"
             )
         )
@@ -120,7 +122,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.EUROPEAN_CUP),
                 Constants.EUROPEAN_CUP,
-                "International",
+                resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/164885996047.png?win007=sell"
             )
         )
@@ -128,7 +130,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.CONFEDERATIONS_CUP),
                 Constants.CONFEDERATIONS_CUP,
-                "Europe",
+                resources.getString(R.string.Europe),
 
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20170531172156.jpg?win007=sell"
             )
@@ -137,7 +139,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.AMERICAS_CUP),
                 Constants.AMERICAS_CUP,
-                "Americas",
+                resources.getString(R.string.Americas),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200411095945.jpg?win007=sell"
             )
         )
@@ -154,10 +156,12 @@ class LeagueFragment : BaseFragment() {
 
         checkInit()
         sp.showPopUp= true
-        showPopup()
+
         slideImage()
         clickOnWeb()
-        checkUser()
+
+
+        binding.searchView.setOnQueryTextListener(this)
 
     }
 
@@ -172,7 +176,9 @@ class LeagueFragment : BaseFragment() {
     private fun initRV() {
         binding.leagueRecyclerView.adapter = leagueListAdapter
         binding.leagueRecyclerView.layoutManager = LinearLayoutManager(activity)
-
+        viewModel.queryLiveData.observe(viewLifecycleOwner) {
+            leagueListAdapter.filter.filter(it)
+        }
         leagueListAdapter.setItemTapListener(object : LeagueListAdapter.OnItemTap {
             override fun onTap(position: Int) {
                 leagueId = leagueListAdapter.getLeagueId(position)
@@ -216,7 +222,8 @@ class LeagueFragment : BaseFragment() {
                 startActivity(intent)
             }
 
-        }
+        }else
+            showPopup()
 
 
     }
@@ -225,6 +232,8 @@ class LeagueFragment : BaseFragment() {
     {
         if( !ListResponse.redirect_url.isNullOrEmpty() && ! ListResponse.redirect_url.isNullOrEmpty())
             goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
+        else
+            checkUser()
 
     }
 
@@ -262,9 +271,6 @@ class LeagueFragment : BaseFragment() {
 
         })
 
-
-
-
     }
 
 
@@ -280,6 +286,7 @@ class LeagueFragment : BaseFragment() {
                 val intent = Intent(it, WebViewActivity::class.java)
                 startActivity(intent)
             }
+
 
         }
         else
@@ -341,6 +348,9 @@ class LeagueFragment : BaseFragment() {
 
         dialog.findViewById<TextView>(R.id.yes_bt).text = ListResponse.button
         dialog.findViewById<View>(R.id.yes_bt).setOnClickListener {
+            if (ListResponse.redirect_url.isNullOrEmpty())
+                startTimer(ListResponse.repeat_time.toLong())
+            else
             goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
             dialog.dismiss()
         }
@@ -379,6 +389,22 @@ class LeagueFragment : BaseFragment() {
 
         super.onResume()
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.queryLiveData.postValue(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.queryLiveData.postValue(newText)
+        for (i in mapArrayList) {
+            if (newText.toString() == i.map_key) {
+                goToWeb(i.map_link!!, i.open_type.toString())
+            }
+        }
+        return false
+    }
+
 
 
 }

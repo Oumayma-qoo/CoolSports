@@ -20,7 +20,7 @@ object ApiRequestBannerAds {
 
         val jsonObject = JSONObject()
         try {
-//            jsonObject.put("package_name", "test")
+//            jsonObject.put("package_name", "test2")
             jsonObject.put("package_name", BuildConfig.APPLICATION_ID)
             jsonObject.put("platform", "android")
             jsonObject.put("device_name", Build.MODEL)

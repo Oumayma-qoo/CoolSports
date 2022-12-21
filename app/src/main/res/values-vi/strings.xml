@@ -54,7 +54,7 @@
     <string name="goals">Bàn thắng</string>
     <string name="home">Nhà</string>
     <string name="away">Đi</string>
-
+    <string name="exit_app_text">Bạn có chắc chắn muốn thoát khỏi ứng dụng không? </string>
     <string name="no_connection_exception">Không có ngoại lệ kết nối</string>
     <string name="no_internet_exception">Không có ngoại lệ Internet</string>
 
@@ -73,5 +73,19 @@
     <string name="CONFEDERATIONS_CUP">Cúp Liên đoàn</string>
     <string name="AMERICAS_CUP">Cúp Châu Mỹ</string>
 
+    <string name="Spain">Tây Ban Nha</string>
+    <string name="England">Anh</string>
+    <string name="Italy">Ý</string>
+    <string name="Germany">Đức</string>
+    <string name="China">Trung Quốc</string>
+    <string name="Asia">Châu Á</string>
+    <string name="International">Quốc tế</string>
+    <string name="Europe">Châu Âu</string>
+    <string name="Americas">Châu Mỹ</string>
+    <string name="France">Pháp</string>
+    <string-array name="tab_names">
+        <item>Bảng xếp hạng của đội</item>
+        <item>Bảng xếp hạng người chơi</item>
+    </string-array>
 
 </resources>

@@ -133,13 +133,48 @@ class LeagueDetailsFragment : BaseFragment() {
                 binding.websiteValue.text = it.website
                 binding.areaValue.text = it.areaEn
                 loadImage(binding.teamImg, it.logo)
-                if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
-                    binding.teamName.text = it.nameCn
-                    binding.fullNameValue.text = it.nameCn
-                    binding.coachValue.text = it.coachCn
-                    binding.areaValue.text = it.areaCn
+                when (sp.language) {
+                    Constants.SharedPreferenceKeys.CHINESE -> {
+                        binding.teamName.text = it.nameCn
+                        binding.fullNameValue.text = it.nameCn
+                        binding.coachValue.text = it.coachCn
+                        binding.areaValue.text = it.areaCn
+
+                    }
+                    Constants.SharedPreferenceKeys.VIETNAMESE -> {
+                        binding.teamName.text = it.nameVi
+                        binding.fullNameValue.text = it.nameVi
+                        binding.coachValue.text = it.coachVi
+                        binding.areaValue.text = it.areaVi
+
+                    }
+                    Constants.SharedPreferenceKeys.INDONESIAN -> {
+                        binding.teamName.text = it.nameId
+                        binding.fullNameValue.text = it.nameId
+                        binding.coachValue.text = it.coachId
+                        binding.areaValue.text = it.areaId
+
+                    }
+                    Constants.SharedPreferenceKeys.TAI -> {
+                        binding.teamName.text = it.nameTh
+                        binding.fullNameValue.text = it.nameTh
+                        binding.coachValue.text = it.coachTh
+                        binding.areaValue.text = it.areaTh
+
+                    }
+                    Constants.SharedPreferenceKeys.ENGLISH -> {
+                        binding.teamName.text = it.nameEn
+                        binding.fullNameValue.text = it.nameEn
+                        binding.coachValue.text = it.coachEn
+                        binding.areaValue.text = it.areaEn
+
+                    }
+                    else -> binding.teamName.text = it.nameEn
 
                 }
+
+
+
 
             } else {
                 for (team in teamInfo) {
@@ -151,13 +186,46 @@ class LeagueDetailsFragment : BaseFragment() {
                     binding.websiteValue.text = team.website
                     binding.areaValue.text = team.areaEn
                     loadImage(binding.teamImg, team.logo)
-                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
-                        binding.teamName.text = team.nameCn
-                        binding.fullNameValue.text = team.nameCn
-                        binding.coachValue.text = team.coachCn
-                        binding.areaValue.text = team.areaCn
+                    when (sp.language) {
+                        Constants.SharedPreferenceKeys.CHINESE -> {
+                            binding.teamName.text = team.nameCn
+                            binding.fullNameValue.text = team.nameCn
+                            binding.coachValue.text = team.coachCn
+                            binding.areaValue.text = team.areaCn
+
+                        }
+                        Constants.SharedPreferenceKeys.VIETNAMESE -> {
+                            binding.teamName.text = team.nameVi
+                            binding.fullNameValue.text = team.nameVi
+                            binding.coachValue.text = team.coachVi
+                            binding.areaValue.text = team.areaVi
+
+                        }
+                        Constants.SharedPreferenceKeys.INDONESIAN -> {
+                            binding.teamName.text = team.nameId
+                            binding.fullNameValue.text = team.nameId
+                            binding.coachValue.text = team.coachId
+                            binding.areaValue.text = team.areaId
+
+                        }
+                        Constants.SharedPreferenceKeys.TAI -> {
+                            binding.teamName.text = team.nameTh
+                            binding.fullNameValue.text = team.nameTh
+                            binding.coachValue.text = team.coachTh
+                            binding.areaValue.text = team.areaTh
+
+                        }
+                        Constants.SharedPreferenceKeys.ENGLISH -> {
+                            binding.teamName.text = team.nameEn
+                            binding.fullNameValue.text = team.nameEn
+                            binding.coachValue.text = team.coachEn
+                            binding.areaValue.text = team.areaEn
+
+                        }
+                        else -> binding.teamName.text = team.nameEn
 
                     }
+
                 }
 
 
@@ -175,8 +243,10 @@ class LeagueDetailsFragment : BaseFragment() {
             if (it != null) {
                 binding.playerTitle.text = it.nameEn
                 binding.playerValue.text = it.value
-                if (sp.language == Constants.SharedPreferenceKeys.CHINESE)
-                    binding.playerTitle.text = it.nameCn
+                when (sp.language) {
+                    Constants.SharedPreferenceKeys.ENGLISH -> binding.playerTitle.text = it.nameEn
+                    Constants.SharedPreferenceKeys.CHINESE -> binding.playerTitle.text = it.nameCn
+                }
 
             } else
                 for (player in playerInfo) {
@@ -189,8 +259,10 @@ class LeagueDetailsFragment : BaseFragment() {
             }
             binding.playerTitle.text = player!!.nameEn
             binding.playerValue.text = player.value
-            if (sp.language == Constants.SharedPreferenceKeys.CHINESE)
-                binding.playerTitle.text = player.nameCn
+                    when (sp.language) {
+                        Constants.SharedPreferenceKeys.ENGLISH -> binding.playerTitle.text = player.nameEn
+                        Constants.SharedPreferenceKeys.CHINESE -> binding.playerTitle.text = player.nameCn
+                    }
         }
         }
         }
@@ -210,10 +282,18 @@ class LeagueDetailsFragment : BaseFragment() {
                     binding.player3Title.text = it[2].playerNameEn
                     binding.player3Value.text = it[2].goals.toString()
 
-                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
-                        binding.player1Title.text = it[0].playerNameChs
-                        binding.player2Title.text = it[1].playerNameChs
-                        binding.player3Title.text = it[2].playerNameChs
+                    when (sp.language) {
+                        Constants.SharedPreferenceKeys.ENGLISH -> {
+                            binding.player1Title.text = it[0].playerNameEn
+                            binding.player2Title.text = it[1].playerNameEn
+                            binding.player3Title.text = it[2].playerNameEn
+                        }
+                        Constants.SharedPreferenceKeys.CHINESE -> {
+                            binding.player1Title.text = it[0].playerNameChs
+                            binding.player2Title.text = it[1].playerNameChs
+                            binding.player3Title.text = it[2].playerNameChs
+                        }
+
                     }
                 }
             }

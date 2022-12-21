@@ -269,7 +269,7 @@
                         <TextView
                             android:id="@+id/team"
                             android:layout_width="0dp"
-                            android:text="Player"
+                            android:text="@string/player"
                             android:textStyle="bold"
                             android:paddingHorizontal="4dp"
                             app:layout_constraintHorizontal_weight="3"
@@ -282,7 +282,7 @@
                         <TextView
                             android:id="@+id/p"
                             android:layout_width="0dp"
-                            android:text="Team"
+                            android:text="@string/team"
                             app:layout_constraintHorizontal_weight="3"
                             android:textStyle="bold"
                             android:gravity="center"
@@ -296,7 +296,7 @@
                         <TextView
                             android:id="@+id/w"
                             android:layout_width="0dp"
-                            android:text="Goals"
+                            android:text="@string/goals"
                             app:layout_constraintHorizontal_weight="1.25"
                             android:gravity="center"
                             android:textColor="@color/black"
@@ -309,7 +309,7 @@
                         <TextView
                             android:id="@+id/d"
                             android:layout_width="0dp"
-                            android:text="Home"
+                            android:text="@string/home"
                             app:layout_constraintHorizontal_weight="1.25"
                             android:gravity="center"
                             android:textColor="@color/black"
@@ -321,7 +321,7 @@
                         <TextView
                             android:id="@+id/l"
                             android:layout_width="0dp"
-                            android:text="Away"
+                            android:text="@string/away"
                             android:gravity="center"
                             app:layout_constraintHorizontal_weight="1"
                             android:textColor="@color/black"

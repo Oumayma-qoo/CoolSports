@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coolsports.R
 import com.example.coolsports.databinding.FragmentTeamStandingsBinding
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
@@ -29,6 +28,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
     var bundle = Bundle()
     var leagueList = listOf<Any>()
     private lateinit var teamStandingAdapter: TeamStandingAdapter
+    private lateinit var teamStandingGroupAdapter: TeamStandingGroupAdapter
     private var mappedData = mutableListOf<TotalStandingWithTeamInfo>()
 
 
@@ -50,6 +50,7 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
         if (leagueStanding[0].totalStandings.isNotEmpty()) {
             binding.teamStandingContainer.visibility = View.VISIBLE
             binding.topThree.visibility = View.VISIBLE
+            binding.teamStandingGroupContainer.visibility = View.GONE
             val totalStanding = leagueStanding[0].totalStandings
             val teamInfo = leagueStanding[0].teamInfo
             mappedData.clear()
@@ -85,15 +86,6 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
                 it.teamId == totalStanding[2].teamId
             }?.nameEn
 
-
-//            binding.teamStandingContainer.setOnClickListener {
-//                val action =
-//                    LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-//                        totalStanding[0].teamId!!
-//
-//                    )
-//                findNavController().navigate(action)
-//            }
 
             binding.firstContainer.setOnClickListener {
                 val action =
@@ -136,28 +128,37 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             },mappedData)
             binding.teamRecyclerView.adapter = teamStandingAdapter
 
+            viewModel.queryLiveData.observe(viewLifecycleOwner) {
+                teamStandingAdapter.filter.filter(it)
+            }
 
         } else if (leagueStanding2[0].list.isNotEmpty()) {
             binding.topThree.visibility = View.GONE
             binding.teamStandingContainer.visibility = View.GONE
             binding.teamStandingGroupContainer.visibility = View.VISIBLE
-            binding.teamRecyclerGroupView.adapter =
-                TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
-                    override fun onClickListener(item: ScoreItem) {
-                        val action =
-                            LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-                                item.teamId.toInt()
-                            )
-                        findNavController().navigate(action)
+
+            teamStandingGroupAdapter =  TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
+                override fun onClickListener(item: ScoreItem) {
+                    val action =
+                        LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
+                            item.teamId.toInt()
+                        )
+                    findNavController().navigate(action)
 
 
                 }
             },leagueStanding2[0].list[0].score[0].groupScore)
+
+            binding.teamRecyclerGroupView.adapter =teamStandingGroupAdapter
+
+
+            viewModel.queryLiveData.observe(viewLifecycleOwner) {
+                teamStandingGroupAdapter.filter.filter(it)
+            }
+
         }
 
-        viewModel.queryLiveData.observe(viewLifecycleOwner) {
-            teamStandingAdapter.filter.filter(it)
-        }
+
     }
 
 

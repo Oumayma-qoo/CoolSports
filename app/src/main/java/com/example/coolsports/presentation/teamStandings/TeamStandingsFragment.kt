@@ -65,14 +65,6 @@ class TeamStandingsFragment(
             }?.nameEn
 
 
-          binding.teamStandingContainer.setOnClickListener {
-                val action =
-                    LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-                        totalStanding[0].teamId!!
-
-                    )
-                findNavController().navigate(action)
-            }
 
       binding.firstContainer.setOnClickListener {
                 val action =
@@ -110,7 +102,6 @@ class TeamStandingsFragment(
             binding.teamRecyclerView.adapter =
                 TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
                     override fun onClickListener(totalStanding: TotalStanding) {
-
                         val action =
                             LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
                                 totalStanding.teamId!!

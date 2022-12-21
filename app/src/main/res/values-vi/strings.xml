@@ -73,5 +73,16 @@
     <string name="CONFEDERATIONS_CUP">Cúp Liên đoàn</string>
     <string name="AMERICAS_CUP">Cúp Châu Mỹ</string>
 
+    <string name="Spain">Tây Ban Nha</string>
+    <string name="England">Anh</string>
+    <string name="Italy">Ý</string>
+    <string name="Germany">Đức</string>
+    <string name="China">Trung Quốc</string>
+    <string name="Asia">Châu Á</string>
+    <string name="International">Quốc tế</string>
+    <string name="Europe">Châu Âu</string>
+    <string name="Americas">Châu Mỹ</string>
+    <string name="France">Pháp</string>
+
 
 </resources>

@@ -68,18 +68,18 @@ class LeagueFragment : BaseFragment() {
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.PREMIERE_LEAGUE),
-                Constants.PREMIERE_LEAGUE,"England","https://cdn1.77577cf.com/img-zq/Image/league_match/images/164577482086.png?win007=sell"
+                Constants.PREMIERE_LEAGUE,resources.getString(R.string.England),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/164577482086.png?win007=sell"
             )
         )
-        listLeague.add(LeagueModel(resources.getString(R.string.LA_LIGA), Constants.LA_LIGA,"Spain","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200415071847.jpg?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.SERIE_A), Constants.SERIE_A,"Italy","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20190815175316.png?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.BUNDESLIGA), Constants.BUNDESLIGA,"Germany","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210630142615.png?win007=sell"))
-        listLeague.add(LeagueModel(resources.getString(R.string.LIGUE_1), Constants.LIGUE_1,"France","https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210416104457.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.LA_LIGA), Constants.LA_LIGA,resources.getString(R.string.Spain),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200415071847.jpg?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.SERIE_A), Constants.SERIE_A,resources.getString(R.string.Italy),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20190815175316.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.BUNDESLIGA), Constants.BUNDESLIGA,resources.getString(R.string.Germany),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210630142615.png?win007=sell"))
+        listLeague.add(LeagueModel(resources.getString(R.string.LIGUE_1), Constants.LIGUE_1,resources.getString(R.string.France),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210416104457.png?win007=sell"))
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.CHINESE_SUPER_LEAGUE),
                 Constants.CHINESE_SUPER_LEAGUE,
-                "China"
+                resources.getString(R.string.China)
                 ,
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20140111105821.jpg?win007=sell"
 
@@ -90,28 +90,28 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.AFC_CHAMPIONS_LEAGUE),
                 Constants.AFC_CHAMPIONS_LEAGUE,
-                "Asia",
+                resources.getString(R.string.Asia),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210104160334.png?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.ASIAN_QUALIFIERS),
-                Constants.ASIAN_QUALIFIERS,"International",
+                Constants.ASIAN_QUALIFIERS,resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20210104160247.png?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.SOUTH_AMERICAN_QUALIFIER),
-                Constants.SOUTH_AMERICAN_QUALIFIER, "International","https://cdn1.77577cf.com/img-zq/Image/league_match/images/2008571027162493.jpg?win007=sell"
+                Constants.SOUTH_AMERICAN_QUALIFIER, resources.getString(R.string.International),"https://cdn1.77577cf.com/img-zq/Image/league_match/images/2008571027162493.jpg?win007=sell"
             )
         )
         listLeague.add(
             LeagueModel(
                 resources.getString(R.string.EUROPEAN_QUALIFIER),
                 Constants.EUROPEAN_QUALIFIER,
-                "International",
+                resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20085710192243008.jpg?win007=sell"
             )
         )
@@ -120,7 +120,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.EUROPEAN_CUP),
                 Constants.EUROPEAN_CUP,
-                "International",
+                resources.getString(R.string.International),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/164885996047.png?win007=sell"
             )
         )
@@ -128,7 +128,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.CONFEDERATIONS_CUP),
                 Constants.CONFEDERATIONS_CUP,
-                "Europe",
+                resources.getString(R.string.Europe),
 
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20170531172156.jpg?win007=sell"
             )
@@ -137,7 +137,7 @@ class LeagueFragment : BaseFragment() {
             LeagueModel(
                 resources.getString(R.string.AMERICAS_CUP),
                 Constants.AMERICAS_CUP,
-                "Americas",
+                resources.getString(R.string.Americas),
                 "https://cdn1.77577cf.com/img-zq/Image/league_match/images/20200411095945.jpg?win007=sell"
             )
         )

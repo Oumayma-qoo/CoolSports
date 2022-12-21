@@ -74,6 +74,15 @@
     <string name="CONFEDERATIONS_CUP">Piala Konfederasi</string>
     <string name="AMERICAS_CUP">Piala Amerika</string>
 
-
+    <string name="Spain">Spanyol</string>
+    <string name="England">Inggris</string>
+    <string name="Italy">Italia</string>
+    <string name="Germany">Jerman</string>
+    <string name="China">China</string>
+    <string name="Asia">Asia</string>
+    <string name="International">Internasional</string>
+    <string name="Europe">Eropa</string>
+    <string name="Americas">Amerika</string>
+    <string name="France">Prancis</string>
 
 </resources>

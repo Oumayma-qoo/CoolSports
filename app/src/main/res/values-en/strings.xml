@@ -8,7 +8,7 @@
     <string name="PREMIERE_LEAGUE">English Premier League</string>
     <string name="LA_LIGA">La Liga</string>
     <string name="SERIE_A">Serie A</string>
-    <string name="BUNDESLIGA">Serie A</string>
+    <string name="BUNDESLIGA">Bundesliga</string>
     <string name="LIGUE_1">Ligue 1</string>
     <string name="CHINESE_SUPER_LEAGUE">Chinese Super League</string>
     <string name="AFC_CHAMPIONS_LEAGUE">AFC Champions League</string>
@@ -66,5 +66,17 @@
     <string name="goals">Goals</string>
     <string name="home">Home</string>
     <string name="away">Away</string>
+
+
+    <string name="Spain">Spain</string>
+    <string name="England">England</string>
+    <string name="Italy">Italy</string>
+    <string name="Germany">Germany</string>
+    <string name="China">China</string>
+    <string name="Asia">Asia</string>
+    <string name="International">International</string>
+    <string name="Europe">Europe</string>
+    <string name="Americas">Americas</string>
+    <string name="France">France</string>
 
 </resources>

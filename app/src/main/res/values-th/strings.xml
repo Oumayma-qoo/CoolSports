@@ -73,4 +73,15 @@
     <string name="CONFEDERATIONS_CUP">คอนเฟดเดอเรชันส์คัพ</string>
     <string name="AMERICAS_CUP">อเมริกาคัพ</string>
 
+    <string name="Spain">สเปน</string>
+    <string name="England">อังกฤษ</string>
+    <string name="Italy">อิตาลี</string>
+    <string name="Germany">เยอรมัน</string>
+    <string name="China">จีน</string>
+    <string name="Asia">เอเชีย</string>
+    <string name="International">นานาชาติ</string>
+    <string name="Europe">ยุโรป</string>
+    <string name="Americas">อเมริกา</string>
+    <string name="France">ฝรั่งเศส</string>
+
 </resources>

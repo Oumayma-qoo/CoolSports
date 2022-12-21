@@ -73,20 +73,25 @@ class Repository @Inject constructor(
 
     fun getTeamInfoFromLocalDB(teamId: Int) = liveData {
         emit(daoTeamInfo.getTeamInfoById(teamId))
-
     }
 
-    fun getPlayerInfoFromLocalBD(playerId: Int) = liveData {
-        emit(daoPlayerInfo.getPlayerInfoById(playerId))
+    fun getPlayerInfoFromLocalBD(playerId: Int, teamId:Int) = liveData {
+        emit(daoPlayerInfo.getPlayerInfoById(playerId, teamId))
     }
 
-    fun getMVPFromLocalDB() = liveData {
-        emit(daoPlayerInfo.getMVP())
+    fun getPhotoByPlayerId(playerId: Int) = liveData {
+        emit(daoPlayerInfo.getPhotoByPlayerId(playerId))
+    }
+
+    fun getMVPFromLocalDB(teamId:Int) = liveData {
+        emit(daoPlayerInfo.getMVP(teamId))
     }
 
 
     fun getPlayerListOrderByGoals(teamId: Int) = liveData {
         emit(daoPlayer.getPlayerListOrderByGoals(teamId))
     }
+
+
 
 }

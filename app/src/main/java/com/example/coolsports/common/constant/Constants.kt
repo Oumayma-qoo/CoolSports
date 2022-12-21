@@ -26,6 +26,7 @@ object Constants {
     const val CHINESE_SUPER_LEAGUE=60
     const val AFC_CHAMPIONS_LEAGUE=192
     const val ASIAN_QUALIFIERS=648
+
     const val SOUTH_AMERICAN_QUALIFIER=652
     const val EUROPEAN_QUALIFIER=650
     const val WORLD_CUP=75
@@ -47,6 +48,7 @@ object Constants {
         const val CHINESE = "cn"
         const val INDONESIAN = "id"
         const val VIETNAMESE = "vi"
+        const val TAI = "th"
         const val INIT = "init"
         const val URL_INIT = "url_init"
         const val OPEN_TYPE_INIT = "open_type_init"

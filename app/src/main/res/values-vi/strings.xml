@@ -25,4 +25,53 @@
 
     <string name="languages">Ngôn ngữ</string>
 
+    <string name="leagues">Giải đấu</string>
+    <string name="team_info">Thông tin đội</string>
+    <string name="full_name">Họ và tên:</string>
+    <string name="founding_name">Ngày thành lập:</string>
+    <string name="coach">Huấn luyện viên:</string>
+    <string name="area">Diện tích:</string>
+    <string name="capacity">Dung lượng:</string>
+    <string name="website">Trang web:</string>
+    <string name="top_scorers">Người ghi bàn hàng đầu</string>
+    <string name="mvp">Người chơi giá trị nhất</string>
+    <string name="league_info">Thông tin giải đấu</string>
+    <string name="short_name">Tên viết tắt:</string>
+    <string name="type">Loại:</string>
+    <string name="country">Quốc gia:</string>
+    <string name="current_season">Mùa hiện tại:</string>
+    <string name="team_standing">Bảng xếp hạng của đội</string>
+    <string name="player_standing">Bảng xếp hạng người chơi</string>
+    <string name="player_info">Thông tin người chơi</string>
+    <string name="birthday">Sinh nhật:</string>
+    <string name="height">Chiều cao:</string>
+    <string name="weight">Cân nặng:</string>
+    <string name="position">Chức vụ:</string>
+    <string name="number">Số:</string>
+    <string name="contrat_ending">Kết thúc hợp đồng:</string>
+    <string name="player">Người chơi</string>
+    <string name="team">Đội</string>
+    <string name="goals">Bàn thắng</string>
+    <string name="home">Nhà</string>
+    <string name="away">Đi</string>
+
+    <string name="no_connection_exception">Không có ngoại lệ kết nối</string>
+    <string name="no_internet_exception">Không có ngoại lệ Internet</string>
+
+    <string name="PREMIERE_LEAGUE">Giải Ngoại hạng Anh</string>
+    <string name="LA_LIGA">La Liga</string>
+    <string name="SERIE_A">Serie A</string>
+    <string name="BUNDESLIGA">Serie A</string>
+    <string name="LIGUE_1">Giải 1</string>
+    <string name="CHINESE_SUPER_LEAGUE">Giải VĐQG Trung Quốc</string>
+    <string name="AFC_CHAMPIONS_LEAGUE">Giải bóng đá vô địch châu Á</string>
+    <string name="ASIAN_QUALIFIERS">Vòng loại Châu Á</string>
+    <string name="SOUTH_AMERICAN_QUALIFIER">Vòng loại Nam Mỹ</string>
+    <string name="EUROPEAN_QUALIFIER">Vòng loại Châu Âu</string>
+    <string name="WORLD_CUP">Cúp bóng đá thế giới</string>
+    <string name="EUROPEAN_CUP">Cúp Châu Âu</string>
+    <string name="CONFEDERATIONS_CUP">Cúp Liên đoàn</string>
+    <string name="AMERICAS_CUP">Cúp Châu Mỹ</string>
+
+
 </resources>

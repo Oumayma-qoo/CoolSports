@@ -13,6 +13,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.coolsports.R
@@ -39,9 +40,7 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
     private lateinit var navController: NavController
     private val viewModel by viewModels<LeagueViewModel>()
     var leagueInfoList = ArrayList<LeagueData01>()
-    var listLeague = mutableListOf<LeagueModel>()
     var list = mutableListOf<LeagueModel>()
-    var listRules = ArrayList<LeagueData04>()
     var leagueStandingGroup = ArrayList<LeagueStandingsGroupBase>()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     var leagueRules = ArrayList<LeagueData04>()
@@ -63,14 +62,27 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         binding.searchView.setOnQueryTextListener(this)
 
         leagueId = arguments!!.getInt("leagueId")
-        Log.d(TAG, leagueId.toString())
 
+        lifecycleScope.launch {
+            viewModel.getPlayerStanding(leagueId, "0")
 
+        }
 
         lifecycleScope.launch {
             viewModel.getLeagueInfo(leagueId, " ", 0)
 
         }
+       lifecycleScope.launch {
+            viewModel.getTeamInfo(leagueId)
+
+        }
+
+        binding.screenTitle.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)
+                navController.navigate(
+                    R.id.action_leagueInfoFragment_to_leagueDetailFragment)}
+
+        goToSettings()
     }
 
 
@@ -101,13 +113,11 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         leagueInfoList.addAll(response.leagueData01)
         leagueRules.addAll(response.leagueData04)
 
-        Log.d(TAG, "leagueStanding====== ${response.leagueStanding}")
 
         if (leagueInfoList.isNotEmpty()) {
             val leagueInfo = leagueInfoList.find {
                 it.leagueId == leagueId
             }
-
             binding.screenTitle.text = leagueInfo?.nameEn
             binding.fullNameValue.text = leagueInfo?.nameEn
             binding.shortNameValue.text = leagueInfo?.nameEnShort
@@ -194,6 +204,13 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         return false
     }
 
+    private fun goToSettings(){
+        binding.settingsIcon.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.LeagueFragmentInfo)
+                navController.navigate(
+                    R.id.action_LeagueInfoFragment_to_navigation_settings)
+        }
+    }
 
 }
 

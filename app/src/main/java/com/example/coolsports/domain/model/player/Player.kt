@@ -1,8 +1,11 @@
 package com.example.coolsports.domain.model.player
 
+import android.os.Parcelable
 import com.example.coolsports.domain.mapper.NetworkModel
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Player (
     @SerializedName("playerId")
     var playerId: Int? = null,
@@ -35,4 +38,4 @@ data class Player (
     @SerializedName("awayPenalty")
     var awayPenalty: Int? = null,
 
-) : NetworkModel
+) : NetworkModel,Parcelable

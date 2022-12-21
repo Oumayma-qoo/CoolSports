@@ -1,39 +1,40 @@
 package com.example.coolsports.presentation.league
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.coolsports.R
 import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.constant.Constants.URL
 import com.example.coolsports.common.sharedPreference.SPApp
+import com.example.coolsports.common.utils.ListResponse
+import com.example.coolsports.common.utils.ListResponse.adsArrayList
 import com.example.coolsports.databinding.FragmentLeagueBinding
-import com.example.coolsports.domain.model.league.BaseLeagueInfo
-import com.example.coolsports.domain.model.league.LeagueData01
-import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.league.LeagueModel
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.GroupList
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
-import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.presentation.base.BaseFragment
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.example.coolsports.presentation.webView.WebViewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
+import java.util.ArrayList
 
 
 @AndroidEntryPoint
@@ -48,10 +49,11 @@ class LeagueFragment : BaseFragment() {
     var listLeague = mutableListOf<LeagueModel>()
 
     var leagueId: Int = 0
+    lateinit var sp: SPApp
 
 
     private val leagueListAdapter by lazy { LeagueListAdapter() }
-
+    private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -147,7 +149,24 @@ class LeagueFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = view.findNavController()
         initRV()
+        goToSettings()
+        sp= SPApp(context!!)
 
+        checkInit()
+        sp.showPopUp= true
+        showPopup()
+        slideImage()
+        clickOnWeb()
+        checkUser()
+
+    }
+
+    private fun goToSettings(){
+        binding.settingsIcon.setOnClickListener {
+            if (findNavController().currentDestination?.id == R.id.LeagueFragment)
+                navController.navigate(
+                    R.id.action_LeagueFragment_to_navigation_settings)
+        }
     }
 
     private fun initRV() {
@@ -166,6 +185,202 @@ class LeagueFragment : BaseFragment() {
             }
         })
     }
+
+    // click on web icon
+    fun clickOnWeb(){
+        val sp=SPApp(requireContext())
+        binding.ivWebHOme.setOnClickListener {
+            if (sp.WEB_OPENED) {
+                val url = sp.URL
+                if (sp.WEB_OPTION)
+                    goToWeb(url, "0")
+                else
+                    goToWeb(url, "1")
+            }
+        }
+    }
+
+    // if user was on web page
+    fun checkUser(){
+        val url= sp.URL
+        bundle.putString(URL, url)
+
+        Log.d("url1===========", sp.URL)
+
+
+        if (sp.web_was_opened) {
+
+            stopTimer()
+            activity.let {
+                val intent = Intent(it, WebViewActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+
+
+    }
+
+    private fun checkInit()
+    {
+        if( !ListResponse.redirect_url.isNullOrEmpty() && ! ListResponse.redirect_url.isNullOrEmpty())
+            goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
+
+    }
+
+
+
+
+
+    // slider
+    fun slideImage()
+    {
+
+        val imageList = ArrayList<SlideModel>()
+        for (banner in adsArrayList) {
+            imageList.add(SlideModel(banner.image_path, ScaleTypes.CENTER_CROP))
+        }
+
+        if (imageList.isNotEmpty()) {
+            binding.imageSlider.startSliding(4000)
+            binding.imageSlider.visibility = View.VISIBLE
+            binding.imageSlider.setImageList(imageList)
+        } else
+            binding.imageSlider.visibility = View.GONE
+
+
+        binding.imageSlider.setItemClickListener(object : ItemClickListener {
+
+
+            override fun onItemSelected(position: Int) {
+                    goToWeb(
+                        adsArrayList[position].redirect_url!!,
+                        adsArrayList[position].open_type!!
+                    )
+
+            }
+
+        })
+
+
+
+
+    }
+
+
+
+    private fun goToWeb(redirectUrl: String, openType: String) {
+        stopTimer()
+        sp.WEB_OPENED=true
+        sp.URL= redirectUrl
+
+        if (openType == "0") { // open web view
+            sp.WEB_OPTION=true
+            activity.let {
+                val intent = Intent(it, WebViewActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+        else
+        {
+            // open browser
+            sp.WEB_OPTION=false
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                    redirectUrl
+                )
+            )
+            startActivity(browserIntent)
+        }
+    }
+    private fun startTimer(time: Long) {
+
+        if (this::timer.isInitialized)
+            timer.cancel()
+
+        timer = object : CountDownTimer(time * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                Log.d("QOO", ".....tick tick timer is running....")
+            }
+
+            override fun onFinish() {
+                if (ListResponse.repeat_status == 1)
+                    showPopup()
+            }
+        }
+        timer.start()
+    }
+
+
+
+    private fun showPopup() {
+
+        if (ListResponse.prompt_title != null && sp.showPopUp)
+            if (ListResponse.prompt_title!!.isNotEmpty()) {
+                messageDialog(requireActivity())
+            }
+        hideLoading()
+
+
+    }
+    private fun messageDialog(activity: Activity) {
+        val dialog = Dialog(activity, android.R.style.ThemeOverlay)
+        dialog.setContentView(R.layout.settings_popup)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialog.findViewById<TextView>(R.id.heading_text).text = ListResponse.prompt_title
+        dialog.findViewById<TextView>(R.id.body_text).text = ListResponse.prompt_message
+
+        dialog.findViewById<ImageView>(R.id.ivClosePopup).setOnClickListener {
+            if (ListResponse.repeat_status == 1)
+                startTimer(ListResponse.repeat_time.toLong())
+            dialog.dismiss()
+        }
+
+        dialog.findViewById<TextView>(R.id.yes_bt).text = ListResponse.button
+        dialog.findViewById<View>(R.id.yes_bt).setOnClickListener {
+            goToWeb(ListResponse.redirect_url!!, ListResponse.open_type!!)
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+
+
+    private fun stopTimer() {
+        if (this::timer.isInitialized)
+            timer.cancel()
+        sp.Timer= true
+
+
+    }
+
+    override fun onResume() {
+        // check if web view or web browser is opened
+        if (sp.WEB_OPENED) {
+            binding.ivWebHOme.visibility = View.VISIBLE
+        }
+        else
+            binding.ivWebHOme.visibility = View.GONE
+
+        // check if timer was stop
+        if (sp.Timer) {
+            if (this::timer.isInitialized)
+                timer.cancel() // if there is already timer running
+            // if webPage was ON don't start timer
+            if (!sp.web_was_opened) {
+                if (ListResponse.repeat_time != 0)
+                    startTimer(ListResponse.repeat_time.toLong())
+                sp.Timer=false
+            }
+        }
+
+        super.onResume()
+    }
+
+
 }
 
 

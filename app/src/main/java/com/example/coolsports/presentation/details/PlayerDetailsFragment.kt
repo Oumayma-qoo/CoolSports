@@ -1,19 +1,39 @@
 package com.example.coolsports.presentation.details
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.coolsports.R
-import com.example.coolsports.databinding.FragmentLeagueDetailsBinding
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import com.example.coolsports.common.constant.Constants
+import com.example.coolsports.common.sharedPreference.SPApp
+import com.example.coolsports.common.utils.CustomBindingAdapters
 import com.example.coolsports.databinding.FragmentPlayerDetailsBinding
+import com.example.coolsports.domain.model.team.BaseTeam
+import com.example.coolsports.domain.model.team.TeamPlayer
+import com.example.coolsports.presentation.base.BaseFragment
+import com.example.coolsports.presentation.teamStandings.TeamInfoScreenStanding
+import com.example.coolsports.presentation.teamStandings.TeamStandingsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
-class PlayerDetailsFragment : Fragment() {
+@AndroidEntryPoint
+class PlayerDetailsFragment : BaseFragment() {
+    private val TAG = "PlayerDetailsFragment"
 
     private var _binding: FragmentPlayerDetailsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<TeamStandingsViewModel>()
+    private lateinit var sp: SPApp
+    private val args: PlayerDetailsFragmentArgs by navArgs()
+    private val playerInfoList = ArrayList<TeamPlayer>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +41,120 @@ class PlayerDetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentPlayerDetailsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sp = SPApp(requireContext())
+        initObserver()
+
+        lifecycleScope.launch {
+            viewModel.getTeamInfo(args.teamId)
+
+        }
+    }
+
+
+    private fun initObserver() {
+        viewModel.mState.flowWithLifecycle(
+            this.lifecycle, Lifecycle.State.STARTED
+
+        ).onEach {
+            handleState(it)
+        }.launchIn(this.lifecycleScope)
+    }
+
+    private fun handleState(state: TeamInfoScreenStanding) {
+        when (state) {
+            is TeamInfoScreenStanding.IsLoading -> handleIsLoadingState(state.isLoading)
+            is TeamInfoScreenStanding.Response -> handleTeamInfoResponse(state.teamInfo)
+            is TeamInfoScreenStanding.NoInternetException -> handleNetworkFailure(state.message)
+            is TeamInfoScreenStanding.GeneralException -> handleException(state.message)
+            is TeamInfoScreenStanding.StatusFailed -> handleFailure(state.message)
+            else -> {
+                Log.d(TAG, " no state run ")
+            }
+        }
+    }
+
+    private fun handleTeamInfoResponse(response: BaseTeam) {
+        playerInfoList.addAll(response.teamPlayerData)
+        setPlayerInfo(playerId = args.playerId, args.teamId,playerInfoList)
+
+    }
+
+
+    private fun setPlayerInfo(playerId: Int, teamId: Int,playerInfo: ArrayList<TeamPlayer>) {
+        viewModel.getPlayerInfoFromLocalDB(playerId, teamId)
+        viewModel._playerInfo.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.teamName.text = it.nameEn
+                binding.fullNameValue.text = it.nameEn
+                binding.countryValue.text = it.countryEn
+                binding.birthdayValue.text = it.birthday
+                binding.heightValue.text = it.height
+                binding.weightValue.text = it.weight
+                binding.positionValue.text = it.positionEn
+                binding.numberValue.text = it.number
+                binding.contractEndingValue.text = it.endDateContract
+                CustomBindingAdapters.loadImage(binding.playerImg, it.photo)
+                if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                    binding.teamName.text = it.nameCn
+                    binding.fullNameValue.text = it.nameCn
+                    binding.countryValue.text = it.countryCn
+                    binding.positionValue.text = it.positionCn
+                }
+            }
+                for (player in playerInfo) {
+                    if(player.playerId== playerId)
+                    {
+                    binding.teamName.text = player.nameEn
+                    binding.fullNameValue.text = player.nameEn
+                    binding.countryValue.text = player.countryEn
+                    binding.birthdayValue.text = player.birthday
+                    binding.heightValue.text = player.height
+                    binding.weightValue.text = player.weight
+                    binding.positionValue.text = player.positionEn
+                    binding.numberValue.text = player.number
+                    binding.contractEndingValue.text = player.endDateContract
+                    CustomBindingAdapters.loadImage(binding.playerImg, player.photo)
+                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                        binding.teamName.text = player.nameCn
+                        binding.fullNameValue.text = player.nameCn
+                        binding.countryValue.text = player.countryCn
+                        binding.positionValue.text = player.positionCn
+
+                    }
+                    }
+                }
+
+
+        }
+
+    }
+
+    private fun handleIsLoadingState(loading: Boolean) {
+        if (loading) {
+            showLoading()
+        } else {
+            hideLoading()
+        }
+    }
+
+    private fun handleFailure(message: String) {
+        showToast(message)
+        hideLoading()
+    }
+
+
+    private fun handleNetworkFailure(message: String) {
+        showToast(message)
+        hideLoading()
+    }
+
+    private fun handleException(message: String) {
+        showToast(message)
+        hideLoading()
     }
 
 }

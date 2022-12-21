@@ -21,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+
     <ImageView
         android:id="@+id/settings_icon"
         android:layout_width="wrap_content"
@@ -32,6 +33,33 @@
         android:src="@drawable/ic_settings"
         android:layout_height="wrap_content"
         />
+    <ImageView
+        android:id="@+id/ivWebHOme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/ic_web"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/imageSlider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120sdp"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:iss_auto_cycle="true"
+        app:iss_corner_radius="12"
+        app:iss_delay="0"
+        app:iss_period="1000"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:iss_selected_dot="@drawable/default_selected_dot"
+        app:iss_unselected_dot="@drawable/default_unselected_dot"
+        app:layout_constraintDimensionRatio="24:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screen_title" />
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
@@ -42,14 +70,14 @@
         android:layout_marginTop="20dp"
         app:theme="@style/SearchViewStyle"
         app:searchIcon="@drawable/ic_search"
-        app:layout_constraintTop_toBottomOf="@id/screen_title"
+        app:layout_constraintTop_toBottomOf="@id/imageSlider"
         android:background="@drawable/resolution_blue_rounded_bkg"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/league_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Leagues"
+        android:text="@string/leagues"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_margin="10dp"

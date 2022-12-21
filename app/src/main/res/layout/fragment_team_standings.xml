@@ -232,6 +232,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:layout_constraintTop_toBottomOf="@id/topThree">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/team_standing_group_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/white_rounded_bkg"
+                    android:padding="4dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/team_recycler_group_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_group" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/team_standing_container"
@@ -365,26 +385,6 @@
                         tools:listitem="@layout/item_team_standing" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/team_standing_group_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/white_rounded_bkg"
-                    android:padding="4dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible">
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/team_recycler_group_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_group" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

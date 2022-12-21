@@ -3,17 +3,29 @@ package com.example.coolsports.presentation.teamStandings
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coolsports.databinding.ItemGroupBinding
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.GroupScore
+import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
+import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 import com.example.coolsports.domain.model.team.TeamInfo
 
 class TeamStandingGroupAdapter(
     private val context: Context,
     private val listener: OnGroupItemsClickListener,
     var groupScoreList:List<GroupScore>
-) : RecyclerView.Adapter<TeamStandingGroupAdapter.TeamStandingGroupHolder>() {
+) : RecyclerView.Adapter<TeamStandingGroupAdapter.TeamStandingGroupHolder>() , Filterable {
+    private var dataFiltered = mutableListOf<GroupScore>()
+    private var data = mutableListOf<GroupScore>()
 
+    init {
+        data.clear()
+        data.addAll(groupScoreList)
+        dataFiltered.clear()
+        dataFiltered.addAll(groupScoreList)
+    }
 
     inner class TeamStandingGroupHolder(binding: ItemGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,11 +50,45 @@ class TeamStandingGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: TeamStandingGroupHolder, position: Int) {
-       holder.bindTo(groupScoreList[position],context,listener)
+       holder.bindTo(dataFiltered[position],context,listener)
     }
 
     override fun getItemCount(): Int {
-       return groupScoreList.size
+       return dataFiltered.size
+    }
+
+    override fun getFilter(): Filter {
+        return object :  Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString() ?: ""
+                if (charString.isEmpty()) dataFiltered = data else {
+                    val filteredList = mutableListOf<GroupScore>()
+                    data
+                        .filter {
+                            it.scoreItems
+                                .filter { scoreItem ->
+                                (scoreItem.teamNameEn.contains(constraint!!,true))
+
+                            }
+                                .isNotEmpty()
+
+                        }
+                        .forEach { filteredList.add(it) }
+                    dataFiltered = filteredList
+
+                }
+                return FilterResults().apply { values = dataFiltered }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                dataFiltered= if (results?.values == null)
+                    mutableListOf()
+                else
+                    results.values as MutableList<GroupScore>
+                notifyDataSetChanged()
+            }
+
+        }
     }
 
 }

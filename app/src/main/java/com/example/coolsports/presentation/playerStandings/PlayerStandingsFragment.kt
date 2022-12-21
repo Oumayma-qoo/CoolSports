@@ -10,22 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coolsports.R
-import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.databinding.FragmentPlayerStandingBinding
-import com.example.coolsports.domain.model.league.LeagueData04
-import com.example.coolsports.domain.model.leagueStandings.TotalStanding
 import com.example.coolsports.domain.model.player.BasePlayerStanding
 import com.example.coolsports.domain.model.player.Player
 import com.example.coolsports.presentation.base.BaseFragment
 import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
-import com.example.coolsports.presentation.teamStandings.OnTeamClickListener
-import com.example.coolsports.presentation.teamStandings.TeamStandingAdapter
+import com.example.coolsports.presentation.league.LeagueViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -34,13 +27,14 @@ import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
-class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
+class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueViewModel) : BaseFragment() {
     val TAG: String = "HomeFragment"
     private var _binding: FragmentPlayerStandingBinding? = null
     private val binding get() = _binding!!
     var playerList = ArrayList<Player>()
     private val viewModel by viewModels<PlayerStandingsViewModel>()
     var playerId:Int by Delegates.notNull<Int>()
+    private lateinit var playerAdapter: PlayerStandingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,8 +110,7 @@ class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
         binding.playerRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.playerRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
-        binding.playerRecyclerView.adapter= PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
+        playerAdapter = PlayerStandingAdapter(requireContext(), object : OnPlayerClickListener {
             override fun onClickListener(player: Player) {
                 val action = LeagueInfoFragmentDirections.actionLeagueFragmentInfoToPlayerDetailFragment(
                     player.playerId!!, player.teamID!!,player
@@ -127,6 +120,12 @@ class PlayerStandingsFragment(val leagueId: Int) : BaseFragment() {
             }
 
         },playerList)
+        binding.playerRecyclerView.adapter= playerAdapter
+
+
+        viewModelLeague.queryLiveData.observe(viewLifecycleOwner) {
+            playerAdapter.filter.filter(it)
+        }
     }
 
 

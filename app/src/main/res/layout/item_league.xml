@@ -11,11 +11,11 @@
 
         <variable
             name="item"
-            type="com.example.coolsports.domain.model.league.LeagueModel" />
+            type="com.cool.sports.ranking.domain.model.league.LeagueModel" />
 
         <variable
             name="clickListener"
-            type="com.example.coolsports.presentation.league.LeagueListAdapter.OnItemTap" />
+            type="com.cool.sports.ranking.presentation.league.LeagueListAdapter.OnItemTap" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

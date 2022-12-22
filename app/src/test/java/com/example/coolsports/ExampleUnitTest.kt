@@ -1,4 +1,4 @@
-package com.example.coolsports
+package com.cool.sports.ranking
 
 import org.junit.Test
 

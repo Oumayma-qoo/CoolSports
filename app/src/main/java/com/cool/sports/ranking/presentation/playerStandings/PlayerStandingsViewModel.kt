@@ -10,6 +10,7 @@ import com.cool.sports.ranking.domain.model.team.TeamPlayer
 import com.cool.sports.ranking.domain.repository.Repository
 import com.cool.sports.ranking.presentation.teamStandings.TeamInfoScreenStanding
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onStart
@@ -18,58 +19,45 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class PlayerStandingsViewModel @Inject constructor( val repository: Repository) : ViewModel(),
+class PlayerStandingsViewModel @Inject constructor(val repository: Repository) : ViewModel(),
     LifecycleObserver {
 
     val TAG: String = "PlayerStandingsViewModel"
 
     private val state = MutableStateFlow<PlayerStandingScreenState>(PlayerStandingScreenState.Init)
     val mState: StateFlow<PlayerStandingScreenState> get() = state
-    private val state1 = MutableStateFlow<TeamInfoScreenStanding>(TeamInfoScreenStanding.Init)
-    val mState1: StateFlow<TeamInfoScreenStanding> get() = state1
-
-
 
     private fun setLoading() {
 
         state.value = PlayerStandingScreenState.IsLoading(true)
     }
 
-    private fun hideLoading() {
-
-        state.value = PlayerStandingScreenState.IsLoading(false)
-    }
-
-
     fun getPlayerStanding(leagueId: Int, season: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.getPlayerStanding(leagueId, season).onStart {
                     Log.d(TAG, " Called on start")
                     setLoading()
 
-                }
-                    .collect{
-                        hideLoading()
-                        Log.d(TAG, " Called collect")
-                        when (it) {
-                            is DataState.GenericError -> {
-                                Log.d(TAG, " Called Generic error")
-                                state.value = PlayerStandingScreenState.StatusFailed(it.error!!.message.toString())
-                            }
+                }.collect {
+                    Log.d(TAG, " Called collect")
+                    when (it) {
+                        is DataState.GenericError -> {
+                            Log.d(TAG, " Called Generic error")
+                            state.value = PlayerStandingScreenState.StatusFailed(it.error!!.message.toString())
+                        }
 
-                            is DataState.Success -> {
-                                Log.d(TAG, "Enter SUCCESS")
-                                state.value = it.value.let { it1 ->
-                                    PlayerStandingScreenState.Response(it1)
-                                }
+                        is DataState.Success -> {
+                            Log.d(TAG, "Enter SUCCESS")
+                            state.value = it.value.let { it1 ->
+                                PlayerStandingScreenState.Response(it1)
                             }
                         }
                     }
-            }
-            catch (e : Exception){
+                }
+            } catch (e: Exception) {
                 when (e) {
-                    is NoInternetException ->{
+                    is NoInternetException -> {
                         state.value = PlayerStandingScreenState.NoInternetException(e.message)
                     }
                     is NoConnectionException -> {
@@ -83,10 +71,6 @@ class PlayerStandingsViewModel @Inject constructor( val repository: Repository) 
             }
         }
     }
-
-
-
-
 
 
 }

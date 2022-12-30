@@ -60,19 +60,11 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         leagueId = arguments!!.getInt("leagueId")
-        lifecycleScope.launch {
-            viewModel.getLeagueInfo(leagueId, " ", 0)
 
-        }
+        viewModel.getLeagueInfo(leagueId, " ", 0)
+//        viewModel.getPlayerStanding(leagueId, "0")
+//        viewModel.getTeamInfo(leagueId)
 
-        lifecycleScope.launch {
-            viewModel.getPlayerStanding(leagueId, "0")
-
-        }
-        lifecycleScope.launch {
-            viewModel.getTeamInfo(leagueId)
-
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -87,16 +79,13 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         initObserver()
         binding.searchView.setOnQueryTextListener(this)
 
-
-
-
-
         goToSettings()
     }
 
 
 
     private fun initObserver() {
+
         lifecycleScope.launch{
             viewModel.mState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
@@ -121,7 +110,6 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
     private fun handleLeagueResponse(response: BaseLeagueInfo) {
         leagueInfoList.addAll(response.leagueData01)
         leagueRules.addAll(response.leagueData04)
-
 
         if (leagueInfoList.isNotEmpty()) {
             val leagueInfo = leagueInfoList.find {
@@ -156,33 +144,14 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
             binding.viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(
                 binding.tabLayout,
-                binding.viewPager,
-                object : TabLayoutMediator.TabConfigurationStrategy {
-                    override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-                        tab.text = resources.getStringArray(R.array.tab_names)[position]
+                binding.viewPager
+            ) { tab, position ->
+                tab.text = resources.getStringArray(R.array.tab_names)[position]
 
-                        binding.viewPager.setCurrentItem(tab.position, true)
-                    }
-                }).attach()
-            binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                }
-
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                }
-            })
+                binding.viewPager.setCurrentItem(tab.position, true)
+            }.attach()
         }
-
+        hideLoading()
 
     }
 

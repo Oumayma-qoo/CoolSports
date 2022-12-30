@@ -89,5 +89,7 @@
         <item>Kedudukan Tim</item>
         <item>Klasse Pemain</item>
     </string-array>
+    <string name="there_is_no_information_for_this_player">Tidak ada informasi untuk pemain ini</string>
+    <string name="there_is_no_information_for_this_team">Tidak ada informasi untuk tim ini</string>
 
 </resources>

@@ -90,4 +90,6 @@
     </string-array>
 
 
+    <string name="there_is_no_information_for_this_player">ไม่มีข้อมูลสำหรับผู้เล่นนี้</string>
+    <string name="there_is_no_information_for_this_team">ไม่มีข้อมูลสำหรับทีมนี้</string>
 </resources>

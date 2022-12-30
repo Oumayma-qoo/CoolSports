@@ -84,4 +84,6 @@
     <string name="Americas">Americas</string>
     <string name="France">France</string>
 
+    <string name="there_is_no_information_for_this_player">There is no information for this player</string>
+    <string name="there_is_no_information_for_this_team">There is no information for this team</string>
 </resources>

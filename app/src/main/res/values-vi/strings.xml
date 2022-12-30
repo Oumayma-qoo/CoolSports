@@ -88,4 +88,7 @@
         <item>Bảng xếp hạng người chơi</item>
     </string-array>
     <string name="rules">Quy tắc</string>
+
+    <string name="there_is_no_information_for_this_player">Không có thông tin cho người chơi này</string>
+    <string name="there_is_no_information_for_this_team">Không có thông tin về đội này</string>
 </resources>

@@ -10,9 +10,7 @@ import com.cool.sports.ranking.domain.model.team.TeamInfo
 import com.cool.sports.ranking.domain.model.team.TeamPlayer
 import com.cool.sports.ranking.domain.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +28,16 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
 
 
 
+    private val teamInfoLiveData = MutableLiveData< List<TeamInfo>>()
+    val _teamInfoLiveData: LiveData< List<TeamInfo>> = teamInfoLiveData
+
+
+
+    private val playerInfoLiveData = MutableLiveData< List<TeamPlayer>>()
+    val _playerInfoLiveData: LiveData< List<TeamPlayer>> = playerInfoLiveData
+
+
+
 
     private val MVPLiveData = MutableLiveData<TeamPlayer>()
     val _MVP: LiveData<TeamPlayer> = MVPLiveData
@@ -39,8 +47,9 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
     val _playersList: LiveData<List<Player>> = playersListLiveData
 
 
-    private val playerPhotoLiveData = MutableLiveData<String>()
-    val _playerPhoto: LiveData<String> = playerPhotoLiveData
+
+
+
 
     private val playerLiveData = MutableLiveData<TeamPlayer>()
     val _playerInfo: LiveData<TeamPlayer> = playerLiveData
@@ -60,27 +69,23 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
         viewModelScope.launch {
             try {
                 repository.getTeamInfo(teamId).onStart {
-                    Log.d(TAG, " Called on start")
                     setLoading()
 
                 }
-                    .collect{
+                    .onEach{
                         hideLoading()
-                        Log.d(TAG, " Called collect")
                         when (it) {
                             is DataState.GenericError -> {
-                                Log.d(TAG, " Called Generic error")
                                 state.value = TeamInfoScreenStanding.StatusFailed(it.error!!.message.toString())
                             }
-
                             is DataState.Success -> {
-                                Log.d(TAG, "Enter SUCCESS")
-                                state.value = it.value.let { it1 ->
-                                    TeamInfoScreenStanding.Response(it1)
-                                }
+
+                                teamInfoLiveData.value= it.value.teamInfoData
+                                playerInfoLiveData.value= it.value.teamPlayerData
+
                             }
                         }
-                    }
+                    }.launchIn(viewModelScope)
             }
             catch (e : Exception){
                 when (e) {
@@ -99,7 +104,7 @@ class TeamStandingsViewModel @Inject constructor(private val repository: Reposit
         }
     }
 
-     fun getTeamInfoFromLocalDB(teamId:Int){
+    fun getTeamInfoFromLocalDB(teamId:Int){
         repository.getTeamInfoFromLocalDB(teamId).observeForever {
             teamLiveData.value= it
 

@@ -44,7 +44,6 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@color/hawkes_blue"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -111,7 +110,6 @@
                         android:id="@+id/first_team_image_view"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:visibility="gone"
                         android:src="@color/hawkes_blue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -180,7 +178,6 @@
                         android:id="@+id/third_team_image_view"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:visibility="gone"
                         android:src="@color/hawkes_blue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

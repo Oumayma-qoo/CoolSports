@@ -36,9 +36,10 @@ class LeagueViewModel @Inject constructor(private val repository: Repository) : 
     private val state = MutableStateFlow<LeagueStateScreen>(LeagueStateScreen.Init)
     val mState: StateFlow<LeagueStateScreen> get() = state
 
-    fun init() {}
 
 
+    private val state2 = MutableStateFlow<PlayerStandingScreenState>(PlayerStandingScreenState.Init)
+    val mState2: StateFlow<PlayerStandingScreenState> get() = state2
     private fun setLoading() {
 
         state.value = LeagueStateScreen.IsLoading(true)
@@ -95,4 +96,46 @@ class LeagueViewModel @Inject constructor(private val repository: Repository) : 
 
         }
     }
+    fun getPlayerStanding(leagueId: Int, season: String) {
+        viewModelScope.launch {
+            try {
+                repository.getPlayerStanding(leagueId, season).onStart {
+                    Log.d(TAG, " Called on start")
+                    setLoading()
+
+                }
+                    .collect{
+                        Log.d(TAG, " Called collect")
+                        when (it) {
+                            is DataState.GenericError -> {
+                                Log.d(TAG, " Called Generic error")
+                                state2.value = PlayerStandingScreenState.StatusFailed(it.error!!.message.toString())
+                            }
+
+                            is DataState.Success -> {
+                                Log.d(TAG, "Enter SUCCESS")
+                                state2.value = it.value.let { it1 ->
+                                    PlayerStandingScreenState.Response(it1)
+                                }
+                            }
+                        }
+                    }
+            }
+            catch (e : Exception){
+                when (e) {
+                    is NoInternetException ->{
+                        state2.value = PlayerStandingScreenState.NoInternetException(e.message)
+                    }
+                    is NoConnectionException -> {
+                        state2.value = PlayerStandingScreenState.NoInternetException(e.message)
+                    }
+                    else -> {
+                        state2.value =
+                            PlayerStandingScreenState.GeneralException(e.message ?: "Exception Occurred")
+                    }
+                }
+            }
+        }
+    }
+
 }

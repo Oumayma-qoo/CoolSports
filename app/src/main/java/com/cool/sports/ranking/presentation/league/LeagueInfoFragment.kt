@@ -62,8 +62,7 @@ class LeagueInfoFragment : BaseFragment(), SearchView.OnQueryTextListener  {
         leagueId = arguments!!.getInt("leagueId")
 
         viewModel.getLeagueInfo(leagueId, " ", 0)
-//        viewModel.getPlayerStanding(leagueId, "0")
-//        viewModel.getTeamInfo(leagueId)
+        viewModel.getPlayerStanding(leagueId, "0")
 
     }
 

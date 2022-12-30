@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.cool.sports.ranking.R
 import com.cool.sports.ranking.common.constant.Constants
 import com.cool.sports.ranking.common.sharedPreference.SPApp
 import com.cool.sports.ranking.common.utils.CustomBindingAdapters.loadImage
@@ -36,12 +37,10 @@ class LeagueDetailsFragment : BaseFragment() {
 
     private var _binding: FragmentLeagueDetailsBinding? = null
     private val binding get() = _binding!!
-    private val teamInfoList = ArrayList<TeamInfo>()
-    private val playerInfoList = ArrayList<TeamPlayer>()
     private val viewModel by viewModels<TeamStandingsViewModel>()
     private lateinit var navController: NavController
     private lateinit var sp: SPApp
-    private val args:LeagueDetailsFragmentArgs by navArgs()
+    private val args: LeagueDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +58,6 @@ class LeagueDetailsFragment : BaseFragment() {
 
         }
 
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -71,17 +69,25 @@ class LeagueDetailsFragment : BaseFragment() {
         binding.closeImageView.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.closeImageView2.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.settingsIcon.setOnClickListener {
-            val action = LeagueDetailsFragmentDirections.actionLeagueDetailsFragmentToNavigationSettings()
+            val action =
+                LeagueDetailsFragmentDirections.actionLeagueDetailsFragmentToNavigationSettings()
             findNavController().navigate(action)
         }
 
+        handleTeamInfo(args.teamId)
 
         navController = view.findNavController()
-        initObserver()
 
         sp = SPApp(requireContext())
+
+        topScorers(args.teamId)
+        getMVP(teamId = args.teamId)
+        initObserver()
 
     }
 
@@ -97,7 +103,6 @@ class LeagueDetailsFragment : BaseFragment() {
     private fun handleState(state: TeamInfoScreenStanding) {
         when (state) {
             is TeamInfoScreenStanding.IsLoading -> handleIsLoadingState(state.isLoading)
-            is TeamInfoScreenStanding.Response -> handleTeamInfoResponse(state.teamInfo)
             is TeamInfoScreenStanding.NoInternetException -> handleNetworkFailure(state.message)
             is TeamInfoScreenStanding.GeneralException -> handleException(state.message)
             is TeamInfoScreenStanding.StatusFailed -> handleFailure(state.message)
@@ -107,22 +112,9 @@ class LeagueDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun handleTeamInfoResponse(response: BaseTeam) {
-        teamInfoList.addAll(response.teamInfoData)
-        playerInfoList.addAll(response.teamPlayerData)
 
-
-        handleTeamInfo(teamInfoList)
-        getMVP(args.teamId, playerInfoList)
-        topScorers(args.teamId)
-
-
-    }
-
-
-    private fun handleTeamInfo(teamInfo: ArrayList<TeamInfo>) {
-
-        viewModel.getTeamInfoFromLocalDB(args.teamId)
+    private fun handleTeamInfo(teamId: Int) {
+        viewModel.getTeamInfoFromLocalDB(teamId)
         viewModel._teamInfo.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.teamName.text = it.nameEn
@@ -174,70 +166,78 @@ class LeagueDetailsFragment : BaseFragment() {
                 }
 
 
-
-
             } else {
-                for (team in teamInfo) {
-                    binding.teamName.text = team.nameEn
-                    binding.fullNameValue.text = team.nameEn
-                    binding.coachValue.text = team.coachEn
-                    binding.capacityValue.text = team.capacity
-                    binding.foundingDateValue.text = team.foundingDate
-                    binding.websiteValue.text = team.website
-                    binding.areaValue.text = team.areaEn
-                    loadImage(binding.teamImg, team.logo)
-                    when (sp.language) {
-                        Constants.SharedPreferenceKeys.CHINESE -> {
-                            binding.teamName.text = team.nameCn
-                            binding.fullNameValue.text = team.nameCn
-                            binding.coachValue.text = team.coachCn
-                            binding.areaValue.text = team.areaCn
+                viewModel._teamInfoLiveData.observe(viewLifecycleOwner) {
+
+                    val team = it.find {
+                        it.teamId == teamId
+                    }
+                    if (team == null) {
+                        binding.constTeamInfo.visibility = View.GONE
+                        binding.consNoInfoTeam.visibility = View.VISIBLE
+                        binding.teamImg.setImageResource(R.drawable.ic_team_none)
+
+
+                    } else {
+                        hideLoading()
+                        binding.teamName.text = team!!.nameEn
+                        binding.fullNameValue.text = team.nameEn
+                        binding.coachValue.text = team.coachEn
+                        binding.capacityValue.text = team.capacity
+                        binding.foundingDateValue.text = team.foundingDate
+                        binding.websiteValue.text = team.website
+                        binding.areaValue.text = team.areaEn
+                        loadImage(binding.teamImg, team.logo)
+                        when (sp.language) {
+                            Constants.SharedPreferenceKeys.CHINESE -> {
+                                binding.teamName.text = team.nameCn
+                                binding.fullNameValue.text = team.nameCn
+                                binding.coachValue.text = team.coachCn
+                                binding.areaValue.text = team.areaCn
+
+                            }
+                            Constants.SharedPreferenceKeys.VIETNAMESE -> {
+                                binding.teamName.text = team.nameVi
+                                binding.fullNameValue.text = team.nameVi
+                                binding.coachValue.text = team.coachVi
+                                binding.areaValue.text = team.areaVi
+
+                            }
+                            Constants.SharedPreferenceKeys.INDONESIAN -> {
+                                binding.teamName.text = team.nameId
+                                binding.fullNameValue.text = team.nameId
+                                binding.coachValue.text = team.coachId
+                                binding.areaValue.text = team.areaId
+
+                            }
+                            Constants.SharedPreferenceKeys.TAI -> {
+                                binding.teamName.text = team.nameTh
+                                binding.fullNameValue.text = team.nameTh
+                                binding.coachValue.text = team.coachTh
+                                binding.areaValue.text = team.areaTh
+
+                            }
+                            Constants.SharedPreferenceKeys.ENGLISH -> {
+                                binding.teamName.text = team.nameEn
+                                binding.fullNameValue.text = team.nameEn
+                                binding.coachValue.text = team.coachEn
+                                binding.areaValue.text = team.areaEn
+
+                            }
+                            else -> binding.teamName.text = team.nameEn
 
                         }
-                        Constants.SharedPreferenceKeys.VIETNAMESE -> {
-                            binding.teamName.text = team.nameVi
-                            binding.fullNameValue.text = team.nameVi
-                            binding.coachValue.text = team.coachVi
-                            binding.areaValue.text = team.areaVi
-
-                        }
-                        Constants.SharedPreferenceKeys.INDONESIAN -> {
-                            binding.teamName.text = team.nameId
-                            binding.fullNameValue.text = team.nameId
-                            binding.coachValue.text = team.coachId
-                            binding.areaValue.text = team.areaId
-
-                        }
-                        Constants.SharedPreferenceKeys.TAI -> {
-                            binding.teamName.text = team.nameTh
-                            binding.fullNameValue.text = team.nameTh
-                            binding.coachValue.text = team.coachTh
-                            binding.areaValue.text = team.areaTh
-
-                        }
-                        Constants.SharedPreferenceKeys.ENGLISH -> {
-                            binding.teamName.text = team.nameEn
-                            binding.fullNameValue.text = team.nameEn
-                            binding.coachValue.text = team.coachEn
-                            binding.areaValue.text = team.areaEn
-
-                        }
-                        else -> binding.teamName.text = team.nameEn
 
                     }
 
+
                 }
-
-
             }
         }
 
-
     }
 
-    private fun getMVP(teamId: Int, playerInfo: ArrayList<TeamPlayer>) {
-        var max = playerInfo[0].value.toString()
-
+    private fun getMVP(teamId: Int) {
         viewModel.getMVPFromLocalDB(teamId)
         viewModel._MVP.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -249,80 +249,111 @@ class LeagueDetailsFragment : BaseFragment() {
                 }
 
             } else
-                for (player in playerInfo) {
-                    if (max < player.value.toString())
-                        max = player.value.toString()
+                viewModel._playerInfoLiveData.observe(viewLifecycleOwner) {
+                    var max = it[0].value.toString()
+                    for (player in it) {
+                        if (max < player.value.toString())
+                            max = player.value.toString()
 
 
-            val player = playerInfo.find { it ->
-                it.value == max
-            }
-            binding.playerTitle.text = player!!.nameEn
-            binding.playerValue.text = player.value
-                    when (sp.language) {
-                        Constants.SharedPreferenceKeys.ENGLISH -> binding.playerTitle.text = player.nameEn
-                        Constants.SharedPreferenceKeys.CHINESE -> binding.playerTitle.text = player.nameCn
+                        val player = it.find { it ->
+                            it.value == max
+                        }
+                        binding.playerTitle.text = player!!.nameEn
+                        binding.playerValue.text = player.value
+                        when (sp.language) {
+                            Constants.SharedPreferenceKeys.ENGLISH -> binding.playerTitle.text =
+                                player.nameEn
+                            Constants.SharedPreferenceKeys.CHINESE -> binding.playerTitle.text =
+                                player.nameCn
+                        }
                     }
+                }
         }
-        }
-        }
+    }
 
 
-
-        private fun topScorers(teamId: Int) {
-            viewModel.getPlayerListOrderByGoals(teamId)
-            viewModel._playersList.observe(viewLifecycleOwner) {
-                if (it != null) {
+    private fun topScorers(teamId: Int) {
+        viewModel.getPlayerListOrderByGoals(teamId)
+        viewModel._playersList.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                if (it.size == 1) {
                     binding.player1Title.text = it[0].playerNameEn
                     binding.player1Value.text = it[0].goals.toString()
+                    binding.player2Title.visibility = View.GONE
+                    binding.player2Value.visibility = View.GONE
+                    binding.player3Title.visibility = View.GONE
+                    binding.player3Value.visibility = View.GONE
+                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                        binding.player1Title.text = it[0].playerNameChs
+                    }
 
+                } else if (it.size == 2) {
+                    binding.player1Title.text = it[0].playerNameEn
+                    binding.player1Value.text = it[0].goals.toString()
                     binding.player2Title.text = it[1].playerNameEn
                     binding.player2Value.text = it[1].goals.toString()
+                    binding.player3Title.visibility = View.GONE
+                    binding.player3Value.visibility = View.GONE
+                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                        binding.player1Title.text = it[0].playerNameChs
+                        binding.player2Title.text = it[1].playerNameChs
+                    }
 
+                } else {
+                    binding.player1Title.text = it[0].playerNameEn
+                    binding.player1Value.text = it[0].goals.toString()
+                    binding.player2Title.text = it[1].playerNameEn
+                    binding.player2Value.text = it[1].goals.toString()
                     binding.player3Title.text = it[2].playerNameEn
                     binding.player3Value.text = it[2].goals.toString()
-
-                    when (sp.language) {
-                        Constants.SharedPreferenceKeys.ENGLISH -> {
-                            binding.player1Title.text = it[0].playerNameEn
-                            binding.player2Title.text = it[1].playerNameEn
-                            binding.player3Title.text = it[2].playerNameEn
-                        }
-                        Constants.SharedPreferenceKeys.CHINESE -> {
-                            binding.player1Title.text = it[0].playerNameChs
-                            binding.player2Title.text = it[1].playerNameChs
-                            binding.player3Title.text = it[2].playerNameChs
-                        }
+                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                        binding.player1Title.text = it[0].playerNameChs
+                        binding.player2Title.text = it[1].playerNameChs
+                        binding.player3Title.text = it[2].playerNameChs
 
                     }
                 }
-            }
-        }
 
 
-        private fun handleIsLoadingState(loading: Boolean) {
-            if (loading) {
-                showLoading()
             } else {
-                hideLoading()
+                binding.topScorersTitle.visibility = View.GONE
+                binding.player1Title.visibility = View.GONE
+                binding.player1Value.visibility = View.GONE
+                binding.player2Title.visibility = View.GONE
+                binding.player2Value.visibility = View.GONE
+                binding.player3Title.visibility = View.GONE
+                binding.player3Value.visibility = View.GONE
             }
+
+
         }
-
-        private fun handleFailure(message: String) {
-            showToast(message)
-            hideLoading()
-        }
-
-
-        private fun handleNetworkFailure(message: String) {
-            showToast(message)
-            hideLoading()
-        }
-
-        private fun handleException(message: String) {
-            showToast(message)
-            hideLoading()
-        }
-
 
     }
+
+
+    private fun handleIsLoadingState(loading: Boolean) {
+        if (loading) {
+            showLoading()
+        } else {
+            hideLoading()
+        }
+    }
+
+    private fun handleFailure(message: String) {
+        showToast(message)
+        hideLoading()
+    }
+
+
+    private fun handleNetworkFailure(message: String) {
+        showToast(message)
+        hideLoading()
+    }
+
+    private fun handleException(message: String) {
+        showToast(message)
+        hideLoading()
+    }
+
+}

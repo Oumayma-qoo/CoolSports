@@ -8,6 +8,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.common.sharedPreference.SPApp
+import com.example.coolsports.common.utils.CustomBindingAdapters.loadImage
 import com.example.coolsports.databinding.ItemTeamStandingBinding
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
 
@@ -45,6 +46,7 @@ class TeamStandingAdapter(
             binding.l.text = totalStanding.loseCount.toString()
             binding.g.text = totalStanding.goalDifference.toString()
             binding.pts.text = totalStanding.integral.toString()
+            loadImage(binding.teamImageView, totalStanding.flag)
 
             binding.team.text = totalStanding.nameEn
             if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {

@@ -21,7 +21,6 @@
         android:id="@+id/team_image_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@id/team"
         app:layout_constraintHorizontal_weight="0.5"
         app:layout_constraintStart_toEndOf="@id/num"

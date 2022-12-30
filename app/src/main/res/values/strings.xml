@@ -95,6 +95,8 @@
     <string name="goals">球门</string>
     <string name="home">首页</string>
     <string name="away">离开</string>
+    <string name="there_is_no_information_for_this_player">没有这个球员的信息</string>
+    <string name="there_is_no_information_for_this_team">没有这个球队的信息</string>
 
 
 </resources>

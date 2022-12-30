@@ -101,48 +101,7 @@ class LeagueViewModel @Inject constructor(private val repository: Repository) : 
         }
     }
 
-    fun getTeamInfo(teamId: Int) {
-        viewModelScope.launch {
-            try {
-                repository.getTeamInfo(teamId).onStart {
-                    Log.d(TAG, " Called on start")
-                    setLoading()
 
-                }
-                    .collect{
-                        hideLoading()
-                        Log.d(TAG, " Called collect")
-                        when (it) {
-                            is DataState.GenericError -> {
-                                Log.d(TAG, " Called Generic error")
-                                state1.value = TeamInfoScreenStanding.StatusFailed(it.error!!.message.toString())
-                            }
-
-                            is DataState.Success -> {
-                                Log.d(TAG, "Enter SUCCESS")
-                                state1.value = it.value.let { it1 ->
-                                    TeamInfoScreenStanding.Response(it1)
-                                }
-                            }
-                        }
-                    }
-            }
-            catch (e : Exception){
-                when (e) {
-                    is NoInternetException ->{
-                        state1.value = TeamInfoScreenStanding.NoInternetException(e.message)
-                    }
-                    is NoConnectionException -> {
-                        state1.value = TeamInfoScreenStanding.NoInternetException(e.message)
-                    }
-                    else -> {
-                        state1.value =
-                            TeamInfoScreenStanding.GeneralException(e.message ?: "Exception Occurred")
-                    }
-                }
-            }
-        }
-    }
     fun getPlayerStanding(leagueId: Int, season: String) {
         viewModelScope.launch {
             try {

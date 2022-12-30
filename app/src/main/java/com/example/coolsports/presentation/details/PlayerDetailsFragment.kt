@@ -11,9 +11,11 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.coolsports.R
 import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.common.sharedPreference.SPApp
 import com.example.coolsports.common.utils.CustomBindingAdapters
+import com.example.coolsports.common.utils.CustomBindingAdapters.loadImage
 import com.example.coolsports.databinding.FragmentPlayerDetailsBinding
 import com.example.coolsports.domain.model.team.BaseTeam
 import com.example.coolsports.domain.model.team.TeamPlayer
@@ -34,7 +36,6 @@ class PlayerDetailsFragment : BaseFragment() {
     private val viewModel by viewModels<TeamStandingsViewModel>()
     private lateinit var sp: SPApp
     private val args: PlayerDetailsFragmentArgs by navArgs()
-    private val playerInfoList = ArrayList<TeamPlayer>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +56,16 @@ class PlayerDetailsFragment : BaseFragment() {
         binding.closeImageView.setOnClickListener {
             findNavController().navigateUp()
         }
+        binding.closeImageView2.setOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.backIcon.setOnClickListener {
             findNavController().navigateUp()
         }
         lifecycleScope.launch {
             viewModel.getTeamInfo(args.teamId)
         }
+        setPlayerInfo(playerId = args.playerId, args.teamId)
     }
 
 
@@ -76,7 +81,7 @@ class PlayerDetailsFragment : BaseFragment() {
     private fun handleState(state: TeamInfoScreenStanding) {
         when (state) {
             is TeamInfoScreenStanding.IsLoading -> handleIsLoadingState(state.isLoading)
-            is TeamInfoScreenStanding.Response -> handleTeamInfoResponse(state.teamInfo)
+//            is TeamInfoScreenStanding.Response -> handleTeamInfoResponse(state.teamInfo)
             is TeamInfoScreenStanding.NoInternetException -> handleNetworkFailure(state.message)
             is TeamInfoScreenStanding.GeneralException -> handleException(state.message)
             is TeamInfoScreenStanding.StatusFailed -> handleFailure(state.message)
@@ -86,17 +91,19 @@ class PlayerDetailsFragment : BaseFragment() {
         }
     }
 
-    private fun handleTeamInfoResponse(response: BaseTeam) {
-        playerInfoList.addAll(response.teamPlayerData)
-        setPlayerInfo(playerId = args.playerId, args.teamId,playerInfoList)
+//    private fun handleTeamInfoResponse(response: BaseTeam) {
+//        playerInfoList.addAll(response.teamPlayerData)
+//        setPlayerInfo(playerId = args.playerId, args.teamId,playerInfoList)
+//
+//    }
 
-    }
 
-
-    private fun setPlayerInfo(playerId: Int, teamId: Int,playerInfo: ArrayList<TeamPlayer>) {
+    private fun setPlayerInfo(playerId: Int, teamId: Int) {
         viewModel.getPlayerInfoFromLocalDB(playerId, teamId)
         viewModel._playerInfo.observe(viewLifecycleOwner) {
             if (it != null) {
+                hideLoading()
+                binding.constPlayerInfo.visibility= View.VISIBLE
                 binding.teamName.text = it.nameEn
                 binding.fullNameValue.text = it.nameEn
                 binding.countryValue.text = it.countryEn
@@ -106,46 +113,56 @@ class PlayerDetailsFragment : BaseFragment() {
                 binding.positionValue.text = it.positionEn
                 binding.numberValue.text = it.number
                 binding.contractEndingValue.text = it.endDateContract
-                CustomBindingAdapters.loadImage(binding.playerImg, it.photo)
+                loadImage(binding.playerImg, it.photo)
                 if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
                     binding.teamName.text = it.nameCn
                     binding.fullNameValue.text = it.nameCn
                     binding.countryValue.text = it.countryCn
                     binding.positionValue.text = it.positionCn
                 }
-            }
-                for (player in playerInfo) {
-                    if(player.playerId== playerId)
-                    {
-                    binding.teamName.text = player.nameEn
-                    binding.fullNameValue.text = player.nameEn
-                    binding.countryValue.text = player.countryEn
-                    binding.birthdayValue.text = player.birthday
-                    binding.heightValue.text = player.height
-                    binding.weightValue.text = player.weight
-                    binding.positionValue.text = player.positionEn
-                    binding.numberValue.text = player.number
-                    binding.contractEndingValue.text = player.endDateContract
-                    CustomBindingAdapters.loadImage(binding.playerImg, player.photo)
-                    if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
-                        binding.teamName.text = player.nameCn
-                        binding.fullNameValue.text = player.nameCn
-                        binding.countryValue.text = player.countryCn
-                        binding.positionValue.text = player.positionCn
+            } else
+                viewModel._playerInfoLiveData.observe(viewLifecycleOwner) {
+
+                    val player = it.find {
+                        it.playerId == playerId
+                    }
+                    if (player != null) {
+                        binding.constPlayerInfo.visibility = View.VISIBLE
+                        binding.teamName.text = player!!.nameEn
+                        binding.fullNameValue.text = player.nameEn
+                        binding.countryValue.text = player.countryEn
+                        binding.birthdayValue.text = player.birthday
+                        binding.heightValue.text = player.height
+                        binding.weightValue.text = player.weight
+                        binding.positionValue.text = player.positionEn
+                        binding.numberValue.text = player.number
+                        binding.contractEndingValue.text = player.endDateContract
+                        loadImage(binding.playerImg, player.photo)
+                        if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+                            binding.teamName.text = player.nameCn
+                            binding.fullNameValue.text = player.nameCn
+                            binding.countryValue.text = player.countryCn
+                            binding.positionValue.text = player.positionCn
+                        }
+                    } else {
+                        binding.playerImg.setImageResource(R.drawable.ic_no_player)
+                        binding.playerImg.setPadding(20, 20, 20, 20)
+                        binding.constPlayerInfo.visibility = View.GONE
+                        binding.constNoPlayerInfo.visibility = View.VISIBLE
 
                     }
-                    }
+
                 }
 
-
         }
-
     }
+
 
     private fun handleIsLoadingState(loading: Boolean) {
         if (loading) {
             showLoading()
-        } else {
+        }
+        else {
             hideLoading()
         }
     }

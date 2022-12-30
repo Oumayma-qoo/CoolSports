@@ -5,30 +5,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coolsports.common.constant.Constants
 import com.example.coolsports.common.sharedPreference.SPApp
+import com.example.coolsports.common.utils.CustomBindingAdapters.loadImage
 import com.example.coolsports.databinding.FragmentTeamStandingsBinding
 import com.example.coolsports.domain.model.league.LeagueData04
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.LeagueStandingsGroupBase
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingGroup.ScoreItem
 import com.example.coolsports.domain.model.leagueStandings.LeagueStandingsBase
 import com.example.coolsports.domain.model.leagueStandings.TotalStandingWithTeamInfo
+import com.example.coolsports.presentation.base.BaseFragment
 import com.example.coolsports.presentation.league.LeagueInfoFragmentDirections
 import com.example.coolsports.presentation.league.LeagueViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<LeagueStandingsBase> ,var leagueStanding2: List<LeagueStandingsGroupBase>,val leagueId: Int,  val viewModel: LeagueViewModel) : Fragment() {
-
+class TeamStandingsFragment(
+    val rules: LeagueData04,
+    var leagueStanding: List<LeagueStandingsBase>,
+    var leagueStanding2: List<LeagueStandingsGroupBase>,
+    val leagueId: Int,
+    val viewModel: LeagueViewModel
+) : BaseFragment() {
     val TAG: String = "TeamStandingsFragment"
     private var _binding: FragmentTeamStandingsBinding? = null
     private val binding get() = _binding!!
     var bundle = Bundle()
-    var leagueList = listOf<Any>()
     private lateinit var teamStandingAdapter: TeamStandingAdapter
     private lateinit var teamStandingGroupAdapter: TeamStandingGroupAdapter
     private var mappedData = mutableListOf<TotalStandingWithTeamInfo>()
@@ -43,10 +48,14 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
         return binding.root
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sp = SPApp(requireContext())
         binding.rulesValue.text = rules.ruleEn
+        if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
+            binding.rulesValue.text = rules.ruleCn
+        }
 
         if (leagueStanding.isEmpty())
             return
@@ -57,7 +66,8 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             val totalStanding = leagueStanding[0].totalStandings
             val teamInfo = leagueStanding[0].teamInfo
             mappedData.clear()
-            totalStanding.forEach{
+
+            totalStanding.forEach {
 
                 val item = TotalStandingWithTeamInfo(
                     rank = it.rank,
@@ -66,18 +76,21 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
                     drawCount = it.drawCount,
                     loseCount = it.loseCount,
                     goalDifference = it.goalDifference,
-                    integral = it.integral
+                    integral = it.integral,
                 )
-               val team =  teamInfo.find { teamInfo->
+
+                val team = teamInfo.find { teamInfo ->
                     teamInfo.teamId == it.teamId
                 }
                 item.teamId = team?.teamId
                 if (team != null) {
                     item.nameEn = team.nameEn
                     item.nameCn = team.nameCn
+                    item.flag = team.flag
                 }
                 mappedData.add(item)
             }
+
 
             val team1 = teamInfo.find {
                 it.teamId == totalStanding[0].teamId
@@ -91,8 +104,14 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
                 it.teamId == totalStanding[2].teamId
             }
             binding.firstTeamName.text = team1?.nameEn
+            loadImage(binding.firstTeamImageView, team1!!.flag)
+
             binding.secondTeamName.text = team2?.nameEn
+            loadImage(binding.secondTeamImageView, team2!!.flag)
+
             binding.thirdTeamName.text = team3?.nameEn
+            loadImage(binding.thirdTeamImageView, team3!!.flag)
+
             if (sp.language == Constants.SharedPreferenceKeys.CHINESE) {
                 binding.firstTeamName.text = team1?.nameCn
                 binding.secondTeamName.text = team2?.nameCn
@@ -126,18 +145,24 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
 
 
 
-            binding.teamRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            teamStandingAdapter = TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
-                override fun onClickListener(totalStanding: TotalStandingWithTeamInfo) {
+            binding.teamRecyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager.VERTICAL
+                )
+            )
+            teamStandingAdapter =
+                TeamStandingAdapter(requireContext(), object : OnTeamClickListener {
+                    override fun onClickListener(totalStanding: TotalStandingWithTeamInfo) {
 
-                    val action =
-                        LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-                            totalStanding.teamId!!
-                        )
-                    findNavController().navigate(action)
+                        val action =
+                            LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
+                                totalStanding.teamId!!
+                            )
+                        findNavController().navigate(action)
 
-                }
-            },mappedData)
+                    }
+                }, mappedData)
             binding.teamRecyclerView.adapter = teamStandingAdapter
 
             viewModel.queryLiveData.observe(viewLifecycleOwner) {
@@ -149,19 +174,20 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
             binding.teamStandingContainer.visibility = View.GONE
             binding.teamStandingGroupContainer.visibility = View.VISIBLE
 
-            teamStandingGroupAdapter =  TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
-                override fun onClickListener(item: ScoreItem) {
-                    val action =
-                        LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
-                            item.teamId.toInt()
-                        )
-                    findNavController().navigate(action)
+            teamStandingGroupAdapter =
+                TeamStandingGroupAdapter(requireContext(), object : OnGroupItemsClickListener {
+                    override fun onClickListener(item: ScoreItem) {
+                        val action =
+                            LeagueInfoFragmentDirections.actionLeagueInfoFragmentToLeagueDetailFragment(
+                                item.teamId.toInt()
+                            )
+                        findNavController().navigate(action)
 
 
-                }
-            },leagueStanding2[0].list[0].score[0].groupScore)
+                    }
+                }, leagueStanding2[0].list[0].score[0].groupScore)
 
-            binding.teamRecyclerGroupView.adapter =teamStandingGroupAdapter
+            binding.teamRecyclerGroupView.adapter = teamStandingGroupAdapter
 
 
             viewModel.queryLiveData.observe(viewLifecycleOwner) {
@@ -172,9 +198,6 @@ class TeamStandingsFragment(val rules: LeagueData04, var leagueStanding: List<Le
 
 
     }
-
-
-
 
 
 }

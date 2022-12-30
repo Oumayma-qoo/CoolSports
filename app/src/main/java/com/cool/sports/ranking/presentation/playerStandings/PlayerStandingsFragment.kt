@@ -22,6 +22,7 @@ import com.cool.sports.ranking.presentation.base.BaseFragment
 import com.cool.sports.ranking.presentation.league.LeagueInfoFragmentDirections
 import com.cool.sports.ranking.presentation.league.LeagueViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -29,7 +30,7 @@ import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
-class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueViewModel) : BaseFragment() {
+class PlayerStandingsFragment(val leagueId: Int,  private val viewModelLeague: LeagueViewModel) : BaseFragment() {
     val TAG: String = "HomeFragment"
     private var _binding: FragmentPlayerStandingBinding? = null
     private val binding get() = _binding!!
@@ -50,10 +51,7 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.getPlayerStanding(leagueId, "0")
-
-        }
+        viewModel.getPlayerStanding(leagueId, "0")
 
     }
 
@@ -69,12 +67,12 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
 
 
     private fun initObserver() {
-        viewModel.mState.flowWithLifecycle(
-            this.lifecycle, Lifecycle.State.STARTED
-
-        ).onEach {
-            handleState(it)
-        }.launchIn(this.lifecycleScope)
+        lifecycleScope.launch{
+            viewModel.mState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect{
+                    handleState(it)
+                }
+        }
     }
 
     private fun handleState(state: PlayerStandingScreenState) {
@@ -139,6 +137,7 @@ class PlayerStandingsFragment(val leagueId: Int,  val viewModelLeague: LeagueVie
         viewModelLeague.queryLiveData.observe(viewLifecycleOwner) {
             playerAdapter.filter.filter(it)
         }
+        hideLoading()
     }
 
 

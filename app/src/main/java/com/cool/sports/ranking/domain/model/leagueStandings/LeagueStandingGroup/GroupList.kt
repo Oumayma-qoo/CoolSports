@@ -7,6 +7,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GroupList(
+    @SerializedName("subId")
+    var subId: Int? = null,
+    @SerializedName("isCurrent")
+    var isCurrent: Boolean? = null,
     @SerializedName("leagueId")
     var leagueId: Int = 0,
     @SerializedName("season")
